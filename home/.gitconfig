@@ -1,0 +1,27 @@
+[alias]
+  root = rev-parse --show-toplevel
+[core]
+	editor = code --wait
+[diff]
+  tool = vscode
+[difftool]
+  prompt = false
+[difftool "vscode"]
+  cmd = code --wait --diff $LOCAL $REMOTE
+[merge]
+  tool = vscode
+  keepBackup = false
+  external = code --wait $MERGED
+[merge.tool "vscode"]
+	cmd = code --wait $MERGED
+[mergetool]
+  keepBackup = false
+[mergetool "vscode"]
+  cmd = code --wait $MERGED
+[push]
+  autoSetupRemote = true
+[tag]
+	forceSignAnnotated = true
+
+[include]
+  path = ~/.gitconfig.local

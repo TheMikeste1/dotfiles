@@ -1,0 +1,77 @@
+---
+persist_source_packages_dir: '{{ ansible_facts.user_dir }}/src'
+
+# Build tools (via system package manager)
+build_tools:
+  system:
+    - git
+    - pinentry-qt
+    - pkg-config
+    - unzip
+    - zip
+  git_build:
+    - name: ninja-build
+      bin: ninja
+      version: release
+      repo: git@github.com:ninja-build/ninja.git
+      configure_flags: -DCMAKE_BUILD_TYPE=Release -DCMAKE_GENERATOR="Unix Makefiles"
+        -DBUILD_TESTING=OFF
+    #- name: llvm
+    #  bin: lldb
+    #  version: release
+    #  repo: git@github.com:llvm/llvm-project.git
+    #  configure_flags: -S llvm -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lldb;compiler-rt"
+
+# Package managers to install
+package_managers:
+  - name: npm
+    install_with: system
+    pkg_name: npm
+  - name: mise
+    install_with: cargo
+    pkg_name: mise
+  - name: pip
+    install_with: system
+    pkg_name: python3-pip
+  - name: luarocks
+    install_with: system
+    pkg_name: luarocks
+
+# Executables from package managers
+managed_packages:
+  cargo:
+    - bat
+    - cargo-update
+    - eza
+    - fd-find
+    - git-delta
+    - just
+    - mdbook
+    - mise
+    - ripgrep
+    - tree-sitter-cli
+  cargo_git:
+    - name: uv
+      url: https://github.com/astral-sh/uv
+  go:
+    - name: lefthook
+      url: github.com/evilmartians/lefthook
+      version: latest
+    - name: fzf
+      url: github.com/junegunn/fzf
+      version: latest
+    - name: lazygit
+      url: github.com/jesseduffield/lazygit
+      version: latest
+    - name: lazydocker
+      url: github.com/jesseduffield/lazydocker
+      version: latest
+  mise:
+    - name: chezmoi
+      version: latest
+    - name: python
+      version: latest
+  system:
+    - tmux
+    - xclip
+    - zsh

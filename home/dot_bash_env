@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+# Add a directory to $PATH only if it isn’t already present.
+#   $1 – directory to add (trailing slash is stripped)
+#   $2 – “prepend” flag (true / false).  If omitted, defaults to false (append).
+function add_to_path() {
+    local dir="${1%/}"            # normalise, drop trailing slash
+    local prepend="${2:-false}"    # default to append
+
+    # Fast check: does $PATH already contain this entry?
+    # The leading and trailing ':' prevent false‑positives for substrings.
+    [[ ":$PATH:" == *":$dir:"* ]] && return
+
+    if [[ $prepend == true ]]; then
+        PATH="${dir}:$PATH"
+    else
+        PATH="${PATH}:${dir}"
+    fi
+    export PATH
+}
+
+declare -x CMAKE_COLOR_DIAGNOSTICS=ON
+declare -x CMAKE_EXPORT_COMPILE_COMMANDS=ON
+declare -x CMAKE_GENERATOR=Ninja
+declare -x CMAKE_PREFIX_PATH="$HOME/.local:$CMAKE_PREFIX_PATH"
+declare -x COMPOSE_BAKE=true
+declare -x DOTFILES="$HOME/.local/share/chezmoi"
+declare -x DOTNET_CLI_TELEMETRY_OPTOUT="true"
+declare -x EDITOR=nvim
+declare -x GOBIN="$HOME/.local/go/bin"
+declare -x LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4' # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
+declare -x MANPAGER="nvim +Man!"
+declare -x NINJA_STATUS="[%p (%f/%t) :: (%e|%E)] "
+declare -x SSH_ASKPASS_REQUIRE=prefer
+declare -x SSH_ENV="$HOME/.ssh/agent-environment"
+declare -x XDG_CONFIG_HOME="$HOME/.config"
+declare -x PKG_CONFIG_PATH="$HOME/.local/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+add_to_path "$DOTFILES/git-galaxy/bin" true
+
+add_to_path "$HOME/.cargo/bin" true
+add_to_path "$HOME/.dotnet/tools" true
+add_to_path "$HOME/.local/bin" true
+add_to_path "$HOME/.local/share/nvim/mason/bin" true
+add_to_path "$HOME/.luarocks/bin" true
+add_to_path "$HOME/bin" true
+
+add_to_path "/usr/local/go/bin" false
+add_to_path "$GOBIN" false
+
+# WSL
+if grep -qi microsoft /proc/version || grep -qi microsoft /proc/sys/kernel/osrelease; then
+    declare -xr ON_WSL=true
+    declare -x  SSH_ASKPASS="/usr/lib/openssh/gnome-ssh-askpass"
+    add_to_path "/mnt/c/Windows/System32/WindowsPowerShell/v1.0" false
+    add_to_path "/mnt/c/Program Files/Git/cmd" false
+    add_to_path "/mnt/c/Windows/System32" false
+
+    if [[ ! -f "$EVAL_CACHE_DIR/wsl_constants.bash" ]]; then
+        echo "Performing WSL first time setup. . ."
+        # shellcheck disable=SC2016
+        windows_username="$(powershell.exe -Command 'echo $env:USERNAME' | tr -d '\r')"
+        # shellcheck disable=SC2016
+        windows_homedir="$(wslpath -u "$(powershell.exe -Command 'echo $env:USERPROFILE')" | tr -d '\r')"
+        vscode_path="$windows_homedir/AppData/Local/Programs/Microsoft VS Code/bin"
+        firefox_path="$windows_homedir/AppData/Local/Mozilla Firefox"
+        if [[ ! -f "$firefox_path/firefox.exe" ]]; then
+            firefox_path="/mnt/c/Program Files/Mozilla Firefox"
+        fi
+
+        echo "declare -xr WINDOWS_USERNAME=\"$windows_username\"
+declare -xr WINDOWS_HOMEDIR=\"$windows_homedir\"
+declare -xr FIREFOX_PATH=\"$firefox_path\"
+declare -xr VSCODE_PATH=\"$vscode_path\"" > "$EVAL_CACHE_DIR/wsl_constants.bash"
+    fi
+
+    # shellcheck disable=SC1091
+    source "$EVAL_CACHE_DIR/wsl_constants.bash"
+
+    # shellcheck disable=SC2153
+    add_to_path "$VSCODE_PATH" false
+    # shellcheck disable=SC2153
+    add_to_path "$FIREFOX_PATH" false
+    declare -x BROWSER=firefox.exe
+
+    # Remove the local code command, since it messes with launching VSCode sometimes
+    if [[ "$PATH" == *"$HOME/.vscode-server/bin/"*"/bin/remote-cli"* ]]; then
+        PATH="${PATH//:${HOME}\/.vscode-server\/bin\/*\/bin\/remote-cli/}"
+        PATH="${PATH#:}"   # strip leading colon if created
+        PATH="${PATH%:}"   # strip trailing colon if created
+    fi
+    export PATH
+fi
+
+# Machine-specific env and overrides
+if [ -f "$HOME/.local.bash_env" ]; then
+    source "$HOME/.local.bash_env"
+fi

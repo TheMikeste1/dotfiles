@@ -1,0 +1,5 @@
+echo "__git_staged_files" # Echo to determine when this is actually called
+local -a staged_files=( "${"${(0)"$(git diff-index -z --name-only --no-color --cached HEAD)"}"}" )
+
+_describe -t staged 'Staged files' staged_files && ret=0
+return "$ret"

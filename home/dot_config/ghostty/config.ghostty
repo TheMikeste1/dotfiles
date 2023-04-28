@@ -1,0 +1,34 @@
+# Basic Settings
+theme = Nightfox
+font-size = 10.5
+font-family = "JetBrainsMono NerdFont Mono"
+mouse-hide-while-typing = true
+shell-integration = zsh
+window-save-state = always
+confirm-close-surface = false
+bell-features = system,attention
+
+# Fix home and end
+keybind = home=text:\x1b[H
+keybind = end=text:\x1b[F
+
+# Leader-based Splits (tmux style)
+keybind = ctrl+q>shift+5=new_split:right
+keybind = ctrl+q>shift+quote=new_split:down
+
+# Navigation between splits (Vim/Tmux style)
+keybind = ctrl+q>h=goto_split:left
+keybind = ctrl+q>j=goto_split:bottom
+keybind = ctrl+q>k=goto_split:top
+keybind = ctrl+q>l=goto_split:right
+
+# Tab and Window management
+keybind = ctrl+q>n=next_tab
+keybind = ctrl+q>p=previous_tab
+keybind = ctrl+q>c=new_tab
+keybind = ctrl+q>f=toggle_split_zoom
+keybind = ctrl+q>shift+7=close_tab
+keybind = ctrl+q>x=close_surface
+
+keybind = f11=toggle_fullscreen
+keybind = performable:ctrl+c=copy_to_clipboard

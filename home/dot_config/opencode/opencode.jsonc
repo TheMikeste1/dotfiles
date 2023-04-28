@@ -1,0 +1,57 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "small_model": "opencode/ling-3.0-flash-fin-free",
+  "subagent_depth": 2,
+  "agent": {
+    "architect": {
+      "model": "opencode/nemotron-3-ultra-free",
+      "variant": "high",
+    },
+
+    "architecture-design": {
+      "model": "opencode/nemotron-3-ultra-free",
+      "variant": "high",
+    },
+
+    "code-reviewer": {
+      "model": "opencode/ling-3.0-flash-fin-free",
+      "variant": "high",
+    },
+
+    "auto-developer": {
+      "model": "opencode/big-pickle",
+    },
+    "developer": {
+      "model": "opencode/big-pickle",
+    },
+    "dungeon-delver": {
+      "model": "opencode/ling-3.0-flash-fin-free",
+      "variant": "high",
+    },
+
+    "tester": {
+      "model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+      "variant": "high",
+    },
+
+    "remembrancer": {
+      "model": "opencode/nemotron-3-ultra-free",
+      "variant": "high",
+    },
+
+    "remembrancer-missive": {
+      "model": "opencode/nemotron-3-ultra-free",
+      "variant": "high",
+    },
+
+    "tensor-fiend": {
+      "model": "opencode/nemotron-3-ultra-free",
+      "variant": "high",
+    },
+
+    "lexicographer-fiend": {
+      "model": "opencode/nemotron-3-ultra-free",
+      "variant": "high",
+    },
+  },
+}

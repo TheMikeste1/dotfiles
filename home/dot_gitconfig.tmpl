@@ -1,0 +1,58 @@
+[user]
+name = {{ .user.git.name }}
+email = {{ .user.git.email | quote }}
+
+[alias]
+compare = "!f() { \
+    t=${1:-develop}; \
+    git rev-parse --verify \"$t\" >/dev/null 2>&1 || t=\"origin/$t\"; \
+    git log --color --cherry-mark --graph --oneline --boundary \"$t...HEAD\" --; \
+}; f"
+hist = log --graph --decorate --pretty=oneline --abbrev-commit
+root = rev-parse --show-toplevel
+
+[commit]
+gpgsign = true
+
+[core]
+editor = nvim
+pager = delta
+
+[delta]
+navigate = true
+light = false
+line-numbers = true
+side-by-side = true
+
+[diff]
+algorithm = histogram
+colorMoved = default
+
+[difftool]
+prompt = false
+
+[interactive]
+diffFilter = delta --color-only
+
+[merge]
+conflictstyle = diff3
+keepBackup = false
+
+[mergetool]
+keepBackup = false
+
+[push]
+autoSetupRemote = true
+
+[tag]
+forceSignAnnotated = true
+gpgSign = true
+
+[rerere]
+enabled = true
+
+[url "git@github.com:"]
+insteadOf = https://github.com/
+
+[include]
+path = ~/.local.gitconfig

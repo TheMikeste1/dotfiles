@@ -1,0 +1,19 @@
+# $schema: https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook
+---
+- hosts: localhost
+  connection: local
+  vars_files:
+    - vars/main.yml
+  pre_tasks:
+    - name: Check if WSL
+      set_fact:
+        is_wsl: "{{ 'microsoft' in ansible_facts['kernel'] | lower }}"
+    - name: Load distro-specific vars
+      include_vars: "vars/packages_{{ ansible_facts['os_family'] }}.yml"
+  roles:
+    - dev_environment
+    - install_pkgmgrs
+    - install_packages
+    - build_packages
+    - configure
+    - systemd.yml

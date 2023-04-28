@@ -1,0 +1,30 @@
+{{ if ne .chezmoi.os "windows" }}
+AppData/
+Documents/
+.wezterm.lua
+
+  {{ if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+    # Patterns to ignore ONLY when running inside WSL
+    .config/ghostty/
+    .ideavimrc
+  {{ end }}
+{{ end }}
+
+{{ if ne .chezmoi.os "linux" }}
+.config/bat
+.config/zsh-abbr
+
+.bash*
+.profile
+
+.zsh/
+.zprofile
+.zsh*
+
+.tmux.conf
+.wezterm.sh
+
+bin/
+{{ end }}
+
+**/.dotfiles_include

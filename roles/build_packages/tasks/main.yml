@@ -1,0 +1,12 @@
+# $schema: https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks
+---
+- name: Ensure NeoVim is installed
+  block:
+    - name: Check if NeoVim is installed
+      shell: command -v nvim
+      register: nvim_installed
+      ignore_errors: true
+      changed_when: false
+    - name: Build NeoVim
+      include_tasks: build_neovim.yml
+      when: nvim_installed.rc != 0

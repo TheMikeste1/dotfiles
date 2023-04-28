@@ -1,0 +1,44 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = false
+
+# Disable the package module, hiding it from the prompt completely
+# [package]
+# disabled = true
+
+[c]
+format = 'via [$name $version]($style) '
+detect_extensions = ['c', 'cpp', 'cxx', 'h', 'hpp', 'hxx']
+detect_folders = ["include"]
+
+[character]
+success_symbol            = "[❯](bold green)"
+error_symbol              = "[](bold red)"
+vimcmd_symbol             = "[](bold green)"
+vimcmd_replace_one_symbol = "[](bold purple)"
+vimcmd_replace_symbol     = "[](bold purple)"
+vimcmd_visual_symbol      = "[](bold yellow)"
+
+[git_status]
+windows_starship = "git"
+
+[hostname]
+ssh_only = false
+format = "<[$hostname]($style)>"
+trim_at = "-"
+style = "bold dimmed white"
+disabled = true
+
+[line_break]
+disabled = false
+
+[memory_usage]
+format = "$symbol[${ram}( | ${swap})]($style) "
+threshold = 70
+style = "bold dimmed white"
+disabled = false
+
+[python]
+python_binary = 'python3'

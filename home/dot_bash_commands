@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+if [ "$ON_WSL" ]
+then
+function explorer() {
+    if ! pushd "$1" &>/dev/null; then
+        echo "Could not find directory \"$1\""
+        return
+    fi
+    /mnt/c/windows/explorer.exe .
+    popd &>/dev/null || return
+}
+
+function git() {
+    if ! command -v wslpath >/dev/null || wslpath -w . | grep -q '\\wsl'; then
+        command git "$@"
+    else
+        echo "Windows path detected, using git.exe"
+        git.exe "$@"
+    fi
+}
+fi

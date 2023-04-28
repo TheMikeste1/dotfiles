@@ -1,0 +1,30 @@
+# TODO: Customize
+# Source: <https://www.reddit.com/r/zsh/comments/ass2tc/gitadd_completion_with_full_paths_listed_at_once/>
+# TODO: Update to use porcelain instead of raw status
+local -a status_files=( "${(@f)"$(git status -s)"}" )
+local -a staged_files
+local -a unstaged_files
+for entry in "${status_files[@]}"; do
+  if [[ "$entry" == '' ]];
+  then
+    continue
+  fi
+
+  local stts="${entry[1,3]}"
+  local file="${entry[4,-1]}"
+
+  if [[ "${stts[1]}" != ' ' ]] && [[ "${stts[1]}"  != '?' ]];
+  then
+    staged_files+=$file
+  fi
+
+  if [[ "${stts[2]}" != ' ' ]];
+  then
+    unstaged_files+=$file
+  fi
+done
+
+_describe -t unstaged 'Unstaged' unstaged_files && ret=0
+_describe -t staged 'Staged' staged_files && ret=0
+
+return "$ret"

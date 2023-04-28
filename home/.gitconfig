@@ -1,4 +1,5 @@
 [alias]
+  hist = log --graph --decorate --pretty=oneline --abbrev-commit
   root = rev-parse --show-toplevel
 [core]
 	editor = code --wait

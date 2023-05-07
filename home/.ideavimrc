@@ -35,4 +35,4 @@ Plug 'tpope/vim-commentary'
 
 "" Use computer clipboard
 set clipboard+=unnamed
-
+set relativenumber number

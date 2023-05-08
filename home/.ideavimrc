@@ -33,6 +33,4 @@ Plug 'tpope/vim-commentary'
 "" Map \b to toggle the breakpoint on the current line
 "map \b <Action>(ToggleLineBreakpoint)
 
-"" Use computer clipboard
-set clipboard+=unnamed
-set relativenumber number
+source ~/.vimrc

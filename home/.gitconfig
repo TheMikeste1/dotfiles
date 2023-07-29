@@ -3,6 +3,7 @@
   root = rev-parse --show-toplevel
 [core]
 	editor = code --wait
+	autocrlf = true
 [diff]
   tool = vscode
 [difftool]
@@ -25,4 +26,6 @@
 	forceSignAnnotated = true
 
 [include]
-  path = ~/.gitconfig.local
+  path = ~/.local.gitconfig
+[sequence]
+	editor = code --wait --reuse-window

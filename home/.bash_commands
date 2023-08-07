@@ -1,0 +1,42 @@
+#!/bin/bash
+
+function explorer() {
+  if ! pushd "$1" &> /dev/null;
+  then
+    echo "couldn't find directory \"$1\"";
+    return;
+  fi;
+  explorer.exe .
+  popd &> /dev/null || return;
+}
+
+function petalinux-activate() {
+    petalinux_version="v2022_2"
+    petalinux_directory=$HOME/.petalinux-installs/$petalinux_version
+    echo "Initializing PetaLinux to $petalinux_version in $petalinux_directory. . ."
+    source "$petalinux_directory/settings.sh" > /dev/null  # > /dev/null to silence the script; you may want to disable this when testing it works
+}
+
+function petalinux-superboot() {
+    python3 ~/scripts/petalinux_superboot.py "${@}"
+}
+
+# https://stackoverflow.com/a/18915067
+function ssh-activate() {
+    function __start_agent {
+        /usr/bin/ssh-agent | sed 's/^SSH/export SSH/' | sed 's/^echo/#echo/' > "$SSH_ENV"
+        chmod 600 "${SSH_ENV}"
+        # shellcheck source=/dev/null
+        . "${SSH_ENV}" > /dev/null
+    }
+
+    if [ -f "${SSH_ENV}" ]; then
+        # shellcheck source=/dev/null
+        . "${SSH_ENV}" > /dev/null
+        ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+            __start_agent;
+        }
+    else
+        __start_agent;
+    fi
+}

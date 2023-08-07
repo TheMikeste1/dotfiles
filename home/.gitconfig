@@ -2,8 +2,9 @@
   hist = log --graph --decorate --pretty=oneline --abbrev-commit
   root = rev-parse --show-toplevel
 [core]
-	editor = code --wait
 	autocrlf = true
+	editor = code --wait
+	excludesFile = ~/.gitignore_global
 [diff]
   tool = vscode
 [difftool]
@@ -24,8 +25,8 @@
   autoSetupRemote = true
 [tag]
 	forceSignAnnotated = true
+[sequence]
+	editor = code --wait --reuse-window
 
 [include]
   path = ~/.local.gitconfig
-[sequence]
-	editor = code --wait --reuse-window

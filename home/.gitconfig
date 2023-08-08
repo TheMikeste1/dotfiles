@@ -2,7 +2,7 @@
   hist = log --graph --decorate --pretty=oneline --abbrev-commit
   root = rev-parse --show-toplevel
 [core]
-	autocrlf = true
+	autocrlf = input
 	editor = code --wait
 	excludesFile = ~/.gitignore_global
 [diff]

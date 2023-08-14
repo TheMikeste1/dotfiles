@@ -5,6 +5,7 @@ Plug 'https://github.com/tpope/vim-surround.git'
 
 call plug#end()
 
+""" VSCode and normal Vim
 " Use system clipboard
 if has("unnamedplus")
     set clipboard=unnamedplus
@@ -21,3 +22,34 @@ xnoremap p pgvy
 
 " CamelCaseMotion
 let g:camelcasemotion_key = '<leader>'
+
+if exists('g:vscode')
+  """ VSCode
+  " Move down a line when commenting
+  " VSCode comments; Source: https://github.com/vscode-neovim/vscode-neovim/blob/master/vim/vscode-code-actions.vim
+  function! s:vscodeCommentary(...) abort
+    if !a:0
+        let &operatorfunc = matchstr(expand('<sfile>'), '[^. ]*$')
+        return 'g@'
+    elseif a:0 > 1
+        let [line1, line2] = [a:1, a:2]
+    else
+        let [line1, line2] = [line("'["), line("']")]
+    endif
+
+    call VSCodeCallRange('editor.action.commentLine', line1, line2, 0)
+    if line1 == line2
+      normal! j " Move down a line when commenting
+    endif
+  endfunction
+
+  command! -range -bar VSCodeCommentary call s:vscodeCommentary(<line1>, <line2>)
+
+  xnoremap <expr> <Plug>VSCodeCommentary <SID>vscodeCommentary()
+  nnoremap <expr> <Plug>VSCodeCommentary <SID>vscodeCommentary()
+  nnoremap <expr> <Plug>VSCodeCommentaryLine <SID>vscodeCommentary() . '_'
+
+  " Bind C-/ to vscode commentary to add dot-repeat and auto-deselection
+  xnoremap <expr> <C-/> <SID>vscodeCommentary()
+  nnoremap <expr> <C-/> <SID>vscodeCommentary() . '_' 
+endif 

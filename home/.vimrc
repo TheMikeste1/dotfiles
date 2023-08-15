@@ -5,7 +5,6 @@ Plug 'https://github.com/tpope/vim-surround.git'
 
 call plug#end()
 
-""" VSCode and normal Vim
 " Use system clipboard
 if has("unnamedplus")
     set clipboard=unnamedplus
@@ -13,11 +12,11 @@ else
     set clipboard=unnamed
 endif
 
-"" Use relative numbers in the gutter
+" Use relative numbers in the gutter
 set relativenumber number
-"" Make Y act like D, C, etc.
+" Make Y act like D, C, etc.
 nmap Y y$
-"" Prevent paste from overwriting the yank buffer
+" Prevent paste from overwriting the yank buffer
 xnoremap p pgvy
 
 " CamelCaseMotion
@@ -38,16 +37,12 @@ if exists('g:vscode')
     endif
 
     call VSCodeCallRange('editor.action.commentLine', line1, line2, 0)
-    if line1 == line2
-      normal! j " Move down a line when commenting
-    endif
+    " Go to the following line
+    let gotoLine = line2 + 1
+    execute gotoLine  
   endfunction
 
   command! -range -bar VSCodeCommentary call s:vscodeCommentary(<line1>, <line2>)
-
-  xnoremap <expr> <Plug>VSCodeCommentary <SID>vscodeCommentary()
-  nnoremap <expr> <Plug>VSCodeCommentary <SID>vscodeCommentary()
-  nnoremap <expr> <Plug>VSCodeCommentaryLine <SID>vscodeCommentary() . '_'
 
   " Bind C-/ to vscode commentary to add dot-repeat and auto-deselection
   xnoremap <expr> <C-/> <SID>vscodeCommentary()

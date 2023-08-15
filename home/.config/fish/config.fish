@@ -7,8 +7,8 @@ if [ -f ~/.bash_aliases ]
     . ~/.bash_aliases
 end
 
-if [ -f ~/.env ]
-    . ~/.env
+if [ -f ~/.bash_env ]
+    . ~/.bash_env
 end
 
 set script_directory $(dirname (readlink -m (status --current-filename)))

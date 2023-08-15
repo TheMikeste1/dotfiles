@@ -119,8 +119,8 @@ fi
 # MDH
 . ~/.local.bashrc
 
-if [ -f ~/.env ]; then
-    . ~/.env
+if [ -f ~/.bash_env ]; then
+    . ~/.bash_env
 fi
 
 # Activate my bash commands

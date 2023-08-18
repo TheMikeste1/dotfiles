@@ -19,4 +19,4 @@ export PATH="$HOME/.local/bin:$PATH"
 export SSH_ENV="$HOME/.ssh/agent-environment"
 
 # Machine-specific env and overrides
-source ~/.local.bash_env
+source ~/.local.bash_env 2> /dev/null

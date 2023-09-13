@@ -6,6 +6,9 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 # Enable GPG signing
 export GPG_TTY=$(tty)
 
+# Custom git commands
+export PATH="$PATH:$HOME/.dotfiles/git_commands"
+
 # Ruby
 export PATH="$HOME/.rbenv/bin:$PATH"
 # eval "$(rbenv init -)"

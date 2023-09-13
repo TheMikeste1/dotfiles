@@ -1,0 +1,12 @@
+#! /usr/bin/env bash
+
+pattern=$1
+
+if [ -z "$pattern" ]; then
+  echo "Usage: git exclude <pattern>"
+fi
+
+exclude_file="$(git config --local core.excludesFile)"
+exclude_file="${exclude_file:-$(git root)/.git/info/exclude}"
+
+echo "$pattern" >> "$exclude_file"

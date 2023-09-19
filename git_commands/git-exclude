@@ -8,6 +8,6 @@ if [ -z "$pattern" ]; then
 fi
 
 exclude_file="$(git config --local core.excludesFile)"
-exclude_file="${exclude_file:-$(git root)/.git/info/exclude}"
+exclude_file="${exclude_file:-$(git rev-parse --git-common-dir)/info/exclude}"
 
 echo "$pattern" >> "$exclude_file"

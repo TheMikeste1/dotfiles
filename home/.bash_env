@@ -16,6 +16,9 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 # Rust cargo
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# Ninja by default
+command -v ninja > /dev/null && export CMAKE_GENERATOR=Ninja
+
 # Python packages
 export PATH="$HOME/.local/bin:$PATH"
 

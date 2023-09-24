@@ -20,14 +20,14 @@ set relativenumber number
 " Make Y act like D, C, etc.
 nmap Y y$
 " Prevent paste from overwriting the yank buffer
-xnoremap p pgvy
+xnoremap p P
 
 " CamelCaseMotion
 let g:camelcasemotion_key = '<leader>'
 
 if exists('g:vscode')
   """ VSCode
-  let s:vimSource = s:path . "../vscode.vimrc"  
+  let s:vimSource = s:path . "../vscode.vimrc"
 else
   """ Vim
   let s:vimSource = s:path . "../normal.vimrc"  

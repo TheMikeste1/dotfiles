@@ -31,3 +31,8 @@ Plug 'machakann/vim-highlightedyank'
 "map \b <Action>(ToggleLineBreakpoint)
 
 source ~/.vimrc
+set clipboard^=ideaput
+
+set quickscope
+let g:qs_primary_color   = '#afff5f'
+let g:qs_secondary_color = '#5fffff'

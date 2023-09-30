@@ -16,6 +16,9 @@ local plugins = {
   require('config/quick-scope'),
   require('config/hop'),
   require('config/vim-surround'),
+
+  -- Themes
+  require('themes/darcula-solid'),
 }
 
 local options = {}

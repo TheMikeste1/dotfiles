@@ -13,8 +13,9 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
   require('config.CamelCameMotion'),
-  require('config/quick-scope'),
   require('config/hop'),
+  require('config/neo-tree'),
+  require('config/quick-scope'),
   require('config/vim-surround'),
 
   -- Themes

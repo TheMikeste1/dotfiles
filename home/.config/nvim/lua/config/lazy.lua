@@ -15,10 +15,10 @@ local plugins = {
   require('config.CamelCameMotion'),
   require('config/hop'),
   require('config/neo-tree'),
+  require('config/nvim-surround'),
   require('config/quick-scope'),
   require('config/treesitter'),
   require('config/vim-repeat'),
-  require('config/vim-surround'),
 
   -- Themes
   require('themes/darcula-solid'),

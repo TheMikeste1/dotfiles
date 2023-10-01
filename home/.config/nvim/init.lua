@@ -4,7 +4,7 @@ vim.loader.enable()
 
 VSCODE = vim.g.vscode == 1
 
-require("config.lazy")
+require("setup")
 
 -- Use system clipboard
 if (vim.fn.has("unamedplus")) then

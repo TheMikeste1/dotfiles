@@ -11,11 +11,24 @@ return {
       "<C-E>",
       function()
         require("neo-tree.command").execute({
-          toggle = true,
+          action = "focus",
           position = "left",
+          reveal = true,
         })
       end,
-      desc = "Explorer (root dir)",
+      desc = "Explorer",
+    },
+    {
+      "<C-b>",
+      function()
+        require("neo-tree.command").execute({
+          action = "show",
+          position = "left",
+          reveal = true,
+          toggle = true,
+        })
+      end,
+      desc = "Toggle sideview",
     },
   },
 }

@@ -16,6 +16,8 @@ local plugins = {
   require('config/hop'),
   require('config/neo-tree'),
   require('config/quick-scope'),
+  require('config/treesitter'),
+  require('config/vim-repeat'),
   require('config/vim-surround'),
 
   -- Themes

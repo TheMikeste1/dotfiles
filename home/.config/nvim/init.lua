@@ -27,6 +27,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.opt.number = not VSCODE
 vim.opt.relativenumber = not VSCODE
 
+-- Setup indenting
+vim.opt.autoindent = true
+vim.opt.expandtab = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+
 -- Make Y act like D, C, etc.
 vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
 

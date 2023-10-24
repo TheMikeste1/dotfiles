@@ -1,7 +1,7 @@
 # https://stackoverflow.com/a/18915067
 function ssh-activate
     function __start_agent
-        /usr/bin/ssh-agent | sed 's/^SSH/export SSH/' | sed 's/^echo/#echo/' > "$SSH_ENV"
+        ssh-agent | sed 's/^SSH/export SSH/' | sed 's/^echo/#echo/' > "$SSH_ENV"
         chmod 600 "$SSH_ENV"
         . "$SSH_ENV" > /dev/null
     end

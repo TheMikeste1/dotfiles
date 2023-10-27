@@ -1,9 +1,3 @@
-call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
-
-Plug 'tpope/vim-commentary'
-
-call plug#end()
-
 " Move down a line when commenting
 function! s:codeCommentary(...) abort
   if !a:0

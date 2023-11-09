@@ -20,6 +20,9 @@ detect_folders = ["include"]
 [character]
 error_symbol = "[✖](bold red) "
 
+[git_status]
+windows_starship = "git"
+
 [hostname]
 ssh_only = false
 format = "<[$hostname]($style)>"

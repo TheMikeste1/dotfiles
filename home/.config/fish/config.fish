@@ -11,6 +11,14 @@ if [ -f ~/.bash_env ]
     . ~/.bash_env
 end
 
+export LESS_TERMCAP_mb=\e'[1;31m'     # begin bold
+export LESS_TERMCAP_md=\e'[1;36m'     # begin blink
+export LESS_TERMCAP_me=\e'[0m'        # reset bold/blink
+export LESS_TERMCAP_so=\e'[01;44;33m' # begin reverse video
+export LESS_TERMCAP_se=\e'[0m'        # reset reverse video
+export LESS_TERMCAP_us=\e'[1;32m'     # begin underline
+export LESS_TERMCAP_ue=\e'[0m'        # reset underline
+
 set script_directory $(dirname (readlink -m (status --current-filename)))
 source "$script_directory/local.config.fish" 2> /dev/null
 

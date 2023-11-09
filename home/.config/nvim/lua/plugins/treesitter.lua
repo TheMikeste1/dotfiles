@@ -21,7 +21,7 @@ return {
   event = { "BufReadPost", "BufNewFile" },
   cmd = { "TSUpdateSync" },
   opts = {
-    highlight = { enable = true },
+    highlight = { enable = not VSCODE },
     indent = { enable = true },
     ensure_installed = {
       -- "ada",

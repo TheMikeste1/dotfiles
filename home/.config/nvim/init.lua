@@ -13,6 +13,10 @@ else
   vim.opt.clipboard = "unnamed"
 end
 
+if (vim.fn.has("termguicolors") and not VSCODE) then
+  vim.opt.termguicolors = true
+end
+
 -- Highlight on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('highlight_yank', {}),

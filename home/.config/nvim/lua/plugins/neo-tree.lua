@@ -1,11 +1,11 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
+  cond = not VSCODE,
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
   },
-  enabled = not VSCODE,
   keys = {
     {
       "<C-E>",

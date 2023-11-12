@@ -1,7 +1,7 @@
 #! /bin/env fish
 
-function git --wraps git
-  if pwd -P | grep -q "/mnt/[cd]/*"
+function git --wraps git --description 'git wrapper to handle Windows paths'
+  if pwd -P | grep -q "/mnt/[a-z]/*"
     git.exe $argv
   else
     command git $argv

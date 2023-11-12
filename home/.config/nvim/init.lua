@@ -4,7 +4,11 @@ vim.loader.enable()
 
 VSCODE = vim.g.vscode == 1
 
-require("setup")
+-- If a directory is provided as the argument, open it in the current window
+if (vim.fn.argc() > 0 and vim.fn.isdirectory(vim.fn.argv()[1])) then
+  -- enew opens a new buffer in the current window so file explorer's don't need to open the directory twice
+  vim.cmd("cd " .. vim.fn.argv()[1] .. " | enew")
+end
 
 -- Use system clipboard
 if (vim.fn.has("unamedplus")) then
@@ -13,9 +17,12 @@ else
   vim.opt.clipboard = "unnamed"
 end
 
+-- Set GUI colors if in the terminal
 if (vim.fn.has("termguicolors") and not VSCODE) then
   vim.opt.termguicolors = true
 end
+
+require("setup")
 
 -- Highlight on yank
 vim.api.nvim_create_autocmd('TextYankPost', {

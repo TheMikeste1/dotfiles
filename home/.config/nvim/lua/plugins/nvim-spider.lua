@@ -3,7 +3,7 @@ return {
   keys = {
     {
       "<Leader>w",
-      "<cmd>lua require('spider').motion('w')<cr>",
+      "<cmd>lua require('spider').motion('w')<CR>",
       mode = { "n", "o", "x" },
       { desc = "spider-w" }
     }

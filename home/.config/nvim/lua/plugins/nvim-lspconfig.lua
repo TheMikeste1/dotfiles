@@ -1,7 +1,8 @@
 local function config()
   local lspconfig = require('lspconfig')
-  lspconfig.pyright.setup {}
   lspconfig.clangd.setup {}
+  lspconfig.lua.setup {}
+  lspconfig.pyright.setup {}
 
 
   -- Global mappings.
@@ -17,8 +18,9 @@ local function config()
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(ev)
       -- Enable completion triggered by <c-x><c-o>
-      vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
+      if not VSCODE then
+        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+      end
       -- Buffer local mappings.
       -- See `:help vim.lsp.*` for documentation on any of the below functions
       local opts = { buffer = ev.buf }
@@ -45,6 +47,10 @@ end
 
 return {
   "neovim/nvim-lspconfig",
-  cond = not VSCODE,
+  -- cond = not VSCODE,
   config = config,
+  dependencies = {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+  }
 }

@@ -1,7 +1,7 @@
 local function config()
   local lspconfig = require('lspconfig')
   lspconfig.clangd.setup {}
-  lspconfig.lua.setup {}
+  lspconfig.lua_ls.setup {}
   lspconfig.pyright.setup {}
 
 

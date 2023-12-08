@@ -12,6 +12,7 @@ local function init()
     callback = function()
       if vim.fn.argc() == 0 or vim.fn.isdirectory(vim.fn.argv()[1]) then
         open_on_empty()
+        return
       end
 
       -- Filter out arguments, leaving only files and directories

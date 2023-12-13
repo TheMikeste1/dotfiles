@@ -1,3 +1,5 @@
+require("utilities.file_utilities")
+
 local function open_on_empty()
   require("neo-tree.command").execute({
     action = "focus",
@@ -10,14 +12,14 @@ local function init()
   vim.api.nvim_create_autocmd({ "VimEnter" }, {
     -- Open NeoTree automatically when vim starts if no files were specified or if a directory was specified
     callback = function()
-      if vim.fn.argc() == 0 or vim.fn.isdirectory(vim.fn.argv()[1]) then
+      if vim.fn.argc() == 0 or IsDirectory(vim.fn.argv()[1]) then
         open_on_empty()
         return
       end
 
       -- Filter out arguments, leaving only files and directories
       local args = vim.tbl_filter(function(arg)
-        return not vim.fn.isdirectory(arg)
+        return not IsDirectory(arg)
       end, vim.fn.argv())
 
       -- Open NeoTree if no files were specified

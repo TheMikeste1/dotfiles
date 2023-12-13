@@ -6,11 +6,20 @@ vim.loader.enable()
 
 VSCODE = vim.g.vscode == 1
 
--- If a directory is provided as the argument, open it in the current window
-if vim.fn.argc() == 1 and IsDirectory(vim.fn.argv()[1])
-then
-  -- enew opens a new buffer in the current window so file explorer's don't need to open the directory twice
-  vim.cmd("cd " .. vim.fn.argv()[1] .. " | enew")
+if vim.fn.argc() == 1 then
+  -- If the argument is a non-existing directory, create it and open it in the current window
+  if vim.fn.argv()[1]:sub(-1) == "/" and not IsDirectory(vim.fn.argv()[1]) then
+    -- Remove the slash
+    local path = vim.fn.argv()[1]:sub(1, -2)
+    -- Create the directory
+    vim.fn.mkdir(path, "p")
+  end
+
+  -- If a directory is provided as the argument, open it in the current window
+  if IsDirectory(vim.fn.argv()[1]) then
+    -- enew opens a new buffer in the current window so file explorer's don't need to open the directory twice
+    vim.cmd("cd " .. vim.fn.argv()[1] .. " | enew")
+  end
 end
 
 -- Use system clipboard

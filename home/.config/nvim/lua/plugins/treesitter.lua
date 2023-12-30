@@ -1,4 +1,4 @@
----@param opts TSConfig
+---@class opts TSConfig
 function config(_, opts)
   if type(opts.ensure_installed) == "table" then
     ---@type table<string, boolean>
@@ -18,8 +18,8 @@ end
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
-  event = { "BufReadPost", "BufNewFile" },
   cmd = { "TSUpdateSync" },
+  event = { "BufReadPost", "BufNewFile" },
   opts = {
     highlight = { enable = not VSCODE },
     indent = { enable = true },

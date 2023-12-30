@@ -1,6 +1,7 @@
 local function config()
   require("toggleterm").setup {
-    open_mapping = [[<C-\>]]
+    open_mapping = [[<C-\>]],
+    direction = "horizontal",
   }
 end
 

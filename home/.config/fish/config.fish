@@ -18,6 +18,8 @@ if status is-interactive
         # The argument specifies the initial mode (insert, "default" or visual).
         fish_vi_key_bindings --no-erase insert
     end
+
+    fzf_configure_bindings --variables=\e\cv
 end
 
 export LESS_TERMCAP_mb=\e'[1;31m' # begin bold

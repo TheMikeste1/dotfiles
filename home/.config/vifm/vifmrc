@@ -30,6 +30,7 @@ set syscalls
 " This probably shouldn't be an option.
 
 set trash
+set trashdir="~/.local/share/vifm/Trash"
 
 " This is how many directories to store in the directory history.
 
@@ -59,7 +60,7 @@ set norunexec
 
 " List of color schemes to try (picks the first one supported by the terminal)
 
-colorscheme Default-256 Default
+colorscheme zenburn_1 Default-256 Default
 
 " Format for displaying time in file list. For example:
 " TIME_STAMP_FORMAT=%m/%d-%H:%M

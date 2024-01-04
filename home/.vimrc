@@ -1,4 +1,10 @@
-call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin(has('nvim') ? stdpath('data') . '/site' : '~/.vim')
 
 Plug 'https://github.com/bkad/CamelCaseMotion.git'
 Plug 'https://github.com/tpope/vim-surround.git'

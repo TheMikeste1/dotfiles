@@ -1,4 +1,4 @@
-MODULE_PATH = (...):match("(.-)[^%.]+$")
+local MODULE_PATH = (...):match("(.-)[^%.]+$")
 
 return {
   { import = MODULE_PATH .. "nvim-ts-autotag" },

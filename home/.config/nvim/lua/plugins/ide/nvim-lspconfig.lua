@@ -49,7 +49,6 @@ return {
   cond = not VSCODE,
   config = config,
   dependencies = {
-    "ms-jpq/coq_nvim",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
   }

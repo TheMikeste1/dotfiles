@@ -2,10 +2,11 @@ local mod = {}
 
 function mod.setup()
   local lspconfig = require("lspconfig")
-  local coq = require("coq")
-
+  local capabilities = require('cmp_nvim_lsp').default_capabilities()
   lspconfig.clangd.setup(
-    coq.lsp_ensure_capabilities{}
+    {
+      capabilities = capabilities,
+    }
   )
 end
 

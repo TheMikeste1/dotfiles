@@ -10,5 +10,12 @@ return {
         }
       }
     })
-  end
+  end,
+  opt = {
+    ensure_installed = {
+      "clangd",
+      "lua_ls",
+      "pyright",
+    }
+  }
 }

@@ -17,11 +17,13 @@ return {
     -- Snippets
     "ms-jpq/coq.artifacts",
     branch = "artifacts",
+    cond = not VSCODE,
   },
   {
     -- Third party
     "ms-jpq/coq.thirdparty",
     branch = "3p",
+    cond = not VSCODE,
     config = function()
       require("coq_3p") {
         -- Built in

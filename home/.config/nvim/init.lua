@@ -1,10 +1,9 @@
 require("utilities.file_utilities")
+require("utilities.state")
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.loader.enable()
-
-VSCODE = vim.g.vscode == 1
 
 if vim.fn.argc() == 1 then
   -- If the argument is a non-existing directory, create it and open it in the current window

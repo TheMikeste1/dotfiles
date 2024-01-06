@@ -1,1 +1,4 @@
-return {"hrsh7th/cmp-path", cond = not VSCODE}
+return {
+  "FelipeLema/cmp-async-path",
+  cond = not VSCODE,
+}

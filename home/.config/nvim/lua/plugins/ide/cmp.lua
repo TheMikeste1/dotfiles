@@ -46,9 +46,13 @@ local function config()
           buffer = "[Buffer]",
           ctags = "[CTags]",
           doxygen = "[Doxygen]",
+          dynamic = "[Dynamic]",
           nvim_lsp = "[LSP]",
+          nvim_lsp_document_symbol = "[DocSymbol]",
           nvim_lua = "[NvimLua]",
+          omni = "[Omni]",
           spell = "[Spell]",
+          treesitter = "[Tree]",
         }),
         maxwidth = 50,
         ellipsis_char = "...",
@@ -82,19 +86,21 @@ local function config()
     }),
     sources = cmp.config.sources(
       {
-        {name = "nvim_lsp"},
-        {name = "vsnip"},
+        -- { name = 'nvim_lsp_signature_help' },
         {name = "ctags"},
+        {name = "omni"},
+        {name = "nvim_lsp"},
+        {name = "treesitter", max_item_count = 5},
+        {name = "vsnip", max_item_count = 5},
       },
       {
-        { name = "spell", keyword_length = 4, max_item_count = 5 },
-      },
-      {
+        {name = "async_path", max_item_count = 5},
         {name = "buffer", max_item_count = 5},
-        {name = "async_path", max_item_count = 5}
-      },
-      {
-        {name = "doxygen"}
+        {name = "buffer-lines", max_item_count = 5},
+        { name = "spell", keyword_length = 4, max_item_count = 5 },
+        {name = "doxygen"},
+        --{name = "dynamic"},
+        -- {name = "cmp_yanky"},
       }
     ),
   })
@@ -102,13 +108,24 @@ local function config()
   -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won"t work anymore).
   cmp.setup.cmdline({"/", "?"}, {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = {{name = "buffer"}}
+    sources = cmp.config.sources(
+      {
+        {name = "nvim_lsp_document_symbol"}
+      },
+      {
+        {name = "buffer"}
+      }
+    )
   })
 
   -- Use cmdline & path source for ":" (if you enabled `native_menu`, this won"t work anymore).
   cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({{name = "path"}},
+    sources = cmp.config.sources(
+      {
+        {name = "nvim_lsp_document_symbol"}
+      },
+      {{name = "path"}},
       {{name = "cmdline"}})
   })
 
@@ -116,6 +133,7 @@ local function config()
   require("configs.cmp.git").sources()
   require("configs.cmp.lua").sources()
 end
+
 
 return {
   "hrsh7th/nvim-cmp",

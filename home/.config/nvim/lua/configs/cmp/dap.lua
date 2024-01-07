@@ -8,12 +8,12 @@ function mod.sources()
   local config = cmp.get_config()
   local file_sources = cmp.config.sources(
     {
-      {name = "git"}
+      {name = "dap"}
     }
   )
   local new_sources = TableConcat(config.sources, file_sources)
   config.sources = new_sources
-  cmp.setup.filetype("gitcommit", config)
+  cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, config)
 end
 
 return mod

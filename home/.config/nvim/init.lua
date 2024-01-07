@@ -1,6 +1,7 @@
 require("utilities.file_utilities")
 require("utilities.state")
 
+-- Vim setup
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.loader.enable()
@@ -33,8 +34,6 @@ if (vim.fn.has("termguicolors") and not VSCODE) then
   vim.opt.termguicolors = true
 end
 
-require("setup")
-
 -- Highlight on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('highlight_yank', {}),
@@ -55,8 +54,15 @@ vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 
+-- Spelling
+vim.opt.spell = not VSCODE
+vim.opt.spelllang = { 'en_us' }
+
 -- Make Y act like D, C, etc.
 vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
 
 -- Prevent paste from overwriting the current yank buffer
 vim.api.nvim_set_keymap('x', 'p', 'P', { noremap = true })
+
+require("setup")
+

@@ -4,10 +4,13 @@ return {
   { import = MODULE_PATH .. "cmp-buffer" },
   { import = MODULE_PATH .. "cmp-cmdline" },
   { import = MODULE_PATH .. "cmp-ctags" },
+  { import = MODULE_PATH .. "cmp-dap" },
+  { import = MODULE_PATH .. "cmp-doxygen" },
   { import = MODULE_PATH .. "cmp-git" },
   { import = MODULE_PATH .. "cmp-nvim-lsp" },
   { import = MODULE_PATH .. "cmp-nvim-lua" },
   { import = MODULE_PATH .. "cmp-path" },
+  { import = MODULE_PATH .. "cmp-spell" },
   { import = MODULE_PATH .. "cmp-vsnip" },
   { import = MODULE_PATH .. "vim-vsnip" },
 }

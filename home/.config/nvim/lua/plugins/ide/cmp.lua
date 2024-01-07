@@ -33,6 +33,10 @@ local function config()
   local cmp = require("cmp")
 
   cmp.setup({
+    enabled = function()
+      return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+          or require("cmp_dap").is_dap_buffer()
+    end,
     snippet = {
       -- REQUIRED - you must specify a snippet engine
       expand = function(args)
@@ -62,15 +66,17 @@ local function config()
       {
         {name = "nvim_lsp"},
         {name = "vsnip"},
+        {name = "ctags"},
       },
       {
-        {name = "ctags"}
+        { name = "spell", keyword_length = 4, max_item_count = 5 },
       },
       {
-        {name = "buffer"}
+        {name = "buffer", max_item_count = 5},
+        {name = "async_path", max_item_count = 5}
       },
       {
-        {name = "async_path"}
+        {name = "doxygen"}
       }
     )
   })
@@ -87,6 +93,10 @@ local function config()
     sources = cmp.config.sources({{name = "path"}},
       {{name = "cmdline"}})
   })
+
+  require("configs.cmp.dap").sources()
+  require("configs.cmp.git").sources()
+  require("configs.cmp.lua").sources()
 end
 
 return {

@@ -31,12 +31,32 @@ end
 
 local function config()
   local cmp = require("cmp")
+  local lspkind = require("lspkind")
 
   cmp.setup({
     enabled = function()
       return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
           or require("cmp_dap").is_dap_buffer()
     end,
+    formatting = {
+      format = lspkind.cmp_format({
+        mode = "symbol_text",
+        menu = ({
+          async_path = "[Path]",
+          buffer = "[Buffer]",
+          ctags = "[CTags]",
+          doxygen = "[Doxygen]",
+          nvim_lsp = "[LSP]",
+          nvim_lua = "[NvimLua]",
+          spell = "[Spell]",
+        }),
+        maxwidth = 50,
+        ellipsis_char = "...",
+        before = function (entry, vim_item)
+          return vim_item
+        end
+      })
+    },
     snippet = {
       -- REQUIRED - you must specify a snippet engine
       expand = function(args)
@@ -48,8 +68,6 @@ local function config()
       documentation = cmp.config.window.bordered()
     },
     mapping = cmp.mapping.preset.insert({
-      ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-f>"] = cmp.mapping.scroll_docs(4),
       ["<C-Space>"] = cmp.mapping.complete(),
       ["<C-e>"] = cmp.mapping.abort(),
       ["<TAB>"] = cmp.mapping(
@@ -78,7 +96,7 @@ local function config()
       {
         {name = "doxygen"}
       }
-    )
+    ),
   })
 
   -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won"t work anymore).
@@ -103,6 +121,9 @@ return {
   "hrsh7th/nvim-cmp",
   cond = not VSCODE,
   config = config,
-  event = { "InsertEnter", "CmdlineEnter" }
+  event = { "InsertEnter", "CmdlineEnter" },
+  dependency = {
+    "onsails/lspkind.nvim"
+  }
 }
 

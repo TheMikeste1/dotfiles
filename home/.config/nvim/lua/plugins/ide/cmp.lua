@@ -1,3 +1,14 @@
+-- <https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#safely-select-entries-with-cr>
+local function on_enter(fallback)
+  local cmp = require("cmp")
+
+  if cmp.visible() and cmp.get_active_entry() then
+    cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+  else
+    fallback()
+  end
+end
+
 -- <https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#intellij-like-mapping>
 local function on_tab(fallback)
   local cmp = require("cmp")
@@ -10,6 +21,7 @@ local function on_tab(fallback)
     else
       cmp.confirm()
     end
+
     return
   end
 
@@ -41,15 +53,9 @@ local function config()
         {"i","s","c",}
       ),
       ["<CR>"] = cmp.mapping({
-        i = function(fallback)
-          if cmp.visible() and cmp.get_active_entry() then
-            cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-          else
-            fallback()
-          end
-        end,
-        s = cmp.mapping.confirm({ select = true }),
-        c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+        i = on_enter,
+        s = cmp.mapping.confirm({ select = false }),
+        c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
       }),
     }),
     sources = cmp.config.sources(

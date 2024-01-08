@@ -1,3 +1,3 @@
 return {
-  'tpope/vim-speeddating',
+	"tpope/vim-speeddating",
 }

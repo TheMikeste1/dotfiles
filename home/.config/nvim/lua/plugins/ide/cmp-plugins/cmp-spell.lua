@@ -1,4 +1,4 @@
 return {
-  "f3fora/cmp-spell",
-  cond = not VSCODE,
+	"f3fora/cmp-spell",
+	cond = not VSCODE,
 }

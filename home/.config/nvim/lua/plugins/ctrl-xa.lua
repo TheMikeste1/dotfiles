@@ -1,15 +1,15 @@
 return {
-  'Konfekt/vim-CtrlXA',
-  config = function()
-    vim.cmd [[
+	"Konfekt/vim-CtrlXA",
+	config = function()
+		vim.cmd([[
       let g:CtrlXA_Toggles = [
         \ ["public", "protected", "private"],
         \ ] + g:CtrlXA_Toggles
-    ]]
+    ]])
 
-    vim.cmd [[
+		vim.cmd([[
       nmap <Plug>SpeedDatingFallbackUp   <Plug>(CtrlXA-CtrlA)
       nmap <Plug>SpeedDatingFallbackDown <Plug>(CtrlXA-CtrlX)
-    ]]
-  end,
+    ]])
+	end,
 }

@@ -1,1 +1,1 @@
-return {'delphinus/cmp-ctags', cond = not VSCODE}
+return { "delphinus/cmp-ctags", cond = not VSCODE }

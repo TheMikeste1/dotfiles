@@ -1,1 +1,1 @@
-return {"hrsh7th/cmp-cmdline", cond = not VSCODE}
+return { "hrsh7th/cmp-cmdline", cond = not VSCODE }

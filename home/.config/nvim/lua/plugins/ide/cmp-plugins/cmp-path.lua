@@ -1,4 +1,4 @@
 return {
-  "FelipeLema/cmp-async-path",
-  cond = not VSCODE,
+	"FelipeLema/cmp-async-path",
+	cond = not VSCODE,
 }

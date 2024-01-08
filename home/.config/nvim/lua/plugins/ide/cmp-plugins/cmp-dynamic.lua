@@ -1,1 +1,1 @@
-return {"uga-rosa/cmp-dynamic", cond = not VSCODE}
+return { "uga-rosa/cmp-dynamic", cond = not VSCODE }

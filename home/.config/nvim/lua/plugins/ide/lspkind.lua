@@ -1,4 +1,4 @@
 return {
-  "onsails/lspkind.nvim",
-  cond = not VSCODE
+	"onsails/lspkind.nvim",
+	cond = not VSCODE,
 }

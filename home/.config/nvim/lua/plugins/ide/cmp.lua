@@ -51,6 +51,7 @@ local function config()
           nvim_lsp_document_symbol = "[DocSymbol]",
           nvim_lua = "[NvimLua]",
           omni = "[Omni]",
+          plugins = "[Plug]",
           spell = "[Spell]",
           treesitter = "[Tree]",
         }),

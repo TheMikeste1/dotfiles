@@ -7,6 +7,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.loader.enable()
 
 vim.wo.wrap = false
+vim.opt.fillchars = { eob = " " }
 
 if vim.fn.argc() == 1 then
 	-- If the argument is a non-existing directory, create it and open it in the current window

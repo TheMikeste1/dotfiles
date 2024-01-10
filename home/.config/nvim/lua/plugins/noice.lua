@@ -1,5 +1,8 @@
 local function config()
 	require("noice").setup({
+		format = {
+			filter = { icon = "!", lang = "fish" },
+		},
 		lsp = {
 			-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
 			override = {

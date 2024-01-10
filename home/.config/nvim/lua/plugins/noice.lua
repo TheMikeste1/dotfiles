@@ -29,6 +29,15 @@ local function config()
 				opts = { skip = true },
 			},
 		},
+    views = {
+      mini = {
+        position = {
+          row = 0
+        },
+        timeout = 1000,
+        zindex = 25,
+      }
+    },
 	})
 end
 

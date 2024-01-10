@@ -25,6 +25,9 @@ function InitializePlugins()
 			-- automatically check for plugin updates
 			enabled = true,
 		},
+    change_detection = {
+      notify = false
+    }
 	}
 
 	require("lazy").setup(plugin_folders, options)

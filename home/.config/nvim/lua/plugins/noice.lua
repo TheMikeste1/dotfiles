@@ -32,7 +32,7 @@ local function config()
     views = {
       mini = {
         position = {
-          row = 0
+          -- row = 0
         },
         timeout = 1000,
         zindex = 25,

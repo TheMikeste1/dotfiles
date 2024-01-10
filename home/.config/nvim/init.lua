@@ -6,6 +6,8 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.loader.enable()
 
+vim.wo.wrap = false
+
 if vim.fn.argc() == 1 then
 	-- If the argument is a non-existing directory, create it and open it in the current window
 	if vim.fn.argv()[1]:sub(-1) == "/" and not IsDirectory(vim.fn.argv()[1]) then

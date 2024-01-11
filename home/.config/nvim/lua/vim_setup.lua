@@ -1,8 +1,18 @@
-vim.wo.wrap = false -- No word wrap
+vim.opt.wrap = false -- No word wrap
 vim.opt.fillchars = { eob = " " } -- Don't show ~ on none-lines
+vim.opt.colorcolumn = "80,120,240" -- Indicators of line length
+vim.opt.scrolloff = 3 -- Always keep x rows above/below the cursor
+
+-- Incremental highlight with no leftover highlight
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+
+-- More undos
+vim.opt.undodir = os.getenv("HOME").."/.vim/undodir"
+vim.opt.undofile = true
 
 -- Use system clipboard
-if vim.fn.has("unamedplus") == 1 then
+if vim.fn.has("unamedplus") then
 	vim.opt.clipboard = "unnamedplus"
 else
 	vim.opt.clipboard = "unnamed"
@@ -22,6 +32,7 @@ vim.opt.smartindent = true
 vim.opt.autoindent = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 
 -- Spelling

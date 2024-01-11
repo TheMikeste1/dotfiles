@@ -117,6 +117,7 @@ local function config()
 	})
 
 	require("configs.cmp.dap").sources()
+	require("configs.cmp.disabled").sources()
 	require("configs.cmp.git").sources()
 	require("configs.cmp.lua").sources()
 end

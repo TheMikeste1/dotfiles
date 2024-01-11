@@ -126,7 +126,7 @@ return {
 	cond = not VSCODE,
 	config = config,
 	event = { "InsertEnter", "CmdlineEnter" },
-	dependency = {
+	dependencies = {
 		"onsails/lspkind.nvim",
 	},
 }

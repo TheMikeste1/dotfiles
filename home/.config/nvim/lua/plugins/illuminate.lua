@@ -1,5 +1,8 @@
 return {
 	"RRethy/vim-illuminate",
 	cond = not VSCODE,
-	opt = {},
+	opts = {},
+  config = function ()
+    require("illuminate").configure()
+  end,
 }

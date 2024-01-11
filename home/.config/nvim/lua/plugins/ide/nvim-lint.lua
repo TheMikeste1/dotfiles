@@ -1,6 +1,8 @@
--- TODO
 return {
 	"mfussenegger/nvim-lint",
 	cond = not VSCODE,
-	opt = {},
+	opts = {},
+  config = function ()
+    -- TODO: Add lint configurations
+  end,
 }

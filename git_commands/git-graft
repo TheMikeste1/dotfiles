@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+
+readonly onto=$1
+
+if [ -z "$onto" ]; then
+    echo "Usage: git graft <receiving-commit>"
+    exit 1
+fi
+
+git rebase -i $(git merge-base --fork-point "$onto") --onto "$onto"

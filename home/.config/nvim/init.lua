@@ -26,3 +26,7 @@ end
 require("vim_setup")
 require("plugin_setup")
 require("keymap")
+if not VSCODE then
+  vim.cmd 'colorscheme apprentice'
+end
+

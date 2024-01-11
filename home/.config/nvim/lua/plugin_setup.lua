@@ -20,6 +20,7 @@ local plugin_folders = {
   { import = "plugins.ide" },
   { import = "plugins.ide.treesitter-extensions" },
   { import = "plugins.ide.cmp-plugins" },
+  { import = "plugins.languages" },
   { import = "themes" },
 }
 

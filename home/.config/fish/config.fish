@@ -29,6 +29,7 @@ export LESS_TERMCAP_so=\e'[01;44;33m' # begin reverse video
 export LESS_TERMCAP_se=\e'[0m' # reset reverse video
 export LESS_TERMCAP_us=\e'[1;32m' # begin underline
 export LESS_TERMCAP_ue=\e'[0m' # reset underline
+abbr --add  --position command G git
 
 # Start SSH agent on launch
 ssh-activate

@@ -17,16 +17,14 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # Ninja by default
-# command -v ninja > /dev/null && \
-export CMAKE_GENERATOR=Ninja
+command -v ninja > /dev/null && export CMAKE_GENERATOR=Ninja
 
 # Python packages
 export PATH="$HOME/.local/bin:$PATH"
 
 # Pyenv
 export PYENV_ROOT="$HOME/.pyenv"
-# command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-# command -v pyenv &> /dev/null && eval "$(pyenv init -)" > /dev/null
+command -v pyenv >/dev/null && echo "No longer using pyenv; try installing the much faster asdf" >&2
 
 # SSH
 export SSH_ENV="$HOME/.ssh/agent-environment"

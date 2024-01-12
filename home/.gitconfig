@@ -37,3 +37,5 @@
 
 [include]
   path = ~/.local.gitconfig
+[gpg]
+	program = /home/michael/.dotfiles/utilities/gpg.sh

@@ -11,6 +11,6 @@ return {
 		current_line_blame_opts = {
 			delay = 250,
 		},
-		numhl = true,
+		-- numhl = true,
 	},
 }

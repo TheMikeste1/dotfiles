@@ -13,7 +13,7 @@ return {
 			sections = {
 				lualine_x = {
 					{
-						require("noice").api.status.message.get_hl,
+						require("noice").api.status.message.get,
 						cond = require("noice").api.status.message.has,
 					},
 					{

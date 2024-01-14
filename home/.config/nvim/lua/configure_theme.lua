@@ -7,9 +7,9 @@ vim.opt.termguicolors = true
 vim.cmd("colorscheme alchemist")
 
 -- DAP
-vim.api.nvim_set_hl(0, "DapBreakpoint", {  fg = "#993939" })
-vim.api.nvim_set_hl(0, "DapLogPoint", {  fg = "#61afef" })
-vim.api.nvim_set_hl(0, "DapStopped", {  fg = "#98c379" })
+vim.api.nvim_set_hl(0, "DapBreakpoint", { fg = "#993939" })
+vim.api.nvim_set_hl(0, "DapLogPoint", { fg = "#61afef" })
+vim.api.nvim_set_hl(0, "DapStopped", { fg = "#98c379" })
 
 vim.fn.sign_define(
 	"DapBreakpoint",
@@ -34,3 +34,9 @@ vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticS
 vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
 vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
 vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
+
+-- QuickScope
+vim.cmd([[
+    highlight QuickScopePrimary   guifg='#a6f25a' gui=underline ctermfg=155 cterm=underline
+    highlight QuickScopeSecondary guifg='#5af2f2' gui=underline ctermfg=81  cterm=underline
+  ]])

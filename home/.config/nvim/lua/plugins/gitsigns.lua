@@ -13,4 +13,5 @@ return {
 		},
 		-- numhl = true,
 	},
+	event = "VeryLazy",
 }

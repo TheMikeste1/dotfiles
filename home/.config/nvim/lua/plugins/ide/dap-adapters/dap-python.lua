@@ -4,4 +4,5 @@ return {
 	config = function()
 		require("dap-python").setup("~/.asdf/shims/python")
 	end,
+	event = "VeryLazy",
 }

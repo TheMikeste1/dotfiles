@@ -21,4 +21,5 @@ return {
 	dependencies = {
 		"mfussenegger/nvim-dap",
 	},
+	event = "VeryLazy",
 }

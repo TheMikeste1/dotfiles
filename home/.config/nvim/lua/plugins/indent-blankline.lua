@@ -4,4 +4,5 @@ return {
 	config = function()
 		require("ibl").setup()
 	end,
+	event = "VeryLazy",
 }

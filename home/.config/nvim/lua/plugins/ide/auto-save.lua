@@ -6,4 +6,5 @@ return {
 			message = "", -- Disable the message output
 		},
 	},
+	lazy = false,
 }

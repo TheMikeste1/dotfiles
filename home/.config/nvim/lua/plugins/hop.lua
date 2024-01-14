@@ -1,15 +1,18 @@
-local function init()
-	local hop = require("hop")
-	vim.keymap.set("", "<Leader>f", function()
-		hop.hint_char2()
-	end, { remap = true })
-	vim.keymap.set("", "<Leader>t", function()
-		hop.hint_char2({ hint_offset = -1 })
-	end, { remap = true })
-end
-
 return {
 	"smoka7/hop.nvim",
 	config = true,
-	init = init,
+	keys = {
+		{
+			"<leader>f",
+			function()
+				local hop = require("hop")
+				hop.hint_char2()
+			end,
+			mode = {
+				"v",
+				"n",
+			},
+			desc = "Hop 2 characters",
+		},
+	},
 }

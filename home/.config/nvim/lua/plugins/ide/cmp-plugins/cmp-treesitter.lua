@@ -1,1 +1,1 @@
-return { "ray-x/cmp-treesitter", cond = not VSCODE }
+return { "ray-x/cmp-treesitter", cond = not VSCODE, event = "VeryLazy" }

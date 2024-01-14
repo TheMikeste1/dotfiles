@@ -42,6 +42,7 @@ local function config()
 				menu = {
 					async_path = "[Path]",
 					buffer = "[Buffer]",
+					bufferlines = "[BufferLine]",
 					ctags = "[CTags]",
 					doxygen = "[Doxygen]",
 					dynamic = "[Dynamic]",
@@ -52,6 +53,7 @@ local function config()
 					plugins = "[Plug]",
 					spell = "[Spell]",
 					treesitter = "[Tree]",
+					vsnip = "[Snip]",
 				},
 				maxwidth = 50,
 				ellipsis_char = "...",

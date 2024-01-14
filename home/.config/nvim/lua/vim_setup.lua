@@ -19,7 +19,7 @@ else
 end
 
 -- Set GUI colors if in the terminal
-if vim.fn.has("termguicolors") and not VSCODE then
+if not VSCODE and vim.fn.has("termguicolors") then
 	vim.opt.termguicolors = true
 end
 

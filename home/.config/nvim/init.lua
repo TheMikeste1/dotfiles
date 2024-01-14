@@ -27,4 +27,3 @@ require("vim_setup")
 require("plugin_setup")
 require("keymap")
 require("configure_theme")
-

@@ -16,9 +16,9 @@ end
 
 local function autoload()
 	vim.api.nvim_create_autocmd({ "VimEnter" }, {
-		callback = function ()
-      require("session_manager").load_current_dir_session(true)
-    end,
+		callback = function()
+			require("session_manager").load_current_dir_session(true)
+		end,
 	})
 end
 
@@ -49,7 +49,7 @@ return {
 	config = function()
 		configure()
 		autosave()
-    autoload()
+		autoload()
 	end,
 	dependencies = {
 		"nvim-lua/plenary.nvim",

@@ -1,9 +1,14 @@
-return { 
-  "folke/neodev.nvim",
-  cond = not VSCODE,
-  opts = {},
-  dependencies = {
-    "neovim/nvim-lspconfig",
-    "hrsh7th/nvim-cmp"
-  }
+return {
+	"folke/neodev.nvim",
+	cond = not VSCODE,
+	opts = {},
+	config = function()
+		require("neodev").setup({
+			library = { plugins = { "nvim-dap-ui" }, types = true },
+		})
+	end,
+	dependencies = {
+		"neovim/nvim-lspconfig",
+		"hrsh7th/nvim-cmp",
+	},
 }

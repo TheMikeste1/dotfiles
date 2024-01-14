@@ -16,23 +16,23 @@ end
 InitializePlugins()
 
 local plugin_folders = {
-  { import = "plugins" },
-  { import = "plugins.ide" },
-  { import = "plugins.ide.cmp-plugins" },
-  { import = "plugins.ide.dap-adapters" },
-  { import = "plugins.ide.treesitter-extensions" },
-  { import = "plugins.languages" },
-  { import = "themes" },
+	{ import = "plugins" },
+	{ import = "plugins.ide" },
+	{ import = "plugins.ide.cmp-plugins" },
+	{ import = "plugins.ide.dap-adapters" },
+	{ import = "plugins.ide.treesitter-extensions" },
+	{ import = "plugins.languages" },
+	{ import = "themes" },
 }
 
 local options = {
-  checker = {
-    -- automatically check for plugin updates
-    enabled = true,
-  },
-  change_detection = {
-    notify = false
-  }
+	checker = {
+		-- automatically check for plugin updates
+		enabled = true,
+	},
+	change_detection = {
+		notify = false,
+	},
 }
 
 require("lazy").setup(plugin_folders, options)

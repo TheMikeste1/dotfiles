@@ -8,7 +8,7 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 -- More undos
-vim.opt.undodir = os.getenv("HOME").."/.vim/undodir"
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
 -- Use system clipboard
@@ -48,4 +48,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
-

@@ -1,4 +1,4 @@
 return {
-  "kosayoda/nvim-lightbulb",
-  cond = not VSCODE
+	"kosayoda/nvim-lightbulb",
+	cond = not VSCODE,
 }

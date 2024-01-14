@@ -21,7 +21,7 @@ local function config()
 		},
 		routes = {
 			{
-        -- NeoVim messages
+				-- NeoVim messages
 				filter = {
 					any = {
 						{
@@ -36,7 +36,7 @@ local function config()
 							event = "msg_show",
 							find = "fewer line",
 						},
-            {
+						{
 							event = "msg_show",
 							find = "line less",
 						},

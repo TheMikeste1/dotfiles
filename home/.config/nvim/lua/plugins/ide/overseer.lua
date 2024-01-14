@@ -1,4 +1,4 @@
 return {
-  "stevearc/overseer.nvim",
-  cond = not VSCODE
+	"stevearc/overseer.nvim",
+	cond = not VSCODE,
 }

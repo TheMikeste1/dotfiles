@@ -1,4 +1,4 @@
 return {
-  {import = "plugins.languages.cmake"},
-  {import = "plugins.languages.rust"}
+	{ import = "plugins.languages.cmake" },
+	{ import = "plugins.languages.rust" },
 }

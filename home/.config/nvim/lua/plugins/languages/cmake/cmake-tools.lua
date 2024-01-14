@@ -1,7 +1,7 @@
 return {
-  "Civitasv/cmake-tools.nvim",
-  cond = not VSCODE,
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-  }
+	"Civitasv/cmake-tools.nvim",
+	cond = not VSCODE,
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+	},
 }

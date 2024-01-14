@@ -1,5 +1,5 @@
 return {
-  "hrsh7th/cmp-buffer",
-  cond = not VSCODE,
+	"hrsh7th/cmp-buffer",
+	cond = not VSCODE,
 	event = "VeryLazy",
 }

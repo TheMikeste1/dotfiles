@@ -21,23 +21,71 @@ local function config()
 		},
 		routes = {
 			{
+        -- NeoVim messages
 				filter = {
-					event = "msg_show",
-					kind = "",
-					find = "written",
+					any = {
+						{
+							event = "msg_show",
+							find = "written",
+						},
+						{
+							event = "msg_show",
+							find = "more line",
+						},
+						{
+							event = "msg_show",
+							find = "fewer line",
+						},
+            {
+							event = "msg_show",
+							find = "line less",
+						},
+						{
+							event = "msg_show",
+							find = "lines yanked",
+						},
+					},
+				},
+				opts = { skip = true },
+			},
+			{
+				-- Hop
+				filter = {
+					any = {
+						{
+							event = "msg_show",
+							kind = "echo",
+							find = "Hop",
+						},
+						{
+							event = "msg_show",
+							kind = "echomsg",
+							find = " -> there’s no such thing",
+						},
+						{
+							event = "msg_show",
+							kind = "echomsg",
+							find = "no remaining sequence starts with",
+						},
+						{
+							event = "msg_show",
+							kind = "echomsg",
+							find = "-> empty pattern",
+						},
+					},
 				},
 				opts = { skip = true },
 			},
 		},
-    views = {
-      mini = {
-        position = {
-          -- row = 0
-        },
-        timeout = 1000,
-        zindex = 25,
-      }
-    },
+		views = {
+			mini = {
+				position = {
+					-- row = 0
+				},
+				timeout = 1000,
+				zindex = 25,
+			},
+		},
 	})
 end
 

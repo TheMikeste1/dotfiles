@@ -28,3 +28,11 @@ vim.cmd([[
     highlight QuickScopePrimary   guifg='#a6f25a' gui=underline ctermfg=155 cterm=underline
     highlight QuickScopeSecondary guifg='#5af2f2' gui=underline ctermfg=81  cterm=underline
   ]])
+
+-- Sign column
+-- We'll steal the background from the number line and use it as our background color
+-- There might be a better way to do this, but I don't know what that would be.
+local number_backgroud = vim.api.nvim_get_hl_by_name("LineNr", true).background
+local number_background_string = string.format("#%06x", number_backgroud)
+vim.api.nvim_set_hl(0, "MarkSignHL", { fg="red", bg=number_background_string })
+

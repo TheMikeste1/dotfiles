@@ -13,18 +13,6 @@ vim.opt.undofile = true
 
 -- Use system clipboard
 if vim.fn.has("unamedplus") then
-	vim.g.clipboard = {
-		name = "xsel",
-		copy = {
-			["+"] = "xsel --nodetach -i -b",
-			["*"] = "xsel --nodetach -i -p",
-		},
-		paste = {
-			["+"] = "xsel  -o -b",
-			["*"] = "xsel  -o -b",
-		},
-		cache_enabled = 1,
-	}
 	vim.opt.clipboard = "unnamedplus"
 else
 	vim.opt.clipboard = "unnamed"

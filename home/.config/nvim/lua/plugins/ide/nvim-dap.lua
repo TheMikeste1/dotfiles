@@ -102,5 +102,31 @@ return {
 			},
 			desc = "Set logpoint",
 		},
+		{
+			"<space>dp",
+			function()
+				require("dap.ui.widgets").preview()
+			end,
+			mode = { "n", "v" },
+			desc = "Preview line execution",
+		},
+		{
+			"<space>df",
+			function()
+				local widgets = require("dap.ui.widgets")
+				widgets.centered_float(widgets.frames)
+			end,
+			mode = "n",
+			desc = "View current frame stack",
+		},
+		{
+			"<space>ds",
+			function()
+				local widgets = require("dap.ui.widgets")
+				widgets.centered_float(widgets.scopes)
+			end,
+			mode = "n",
+			desc = "View scopes",
+		},
 	},
 }

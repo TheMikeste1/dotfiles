@@ -1,6 +1,7 @@
 local function config()
 	require("neoconf")
 	require("configs.lsp.clangd").setup()
+	require("configs.lsp.cmake").setup()
 	require("configs.lsp.lua_ls").setup()
 	require("configs.lsp.pyright").setup()
 

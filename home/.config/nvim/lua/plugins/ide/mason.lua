@@ -14,6 +14,9 @@ return {
 	opt = {
 		ensure_installed = {
 			"clangd",
+      "cmakelang",
+      "cmakelint",
+      "neocmakelsp",
 			"lua_ls",
 			"pyright",
 		},

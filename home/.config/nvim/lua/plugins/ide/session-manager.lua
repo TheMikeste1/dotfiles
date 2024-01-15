@@ -17,6 +17,13 @@ end
 local function autoload()
 	vim.api.nvim_create_autocmd({ "VimEnter" }, {
 		callback = function()
+			if vim.fn.argc() == 1 then
+				-- If a file is provided, don't load the session
+				if not IsDirectory(vim.fn.argv()[1]) then
+					return
+				end
+			end
+
 			require("session_manager").load_current_dir_session(true)
 		end,
 	})

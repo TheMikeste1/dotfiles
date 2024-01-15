@@ -3,5 +3,104 @@ return {
 	"mfussenegger/nvim-dap",
 	cond = not VSCODE,
 	config = function() end,
-	event = "VeryLazy",
+	keys = {
+		{
+			"<F9>",
+			function()
+				require("dap").toggle_breakpoint()
+			end,
+			mode = {
+				"v",
+				"n",
+				"i",
+			},
+			desc = "Toggle breakpoint",
+		},
+		{
+			"<F5>",
+			function()
+				require("dap").continue()
+			end,
+			mode = {
+				"v",
+				"n",
+				"i",
+			},
+			desc = "Continue debug",
+		},
+		{
+			"<F10>",
+			function()
+				require("dap").step_over()
+			end,
+			mode = {
+				"v",
+				"n",
+				"i",
+			},
+			desc = "Step over",
+		},
+		{
+			"<F11>",
+			function()
+				require("dap").step_into()
+			end,
+			mode = {
+				"v",
+				"n",
+				"i",
+			},
+			desc = "Step into",
+		},
+		{
+			"<F12>",
+			function()
+				require("dap").step_out()
+			end,
+			mode = {
+				"v",
+				"n",
+				"i",
+			},
+			desc = "Step out",
+		},
+		{
+			"<F21>", -- <S-F9>
+			function()
+				vim.fn.inputsave()
+				local condition = vim.fn.input({
+					prompt = "Condition: ",
+				})
+				vim.fn.inputrestore()
+				if condition ~= "" then
+					require("dap").set_breakpoint(condition)
+				end
+			end,
+			mode = {
+				"v",
+				"n",
+				"i",
+			},
+			desc = "Set conditional breakpoint",
+		},
+		{
+			"<F57>", -- <C-F9>
+			function()
+				vim.fn.inputsave()
+				local log = vim.fn.input({
+					prompt = "Log: ",
+				})
+				vim.fn.inputrestore()
+				if log ~= "" then
+					require("dap").set_breakpoint(nil, nil, log)
+				end
+			end,
+			mode = {
+				"v",
+				"n",
+				"i",
+			},
+			desc = "Set logpoint",
+		},
+	},
 }

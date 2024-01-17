@@ -2,7 +2,7 @@ if VSCODE then
 	return
 end
 
-local theme = "darcula"
+local theme = "sonokai"
 
 vim.api.nvim_create_autocmd({ "ColorScheme" }, {
 	callback = function()

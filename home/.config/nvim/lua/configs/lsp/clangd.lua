@@ -5,6 +5,10 @@ function mod.setup()
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 	lspconfig.clangd.setup({
 		capabilities = capabilities,
+		cmd = {
+			"clangd",
+			"--offset-encoding=utf-16",
+		},
 	})
 end
 

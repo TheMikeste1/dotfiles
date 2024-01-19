@@ -38,8 +38,10 @@ local function config()
 		end,
 		formatting = {
 			format = lspkind.cmp_format({
-				mode = "symbol_text",
+				ellipsis_char = "...",
+				maxwidth = 50,
 				menu = {
+					copilot = "[Copilot]",
 					async_path = "[Path]",
 					buffer = "[Buffer]",
 					bufferlines = "[BufferLine]",
@@ -55,11 +57,8 @@ local function config()
 					treesitter = "[Tree]",
 					vsnip = "[Snip]",
 				},
-				maxwidth = 50,
-				ellipsis_char = "...",
-				before = function(entry, vim_item)
-					return vim_item
-				end,
+				mode = "symbol_text",
+        symbol_map = { Copilot = "" }
 			}),
 		},
 		snippet = {
@@ -85,6 +84,7 @@ local function config()
     preselect = cmp.PreselectMode.None,
 		sources = cmp.config.sources({
 			-- { name = 'nvim_lsp_signature_help' },
+			{ name = "copilot" },
 			{ name = "ctags" },
 			{ name = "omni" },
 			{ name = "nvim_lsp" },

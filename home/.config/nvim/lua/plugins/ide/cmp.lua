@@ -36,6 +36,9 @@ local function config()
 		enabled = function()
 			return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
 		end,
+		experimental = {
+			ghost_text = true,
+		},
 		formatting = {
 			format = lspkind.cmp_format({
 				ellipsis_char = "...",
@@ -58,7 +61,7 @@ local function config()
 					vsnip = "[Snip]",
 				},
 				mode = "symbol_text",
-        symbol_map = { Copilot = "" }
+				symbol_map = { Copilot = "" },
 			}),
 		},
 		snippet = {
@@ -72,7 +75,13 @@ local function config()
 			documentation = cmp.config.window.bordered(),
 		},
 		mapping = cmp.mapping.preset.insert({
-			["<C-Space>"] = cmp.mapping.complete(),
+			["<C-Space>"] = cmp.mapping(function()
+				cmp.complete()
+			end, { "i", "c" }),
+			["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+			["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+			["<M-p>"] = cmp.mapping.scroll_docs(-4),
+			["<M-n>"] = cmp.mapping.scroll_docs(4),
 			["<C-e>"] = cmp.mapping.abort(),
 			["<TAB>"] = cmp.mapping(on_tab, { "i", "s", "c" }),
 			["<CR>"] = cmp.mapping({
@@ -81,13 +90,13 @@ local function config()
 				c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
 			}),
 		}),
-    preselect = cmp.PreselectMode.None,
+		preselect = cmp.PreselectMode.None,
 		sources = cmp.config.sources({
 			-- { name = 'nvim_lsp_signature_help' },
 			{ name = "copilot" },
 			{ name = "ctags" },
 			{ name = "omni" },
-			{ name = "nvim_lsp" },
+			{ name = "nvim_lsp", max_item_count = 10 },
 			{ name = "treesitter", max_item_count = 5 },
 			{ name = "vsnip", max_item_count = 5 },
 		}, {
@@ -101,7 +110,7 @@ local function config()
 		}),
 	})
 
-	-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won"t work anymore).
+	-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 	cmp.setup.cmdline({ "/", "?" }, {
 		mapping = cmp.mapping.preset.cmdline(),
 		sources = cmp.config.sources({
@@ -111,12 +120,17 @@ local function config()
 		}),
 	})
 
-	-- Use cmdline & path source for ":" (if you enabled `native_menu`, this won"t work anymore).
+	-- Use cmdline & path source for ":" (if you enabled `native_menu`, this won't work anymore).
 	cmp.setup.cmdline(":", {
 		mapping = cmp.mapping.preset.cmdline(),
+		completion = {
+			autocomplete = false,
+		},
 		sources = cmp.config.sources({
+			{ name = "cmdline" },
 			{ name = "nvim_lsp_document_symbol" },
-		}, { { name = "path" } }, { { name = "cmdline" } }),
+			{ name = "path" },
+		}),
 	})
 
 	require("configs.cmp.dap").sources()

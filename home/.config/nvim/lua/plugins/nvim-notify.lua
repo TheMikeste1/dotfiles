@@ -5,7 +5,7 @@ return {
 		max_width = 36,
 		minimum_width = 8,
 		render = "wrapped-compact",
-		timeout = 1000,
+		timeout = 2000,
 		top_down = false,
 	},
 }

@@ -82,6 +82,7 @@ local function config()
 				c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
 			}),
 		}),
+    preselect = cmp.PreselectMode.None,
 		sources = cmp.config.sources({
 			-- { name = 'nvim_lsp_signature_help' },
 			{ name = "ctags" },

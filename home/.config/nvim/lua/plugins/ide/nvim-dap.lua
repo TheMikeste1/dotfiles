@@ -7,7 +7,7 @@ return {
 		{
 			"<F9>",
 			function()
-				require("dap").toggle_breakpoint()
+				require("persistent-breakpoints.api").toggle_breakpoint()
 			end,
 			mode = {
 				"v",
@@ -67,14 +67,15 @@ return {
 		{
 			"<F21>", -- <S-F9>
 			function()
-				vim.fn.inputsave()
-				local condition = vim.fn.input({
-					prompt = "Condition: ",
-				})
-				vim.fn.inputrestore()
-				if condition ~= "" then
-					require("dap").set_breakpoint(condition)
-				end
+				-- vim.fn.inputsave()
+				-- local condition = vim.fn.input({
+				-- 	prompt = "Condition: ",
+				-- })
+				-- vim.fn.inputrestore()
+				-- if condition ~= "" then
+				-- 	require("dap").set_breakpoint(condition)
+				-- end
+				require("persistent-breakpoints.api").set_conditional_breakpoint()
 			end,
 			mode = {
 				"v",

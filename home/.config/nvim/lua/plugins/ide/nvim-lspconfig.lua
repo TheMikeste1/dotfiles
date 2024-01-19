@@ -4,6 +4,7 @@ local function config()
 	require("configs.lsp.cmake").setup()
 	require("configs.lsp.lua_ls").setup()
 	require("configs.lsp.pyright").setup()
+	require("configs.lsp.rust").setup()
 
 	-- Global mappings.
 	-- See `:help vim.diagnostic.*` for documentation on any of the below functions

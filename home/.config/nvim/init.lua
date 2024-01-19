@@ -16,11 +16,7 @@ if vim.fn.argc() == 1 then
 		vim.fn.mkdir(path, "p")
 	end
 
-	-- If a directory is provided as the argument, open it in the current window
-	if IsDirectory(vim.fn.argv()[1]) then
-		-- enew opens a new buffer in the current window so file explorer's don't need to open the directory twice
-		vim.cmd("cd " .. vim.fn.argv()[1] .. " | enew")
-	end
+  vim.cmd("cd %:h")
 end
 
 require("vim_setup")

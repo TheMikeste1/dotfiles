@@ -1,6 +1,6 @@
 return {
 	"stevearc/conform.nvim",
-	cond = not VSCODE,
+
 	event = { "BufWritePre" },
 	cmd = { "ConformInfo" },
 	keys = {

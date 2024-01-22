@@ -1,5 +1,6 @@
 return {
 	"RRethy/nvim-treesitter-textsubjects",
+	cond = true,
 	config = function()
 		require("nvim-treesitter.configs").setup({
 			textsubjects = {

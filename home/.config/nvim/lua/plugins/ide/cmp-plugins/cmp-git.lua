@@ -1,6 +1,6 @@
 return {
 	"petertriho/cmp-git",
-	cond = not VSCODE,
+
 	ft = {
 		"git",
 	},

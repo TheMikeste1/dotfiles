@@ -141,7 +141,7 @@ end
 
 return {
 	"hrsh7th/nvim-cmp",
-	cond = not VSCODE,
+
 	config = config,
 	event = { "InsertEnter", "CmdlineEnter" },
 	dependencies = {

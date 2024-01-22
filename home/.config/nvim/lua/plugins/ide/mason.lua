@@ -1,6 +1,6 @@
 return {
 	"williamboman/mason.nvim",
-	cond = not VSCODE,
+
 	lazy = false,
 	config = function(_, opts)
 		require("mason").setup(opts)
@@ -8,7 +8,7 @@ return {
 		-- custom nvchad cmd to install all mason binaries listed https://github.com/NvChad/NvChad/blob/c80f3f0501800d02b0085ecc1f79bfc64327d01e/lua/plugins/init.lua#L137
 		vim.api.nvim_create_user_command("MasonInstallAll", function()
 			vim.inspect(vim.g.mason_binaries_list)
-      if opts.ensure_installed and #opts.ensure_installed > 0 then
+			if opts.ensure_installed and #opts.ensure_installed > 0 then
 				vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
 			end
 		end, {})
@@ -17,17 +17,17 @@ return {
 	end,
 	opts = {
 		ensure_installed = {
-      -- C++
+			-- C++
 			"clangd",
 			"clang-format",
 			"codelldb",
-      -- CMake
+			-- CMake
 			"cmakelang",
 			"cmakelint",
 			"neocmakelsp",
-      -- Lua
+			-- Lua
 			"lua-language-server",
-      -- Python
+			-- Python
 			"pyright",
 			"debugpy",
 		},

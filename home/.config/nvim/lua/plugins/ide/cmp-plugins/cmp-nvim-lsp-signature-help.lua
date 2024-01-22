@@ -1,1 +1,5 @@
-return { "hrsh7th/cmp-nvim-lsp-signature-help", cond = not VSCODE, event = "VeryLazy" }
+return {
+	"hrsh7th/cmp-nvim-lsp-signature-help",
+
+	event = "VeryLazy",
+}

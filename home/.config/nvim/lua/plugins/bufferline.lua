@@ -1,6 +1,6 @@
 return {
 	"akinsho/bufferline.nvim",
-	cond = not VSCODE,
+
 	opts = {
 		options = {
 			diagnostics = "nvim_lsp",

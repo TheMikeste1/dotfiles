@@ -1,6 +1,6 @@
 return {
 	"zbirenbaum/copilot.lua",
-	cond = not VSCODE,
+
 	cmd = "Copilot",
 	event = "InsertEnter",
 	config = function()
@@ -12,7 +12,3 @@ return {
 }
 
 -- Print hello world
-
-
-
-

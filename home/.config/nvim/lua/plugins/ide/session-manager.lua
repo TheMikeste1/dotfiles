@@ -17,7 +17,6 @@ end
 local function autoload()
 	vim.api.nvim_create_autocmd({ "VimEnter" }, {
 		callback = function()
-      print(vim.fn.argc())
 			if vim.fn.argc() == 0 then
 				-- Do nothing if no file is provided; relay on the dashboard
 				return
@@ -57,7 +56,7 @@ end
 
 return {
 	"Shatur/neovim-session-manager",
-	cond = not VSCODE,
+
 	config = function()
 		configure()
 		autosave()

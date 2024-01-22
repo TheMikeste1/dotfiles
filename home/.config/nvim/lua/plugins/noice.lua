@@ -91,7 +91,7 @@ end
 
 return {
 	"folke/noice.nvim",
-	cond = not VSCODE,
+
 	event = "VeryLazy",
 	opts = {
 		-- add any options here

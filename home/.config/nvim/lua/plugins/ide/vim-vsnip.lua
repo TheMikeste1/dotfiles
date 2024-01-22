@@ -1,1 +1,5 @@
-return { "hrsh7th/vim-vsnip", cond = not VSCODE, event = "VeryLazy" }
+return {
+	"hrsh7th/vim-vsnip",
+
+	event = "VeryLazy",
+}

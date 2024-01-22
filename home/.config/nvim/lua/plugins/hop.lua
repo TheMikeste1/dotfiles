@@ -1,5 +1,6 @@
 return {
 	"smoka7/hop.nvim",
+	cond = true,
 	config = true,
 	keys = {
 		{

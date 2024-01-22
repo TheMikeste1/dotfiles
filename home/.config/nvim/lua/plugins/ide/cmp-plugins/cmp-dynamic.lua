@@ -1,1 +1,5 @@
-return { "uga-rosa/cmp-dynamic", cond = not VSCODE, event = "VeryLazy" }
+return {
+	"uga-rosa/cmp-dynamic",
+
+	event = "VeryLazy",
+}

@@ -1,6 +1,6 @@
 return {
-  "mrcjkb/rustaceanvim",
-  version = "^3",
-  cond = not VSCODE,
-  ft = { "rust" },
+	"mrcjkb/rustaceanvim",
+	version = "^3",
+
+	ft = { "rust" },
 }

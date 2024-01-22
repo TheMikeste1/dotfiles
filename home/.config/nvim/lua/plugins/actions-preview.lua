@@ -1,6 +1,6 @@
 return {
 	"aznhe21/actions-preview.nvim",
-	cond = not VSCODE,
+
 	keys = {
 		{
 			"<C-N>", -- <C-.> is being sent as ^N

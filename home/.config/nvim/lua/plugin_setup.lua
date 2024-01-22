@@ -33,6 +33,9 @@ local options = {
 	change_detection = {
 		notify = false,
 	},
+	default = {
+    cond = not VSCODE,
+  },
 }
 
 require("lazy").setup(plugin_folders, options)

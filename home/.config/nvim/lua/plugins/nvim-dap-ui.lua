@@ -1,6 +1,6 @@
 return {
 	"rcarriga/nvim-dap-ui",
-	cond = not VSCODE,
+
 	config = function()
 		local dap, dapui = require("dap"), require("dapui")
 		dapui.setup()

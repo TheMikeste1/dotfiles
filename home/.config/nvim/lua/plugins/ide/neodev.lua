@@ -1,6 +1,6 @@
 return {
 	"folke/neodev.nvim",
-	cond = not VSCODE,
+
 	opts = {},
 	config = function()
 		require("neodev").setup({

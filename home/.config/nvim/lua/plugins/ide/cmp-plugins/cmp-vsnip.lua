@@ -1,1 +1,5 @@
-return { "hrsh7th/cmp-vsnip", cond = not VSCODE, event = "VeryLazy" }
+return {
+	"hrsh7th/cmp-vsnip",
+
+	event = "VeryLazy",
+}

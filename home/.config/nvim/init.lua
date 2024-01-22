@@ -16,7 +16,7 @@ if vim.fn.argc() == 1 then
 		vim.fn.mkdir(path, "p")
 	end
 
-  vim.cmd("cd %:h")
+	vim.cmd("cd %:h")
 end
 
 require("vim_setup")

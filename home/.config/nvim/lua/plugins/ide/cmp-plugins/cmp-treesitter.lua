@@ -1,1 +1,5 @@
-return { "ray-x/cmp-treesitter", cond = not VSCODE, event = "VeryLazy" }
+return {
+	"ray-x/cmp-treesitter",
+
+	event = "VeryLazy",
+}

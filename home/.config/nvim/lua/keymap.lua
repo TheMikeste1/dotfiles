@@ -9,4 +9,3 @@ vim.api.nvim_set_keymap("n", "<C-Up>", "<C-w>+", { noremap = true })
 vim.api.nvim_set_keymap("n", "<C-Down>", "<C-w>-", { noremap = true })
 vim.api.nvim_set_keymap("n", "<C-Left>", "<C-w><", { noremap = true })
 vim.api.nvim_set_keymap("n", "<C-Right>", "<C-w>>", { noremap = true })
-

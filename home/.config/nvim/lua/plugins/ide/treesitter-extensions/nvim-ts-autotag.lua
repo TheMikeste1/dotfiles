@@ -1,6 +1,6 @@
 return {
 	"windwp/nvim-ts-autotag",
-	cond = not VSCODE,
+	cond = true,
 	ft = {
 		"astro",
 		"glimmer",

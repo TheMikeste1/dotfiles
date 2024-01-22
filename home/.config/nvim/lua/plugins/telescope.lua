@@ -8,7 +8,7 @@ end
 
 return {
 	"nvim-telescope/telescope.nvim",
-	cond = not VSCODE,
+
 	dependencies = { "nvim-lua/plenary.nvim" },
 	init = init,
 }

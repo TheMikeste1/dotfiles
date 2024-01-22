@@ -7,7 +7,7 @@ end
 
 return {
 	"akinsho/toggleterm.nvim",
-	cond = not VSCODE,
+
 	config = config,
 	event = "VeryLazy",
 }

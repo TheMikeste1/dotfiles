@@ -42,7 +42,7 @@ end
 
 return {
 	"neovim/nvim-lspconfig",
-	cond = not VSCODE,
+
 	config = config,
 	dependencies = {
 		"williamboman/mason.nvim",

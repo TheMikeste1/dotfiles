@@ -17,11 +17,16 @@ end
 local function autoload()
 	vim.api.nvim_create_autocmd({ "VimEnter" }, {
 		callback = function()
-			if vim.fn.argc() == 1 then
-				-- If a file is provided, don't load the session
-				if not IsDirectory(vim.fn.argv()[1]) then
-					return
-				end
+      print(vim.fn.argc())
+			if vim.fn.argc() == 0 then
+				-- Do nothing if no file is provided; relay on the dashboard
+				return
+			end
+
+			-- If a file is provided, don't load the session
+			-- However, load the session if a directory is provided
+			if not IsDirectory(vim.fn.expand("%:p:h")) then
+				return
 			end
 
 			require("session_manager").load_current_dir_session(true)
@@ -36,7 +41,7 @@ local function configure()
 		sessions_dir = Path:new(vim.fn.stdpath("data"), "sessions"), -- The directory where the session files will be saved.
 		session_filename_to_dir = session_filename_to_dir, -- Function that replaces symbols into separators and colons to transform filename into a session directory.
 		dir_to_session_filename = dir_to_session_filename, -- Function that replaces separators and colons into special symbols to transform session directory into a filename. Should use `vim.loop.cwd()` if the passed `dir` is `nil`.
-		autoload_mode = config.AutoloadMode.CurrentDir, -- Define what to do when Neovim is started without arguments. Possible values: Disabled, CurrentDir, LastSession
+		autoload_mode = config.AutoloadMode.Disabled, -- Define what to do when Neovim is started without arguments. Possible values: Disabled, CurrentDir, LastSession
 		autosave_last_session = true, -- Automatically save last session on exit and on session switch.
 		autosave_ignore_not_normal = true, -- Plugin will not save a session when no buffers are opened, or all of them aren't writable or listed.
 		autosave_ignore_dirs = {}, -- A list of directories where the session will not be autosaved.

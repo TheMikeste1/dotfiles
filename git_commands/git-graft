@@ -18,6 +18,7 @@ if [ -z "$fork_point" ]; then
     fi
 fi
 
+set -e
 git rebase --onto "$onto" "$fork_point" "$graftee"
 git branch -f "$graftee"
 git switch "$graftee"

@@ -33,7 +33,7 @@ local options = {
 	change_detection = {
 		notify = false,
 	},
-	default = {
+	defaults = {
     cond = not VSCODE,
   },
 }

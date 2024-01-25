@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+export BROWSER=wslview
 # C# tools
 export PATH="$PATH:$HOME/.dotnet/tools"
 

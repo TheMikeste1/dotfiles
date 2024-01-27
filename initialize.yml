@@ -128,8 +128,28 @@
     - name: Set fish as default shell
       become: true
       ansible.builtin.user:
-        name: "{{ ansible_user }}"
+        name: "{{ ansible_user_id }}"
         shell: /usr/bin/fish
       tags:
         - fish
 
+    - name: Pull NeoVim config
+      ansible.builtin.git:
+        repo: git@github.com:TheMikeste1/my-neovim.git
+        dest: ./home/.config/nvim
+
+    - name: Pull fish config
+      ansible.builtin.git:
+        repo: git@github.com:TheMikeste1/keeper-of-fish.sh.git
+        dest: ./home/.config/fish
+
+    - name: Pull git extensions
+      ansible.builtin.git:
+        repo: git@github.com:TheMikeste1/git-galaxy.git
+        dest: ./git_commands
+
+    # TODO: Replace this script entirely
+    # - name: Run Python initialization script
+    #   ansible.builtin.script: ./init.py 
+    #   args: 
+    #     chdir: "{{ playbook_dir }}"

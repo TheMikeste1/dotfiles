@@ -98,6 +98,7 @@
           - git-delta
           - exa
           - fd-find
+          - fzf
           - mise
           - ripgrep
           - starship

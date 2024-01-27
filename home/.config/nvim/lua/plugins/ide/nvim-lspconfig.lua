@@ -1,5 +1,6 @@
 local function config()
 	require("neoconf")
+	require("configs.lsp.ansible").setup()
 	require("configs.lsp.clangd").setup()
 	require("configs.lsp.cmake").setup()
 	require("configs.lsp.lua_ls").setup()

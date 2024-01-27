@@ -1,0 +1,134 @@
+- name: Initialize development environment
+  hosts: localhost
+
+  tasks:
+    - name: Install packages with apt
+      become: true
+      ansible.builtin.apt:
+        name:
+          - build-essential
+          - git
+          - tmux
+          - software-properties-common
+          - python3-pip
+          - python3-venv
+        state: present
+
+    - name: Add Kitware repository key
+      become: true
+      ansible.builtin.apt_key:
+        url: https://apt.kitware.com/keys/kitware-archive-latest.asc
+        state: present
+      tags:
+        - cmake
+
+    - name: Add Kitware repository for CMake
+      become: true
+      ansible.builtin.apt_repository:
+          repo: deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ jammy main
+          state: present
+          filename: kitware.list
+          mode: 0644
+          update_cache: yes
+      tags:
+        - cmake
+
+    - name: Install CMake
+      become: true
+      ansible.builtin.apt:
+        name:
+          - cmake
+        state: present
+      tags:
+        - cmake
+
+    - name: Add nightly Neovim PPA
+      become: true
+      ansible.builtin.apt_repository:
+        repo: ppa:neovim-ppa/unstable
+        state: present
+      tags:
+        - neovim
+
+    - name: Install Neovim
+      become: true
+      ansible.builtin.apt:
+        name:
+          - neovim
+          - python3-neovim
+        state: present
+      tags:
+        - neovim
+
+    - name: Check if Rust is installed
+      shell: command -v rustup
+      register: rust_installed
+      ignore_errors: yes
+      tags:
+        - rust
+
+    - name: Download Rust installer
+      when: rust_installed is failed
+      get_url:
+        url: https://sh.rustup.rs
+        dest: /tmp/sh.rustup.rs
+        mode: '0755'
+        force: 'yes'
+      tags:
+        - rust
+
+    - name: Install Rust
+      when: rust_installed is failed
+      shell: /tmp/sh.rustup.rs -y
+      tags:
+        - rust
+
+    - name: Install sccache to speed up Rust compilation
+      community.general.cargo:
+        name:
+          - sccache
+        state: present
+      tags:
+        - rust
+
+    - name: Install Rust packages
+      community.general.cargo:
+        name:
+          - bat
+          - git-delta
+          - exa
+          - fd-find
+          - mise
+          - ripgrep
+          - starship
+        state: present
+      environment:
+        RUSTC_WRAPPER: sccache
+      tags:
+        - rust
+
+    - name: Add fish PPA
+      become: true
+      ansible.builtin.apt_repository:
+        repo: ppa:fish-shell/release-3
+        state: present
+      tags:
+        - fish
+
+    - name: Install fish
+      become: true
+      ansible.builtin.apt:
+        name:
+          - fish
+        state: present
+      tags:
+        - fish
+
+    - name: Set fish as default shell
+      become: true
+      ansible.builtin.user:
+        name: "{{ ansible_user }}"
+        shell: /usr/bin/fish
+      tags:
+        - fish
+

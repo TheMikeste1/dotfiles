@@ -9,5 +9,5 @@ if ! [ -x "$(command -v ansible)" ]; then
     sudo apt install ansible
 fi
 
-ansible-playbook --ask-become-pass initialize.yml
+ansible-playbook --ask-become-pass initialize.yaml
 

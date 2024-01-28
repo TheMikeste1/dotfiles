@@ -1,0 +1,27 @@
+- name: Initialize Fish
+  hosts: localhost
+
+  tasks:
+    - name: Add Fish PPA
+      become: true
+      ansible.builtin.apt_repository:
+        repo: ppa:fish-shell/release-3
+        state: present
+
+    - name: Install Fish
+      become: true
+      ansible.builtin.apt:
+        name:
+          - fish
+        state: present
+
+    - name: Set Fish as default shell
+      become: true
+      ansible.builtin.user:
+        name: "{{ ansible_user_id }}"
+        shell: /usr/bin/fish
+
+    - name: Pull Fish config
+      ansible.builtin.git:
+        repo: git@github.com:TheMikeste1/keeper-of-fish.sh.git
+        dest: ../home/.config/fish

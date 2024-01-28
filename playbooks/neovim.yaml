@@ -1,0 +1,22 @@
+- name: Initialize NeoVim
+  hosts: localhost
+
+  tasks:
+    - name: Add nightly Neovim PPA
+      become: true
+      ansible.builtin.apt_repository:
+        repo: ppa:neovim-ppa/unstable
+        state: present
+
+    - name: Install Neovim
+      become: true
+      ansible.builtin.apt:
+        name:
+          - neovim
+          - python3-neovim
+        state: present
+
+    - name: Pull NeoVim config
+      ansible.builtin.git:
+        repo: git@github.com:TheMikeste1/my-neovim.git
+        dest: ../home/.config/nvim

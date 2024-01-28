@@ -10,7 +10,7 @@ export BROWSER=wslview
 export PATH="$PATH:$HOME/.dotnet/tools"
 
 # Enable GPG signing
-export GPG_TTY=$(tty)
+# export GPG_TTY=$(tty)  # Replaced with pinentry in gpg-agent.conf
 
 # Custom git commands
 export PATH="$PATH:$DOTFILES/git_commands"

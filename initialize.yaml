@@ -20,12 +20,6 @@
         repo: git@github.com:TheMikeste1/git-galaxy.git
         dest: ./git_commands
 
-    # TODO: Replace this script entirely
-    # - name: Run Python initialization script
-    #   ansible.builtin.script: ./init.py 
-    #   args: 
-    #     chdir: "{{ playbook_dir }}"
-
 - name: Setup CMake
   ansible.builtin.import_playbook: playbooks/cmake.yaml
   tags:
@@ -45,3 +39,13 @@
   ansible.builtin.import_playbook: playbooks/rust.yaml
   tags:
     - rust
+
+- name: Link
+  hosts: localhost
+
+  tasks:
+    # TODO: Replace this script entirely
+    - name: Run Python initialization script
+      ansible.builtin.script: ./init.py 
+      environment:
+        DOTFILES: "{{ playbook_dir }}"

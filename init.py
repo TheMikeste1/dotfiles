@@ -22,7 +22,8 @@ def get_list_of_files_and_directories(path: Path) -> List[Path]:
 
 def main():
     # Change into the repository's "home" directory
-    os.chdir("./home")
+    dotfiles_dir = os.getenv("DOTFILES")
+    os.chdir(f"{dotfiles_dir}/home")
 
     # Get the list of all the files and directories we want to symlink
     dotfile_paths = get_list_of_files_and_directories(Path("."))

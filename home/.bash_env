@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Initialize where the dotfiles are
+export DOTFILES="$HOME/.dotfiles"
+
 # Use WSLu for browser integration
 export BROWSER=wslview
 
@@ -10,7 +13,7 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 export GPG_TTY=$(tty)
 
 # Custom git commands
-export PATH="$PATH:$HOME/.dotfiles/git_commands"
+export PATH="$PATH:$DOTFILES/git_commands"
 
 # Ruby
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -26,7 +29,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export SSH_ENV="$HOME/.ssh/agent-environment"
 
 # Machine-specific env and overrides
-source ~/.local.bash_env 2>/dev/null
+source "$HOME/.local.bash_env" 2>/dev/null
 
 # `less` config
 # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/

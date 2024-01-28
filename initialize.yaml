@@ -9,6 +9,7 @@
           - build-essential
           - fzf
           - git
+          - ninja-build
           - tmux
           - software-properties-common
           - python3-pip

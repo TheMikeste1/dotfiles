@@ -21,7 +21,7 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 
 # Ninja by default
 command -v ninja >/dev/null && export CMAKE_GENERATOR=Ninja
-export NINJA_STATUS="[%f/%t %p%% :: %e] "
+export NINJA_STATUS="[%f/%t %p% :: %e] "
 
 # Python packages
 export PATH="$HOME/.local/bin:$PATH"

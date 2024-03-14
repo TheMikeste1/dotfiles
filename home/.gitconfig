@@ -9,6 +9,7 @@
 	navigate = true
 	light = false
 [diff]
+  algorithm = histogram
   colorMoved = default
   tool = vscode
 [difftool]

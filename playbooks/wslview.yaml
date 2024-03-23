@@ -1,0 +1,16 @@
+- name: Initialize WSL Utilities
+  hosts: localhost
+
+  tasks:
+    - name: Add WSLu PPA
+      become: true
+      ansible.builtin.apt_repository:
+        repo: ppa:wslutilities/wslu
+        state: present
+
+    - name: Install WSLu
+      become: true
+      ansible.builtin.apt:
+        name:
+          - wslu
+        state: present

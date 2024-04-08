@@ -6,6 +6,9 @@ export DOTFILES="$HOME/.dotfiles"
 # Use WSLu for browser integration
 export BROWSER=wslview
 
+# CMake
+export CMAKE_EXPORT_COMPILE_COMMANDS=ON
+
 # C# tools
 export PATH="$PATH:$HOME/.dotnet/tools"
 

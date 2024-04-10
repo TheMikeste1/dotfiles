@@ -40,3 +40,6 @@ source "$HOME/.local.bash_env" 2>/dev/null
 export LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4'
 
 export XDG_CONFIG_HOME="$HOME/.config"
+
+# Get access to NVim Mason executables
+export PATH="$PATH:$HOME/.local/share/nvim/mason/bin"

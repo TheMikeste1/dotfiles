@@ -8,6 +8,8 @@
 [delta]
 	navigate = true
 	light = false
+	line-numbers = true
+	side-by-side = true
 [diff]
   algorithm = histogram
   colorMoved = default

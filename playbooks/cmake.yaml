@@ -1,3 +1,4 @@
+---
 - name: Initialize CMake
   hosts: localhost
 

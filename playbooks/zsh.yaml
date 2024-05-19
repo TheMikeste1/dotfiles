@@ -1,0 +1,17 @@
+---
+- name: Initialize ZSH
+  hosts: localhost
+
+  tasks:
+    - name: Install Zsh
+      become: true
+      ansible.builtin.apt:
+        name:
+          - zsh
+        state: present
+
+    - name: Set Zsh as default shell
+      become: true
+      ansible.builtin.user:
+        name: "{{ ansible_user_id }}"
+        shell: /usr/bin/zsh

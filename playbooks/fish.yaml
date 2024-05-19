@@ -17,6 +17,7 @@
 
     - name: Set Fish as default shell
       become: true
+      when: false
       ansible.builtin.user:
         name: "{{ ansible_user_id }}"
         shell: /usr/bin/fish

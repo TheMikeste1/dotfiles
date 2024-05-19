@@ -46,12 +46,17 @@
   tags:
     - wsl
 
+- name: Setup Zsh
+  ansible.builtin.import_playbook: playbooks/zsh.yaml
+  tags:
+    - zsh
+
 - name: Link
   hosts: localhost
 
   tasks:
     # TODO: Replace this script entirely
     - name: Run Python initialization script
-      ansible.builtin.script: ./init.py 
+      ansible.builtin.script: ./init.py
       environment:
         DOTFILES: "{{ playbook_dir }}"

@@ -6,7 +6,7 @@ function explorer() {
     echo "couldn't find directory \"$1\"";
     return;
   fi;
-  explorer.exe .
+  /mnt/c/windows/explorer.exe .
   popd &> /dev/null || return;
 }
 

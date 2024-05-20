@@ -43,5 +43,8 @@ export XDG_CONFIG_HOME="$HOME/.config"
 # Get access to NVim Mason executables
 export PATH="$PATH:$HOME/.local/share/nvim/mason/bin"
 
+# No telemetry
+export DOTNET_CLI_TELEMETRY_OPTOUT="true"
+
 # Machine-specific env and overrides
 source "$HOME/.local.bash_env" 2>/dev/null

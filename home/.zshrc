@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -44,6 +51,10 @@ zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light olets/zsh-abbr
 zinit light Aloxaf/fzf-tab
+zinit ice depth"1"
+zinit light romkatv/powerlevel10k
+zinit ice depth=1
+zinit light jeffreytse/zsh-vi-mode
 
 # Add in snippets
 zinit snippet OMZP::sudo
@@ -55,10 +66,17 @@ autoload -Uz compinit && compinit
 zinit cdreplay -q
 
 # Keybindings
-bindkey -e
+bindkey -v
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
+bindkey -M vicmd '^[`' sudo-command-line
+bindkey -M viins '^[`' sudo-command-line
+# In Vi mode, we need these for abbr to work
+# <https://zsh-abbr.olets.dev/advanced.html#alternative-keymaps>
+bindkey -M viins " " abbr-expand-and-insert
+bindkey -M viins "^ " magic-space
+bindkey -M viins "^M" abbr-expand-and-accept
 
 # History
 HISTSIZE=5000
@@ -90,9 +108,9 @@ fi
 # Start SSH agent on launch
 ssh-activate
 
-eval "$(starship init zsh)"
 eval "$(mise activate zsh)"
 source <(fzf --zsh)
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 zinit light zsh-users/zsh-syntax-highlighting # Must be loaded last to load all completions
-

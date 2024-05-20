@@ -34,9 +34,6 @@ export SSH_ENV="$HOME/.ssh/agent-environment"
 export SSH_ASKPASS="/usr/lib/openssh/gnome-ssh-askpass"
 export SSH_ASKPASS_REQUIRE=prefer
 
-# Machine-specific env and overrides
-source "$HOME/.local.bash_env" 2>/dev/null
-
 # `less` config
 # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
 export LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4'
@@ -45,3 +42,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 
 # Get access to NVim Mason executables
 export PATH="$PATH:$HOME/.local/share/nvim/mason/bin"
+
+# Machine-specific env and overrides
+source "$HOME/.local.bash_env" 2>/dev/null

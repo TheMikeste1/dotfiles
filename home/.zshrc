@@ -55,6 +55,9 @@ zinit ice depth"1"
 zinit light romkatv/powerlevel10k
 zinit ice depth=1
 zinit light jeffreytse/zsh-vi-mode
+# Postpone loading fzf so it doesn't get messed up by vi mode
+zinit ice lucid wait
+zinit snippet OMZP::fzf
 
 # Add in snippets
 zinit snippet OMZP::sudo
@@ -72,6 +75,7 @@ bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
 bindkey -M vicmd '^[`' sudo-command-line
 bindkey -M viins '^[`' sudo-command-line
+
 # In Vi mode, we need these for abbr to work
 # <https://zsh-abbr.olets.dev/advanced.html#alternative-keymaps>
 bindkey -M viins " " abbr-expand-and-insert

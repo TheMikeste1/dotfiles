@@ -1,17 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# Set the directory we want to store zinit and plugins
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-
-if [[ -f "$HOME"/.bash_env ]]; then
-    source "$HOME"/.bash_env
-fi
-
 # TMUX autoconnect
 if [[ "$TMUX" = "" ]]; then
     # Automatically connect to the session
@@ -27,11 +13,25 @@ if [[ "$TMUX" = "" ]]; then
 
     if [[ "$default_session_state" = "" ]]; # Session does not exist
     then
-        tmux new -s default >/dev/null
+        exec tmux new -s default >/dev/null
     elif [[ "$default_session_state" = 0 ]]; # Session exists but is not attached
     then
-        tmux attach -t default
+        exec tmux attach -t default
     fi
+fi
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Set the directory we want to store zinit and plugins
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+if [[ -f "$HOME"/.bash_env ]]; then
+    source "$HOME"/.bash_env
 fi
 
 # Download Zinit, if it's not there yet

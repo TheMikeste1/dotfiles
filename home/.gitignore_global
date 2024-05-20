@@ -2,3 +2,4 @@
 .cppcheck/
 .vscode/
 compile_commands.json
+.mise.toml

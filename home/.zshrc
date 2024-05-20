@@ -73,6 +73,12 @@ bindkey -v
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
+
+# Replace sudo bindings so as to not slow down vi mode
+bindkey -M emacs -r '\e\e'
+bindkey -M vicmd -r '\e\e'
+bindkey -M viins -r '\e\e'
+bindkey -M emacs '^[`' sudo-command-line
 bindkey -M vicmd '^[`' sudo-command-line
 bindkey -M viins '^[`' sudo-command-line
 

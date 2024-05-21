@@ -1,3 +1,4 @@
+---
 - name: Initialize Fish
   hosts: localhost
 
@@ -26,3 +27,5 @@
       ansible.builtin.git:
         repo: git@github.com:TheMikeste1/keeper-of-fish.sh.git
         dest: ../home/.config/fish
+      tags:
+        - update

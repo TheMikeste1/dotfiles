@@ -1,3 +1,4 @@
+---
 - name: Initialize development environment
   hosts: localhost
 
@@ -20,6 +21,8 @@
       ansible.builtin.git:
         repo: git@github.com:TheMikeste1/git-galaxy.git
         dest: ./git_commands
+      tags:
+        - update
 
 - name: Setup CMake
   ansible.builtin.import_playbook: playbooks/cmake.yaml
@@ -53,10 +56,11 @@
 
 - name: Link
   hosts: localhost
-
   tasks:
     # TODO: Replace this script entirely
     - name: Run Python initialization script
       ansible.builtin.script: ./init.py
       environment:
         DOTFILES: "{{ playbook_dir }}"
+      tags:
+        - update

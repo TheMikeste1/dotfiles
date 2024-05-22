@@ -37,6 +37,8 @@
 	forceSignAnnotated = true
 [sequence]
 	editor = code --wait --reuse-window
+[rerere]
+	enabled = true
 
 [include]
   path = ~/.local.gitconfig

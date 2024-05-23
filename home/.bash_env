@@ -6,6 +6,9 @@ export DOTFILES="$HOME/.dotfiles"
 # Use WSLu for browser integration
 export BROWSER=wslview
 
+# Cargo
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # CMake
 export CMAKE_EXPORT_COMPILE_COMMANDS=ON
 

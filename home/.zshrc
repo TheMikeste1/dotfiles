@@ -49,6 +49,7 @@ source "${ZINIT_HOME}/zinit.zsh"
 # Add in zsh plugins
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
+ZSH_AUTOSUGGEST_USE_ASYNC=true
 zinit light olets/zsh-abbr
 zinit light Aloxaf/fzf-tab
 zinit ice depth"1"

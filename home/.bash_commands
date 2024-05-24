@@ -10,7 +10,7 @@ function explorer() {
 }
 
 function git() {
-  if command -v wslpath >/dev/null && wslpath -w . | grep -q '\\wsl'; then
+  if ! $(command -v wslpath >/dev/null) || wslpath -w . | grep -q '\\wsl'; then
     command git "$@"
   else
     echo "Windows path detected, using git.exe"

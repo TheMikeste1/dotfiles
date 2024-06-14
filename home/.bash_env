@@ -6,6 +6,8 @@ export DOTFILES="$HOME/.dotfiles"
 # Use WSLu for browser integration
 export BROWSER=wslview
 
+export EDITOR=nvim
+
 # Cargo
 export PATH="$HOME/.cargo/bin:$PATH"
 

@@ -115,7 +115,7 @@ setopt hist_find_no_dups
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # Set case insensitive
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview "ls --color \$realpath"
 zstyle ':fzf-tab:complete:git*:*' fzf-preview
 
 if [[ -f "$HOME"/.bash_commands ]]; then

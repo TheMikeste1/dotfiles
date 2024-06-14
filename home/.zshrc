@@ -135,19 +135,24 @@ source <(fzf --zsh)
 # TODO: Customize
 # Source: <https://www.reddit.com/r/zsh/comments/ass2tc/gitadd_completion_with_full_paths_listed_at_once/>
 __git_status_files() {
-  local -a status_files=( "${"${(0)"$(git status -z)"}"}" )
+  local -a status_files=( "${(0)"$(git status -z)"}" )
   local -a unstaged_files
   local -a staged_files
-  for entry in "$status_files"; do
-    local stts=$entry[1,3]
-    local file=$entry[4,-1]
+  for entry in "${status_files[@]}"; do
+    if [[ "${entry}" == '' ]];
+    then
+      continue
+    fi
 
-    if [[ $stts[2] != ' ' ]]
+    local stts="${entry[1,3]}"
+    local file="${entry[4,-1]}"
+
+    if [[ "${stts[2]}" != ' ' ]];
     then
       unstaged_files+=$file
     fi
 
-    if [[ $stts[1] != ' ' ]] && [[ $stts[1] != '?' ]]
+    if [[ "${stts[1]}" != ' ' ]] && [[ "${stts[1]}"  != '?' ]];
     then
       staged_files+=$file
     fi
@@ -174,7 +179,7 @@ __git_treeish-to-index_files() {
 }
 
 __git_other_files() {
-  true
+  return 0
 }
 
 zinit light zsh-users/zsh-syntax-highlighting # Must be loaded last to load all completions

@@ -1,11 +1,11 @@
 # TMUX autoconnect
 if [[ "$TMUX" = "" ]]; then
   # Automatically connect to the session
-  sessions=$(tmux ls -F "#{session_name}:#{session_attached}" 2> /dev/null)
-  for s in "${sessions[@]}";
+  sessions=($(tmux ls -F "#{session_name}:#{session_attached}" 2> /dev/null))
+  for session in "${sessions[@]}";
   do
-    parts=("${(s/:/)s}")
-    if [ "${parts[1]}" = "default" ]; then
+    parts=("${(s/:/)session}")
+    if [[ "${parts[1]}" = "default" ]]; then
       default_session_state=${parts[2]}
       break
     fi

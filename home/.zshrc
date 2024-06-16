@@ -20,15 +20,6 @@ if [[ "$TMUX" = "" ]]; then
   fi
 fi
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -52,12 +43,6 @@ zinit light zsh-users/zsh-autosuggestions
 ZSH_AUTOSUGGEST_USE_ASYNC=true
 zinit light olets/zsh-abbr
 zinit light Aloxaf/fzf-tab
-zinit ice depth"1"
-zinit light romkatv/powerlevel10k
-zinit ice depth=1
-
-zinit light jeffreytse/zsh-vi-mode
-ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
 
 # Postpone loading fzf so it doesn't get messed up by vi mode
 zinit ice lucid wait
@@ -74,9 +59,11 @@ zinit cdreplay -q
 
 
 # Keybindings
+bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
+bindkey '^l' autosuggest-accept
 
 # Vi insert
 bindkey -M viins -r '\e\e'
@@ -87,16 +74,16 @@ bindkey -M viins " " abbr-expand-and-insert
 bindkey -M viins "^ " magic-space
 bindkey -M viins "^M" abbr-expand-and-accept
 
-# Emacs
-bindkey -M emacs -r '\e\e'
-bindkey -M emacs '^[`' sudo-command-line
-
 # Vi normal/command and visual
 function zvm_after_lazy_keybindings() {
   # Replace sudo bindings so as to not slow down vi mode
   bindkey -M vicmd '^[`' sudo-command-line
   bindkey -M vicmd -r '\e\e'
 }
+
+# Emacs
+bindkey -M emacs -r '\e\e'
+bindkey -M emacs '^[`' sudo-command-line
 
 # History
 HISTSIZE=5000
@@ -129,6 +116,7 @@ fi
 # Start SSH agent on launch
 ssh-activate
 
+eval "$(oh-my-posh init zsh --config ~/.dotfiles/configs/oh-my-posh/theme_default.yaml)"
 eval "$(mise activate zsh)"
 source <(fzf --zsh)
 
@@ -181,5 +169,6 @@ __git_treeish-to-index_files() {
 __git_other_files() {
   return 0
 }
+
 
 zinit light zsh-users/zsh-syntax-highlighting # Must be loaded last to load all completions

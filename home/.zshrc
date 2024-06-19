@@ -84,6 +84,9 @@ function zvm_after_lazy_keybindings() {
 # Emacs
 bindkey -M emacs -r '\e\e'
 bindkey -M emacs '^[`' sudo-command-line
+bindkey -M emacs " " abbr-expand-and-insert
+bindkey -M emacs "^ " magic-space
+bindkey -M emacs "^M" abbr-expand-and-accept
 
 # History
 HISTSIZE=5000

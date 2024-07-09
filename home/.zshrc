@@ -27,6 +27,9 @@ zinit snippet OMZP::sudo
 zinit snippet OMZP::command-not-found
 
 # Load completions
+autoload -Uz compinit && compinit
+zinit cdreplay -q
+
 if [[ -f "$HOME"/.bash_aliases ]]; then
   source "$HOME"/.bash_aliases
 fi
@@ -35,9 +38,6 @@ eval "$(oh-my-posh init zsh --config ~/.dotfiles/configs/oh-my-posh/theme_defaul
 eval "$(mise activate zsh)"
 eval "$(mise completions zsh)"
 source <(fzf --zsh)
-
-autoload -Uz compinit && compinit
-zinit cdreplay -q
 
 zinit light zsh-users/zsh-syntax-highlighting # Must be loaded last to load all completions
 

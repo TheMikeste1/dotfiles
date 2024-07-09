@@ -1,31 +1,5 @@
-# TMUX autoconnect
-if [[ "$TMUX" = "" ]]; then
-  # Automatically connect to the session
-  sessions=("$(tmux ls -F "#{session_name}:#{session_attached}" 2> /dev/null)")
-  for session in "${sessions[@]}";
-  do
-    parts=("${(s/:/)session}")
-    if [[ "${parts[1]}" = "default" ]]; then
-      default_session_state=${parts[2]}
-      break
-    fi
-  done
-
-  if [[ "$default_session_state" = "" ]]; # Session does not exist
-  then
-    exec tmux new -s default >/dev/null
-  elif [[ "$default_session_state" = 0 ]]; # Session exists but is not attached
-  then
-    exec tmux attach -t default
-  fi
-fi
-
 # Set the directory we want to store zinit and plugins
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-
-if [[ -f "$HOME"/.bash_env ]]; then
-  source "$HOME"/.bash_env
-fi
+readonly ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
 # Download Zinit, if it's not there yet
 if [[ ! -d "$ZINIT_HOME" ]]; then
@@ -53,10 +27,19 @@ zinit snippet OMZP::sudo
 zinit snippet OMZP::command-not-found
 
 # Load completions
-autoload -Uz compinit && compinit
+if [[ -f "$HOME"/.bash_aliases ]]; then
+  source "$HOME"/.bash_aliases
+fi
 
+eval "$(oh-my-posh init zsh --config ~/.dotfiles/configs/oh-my-posh/theme_default.yaml)"
+eval "$(mise activate zsh)"
+eval "$(mise completions zsh)"
+source <(fzf --zsh)
+
+autoload -Uz compinit && compinit
 zinit cdreplay -q
 
+zinit light zsh-users/zsh-syntax-highlighting # Must be loaded last to load all completions
 
 # Keybindings
 bindkey -e
@@ -108,21 +91,6 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview "ls --color \$realpath"
 zstyle ':fzf-tab:complete:git*:*' fzf-preview
 
-if [[ -f "$HOME"/.bash_commands ]]; then
-  source "$HOME"/.bash_commands
-fi
-
-if [[ -f "$HOME"/.bash_aliases ]]; then
-  source "$HOME"/.bash_aliases
-fi
-
-# Start SSH agent on launch
-ssh-activate
-
-eval "$(oh-my-posh init zsh --config ~/.dotfiles/configs/oh-my-posh/theme_default.yaml)"
-eval "$(mise activate zsh)"
-eval "$(mise completions zsh)"
-source <(fzf --zsh)
 
 # TODO: Customize
 # Source: <https://www.reddit.com/r/zsh/comments/ass2tc/gitadd_completion_with_full_paths_listed_at_once/>
@@ -173,6 +141,3 @@ __git_treeish-to-index_files() {
 __git_other_files() {
   return 0
 }
-
-
-zinit light zsh-users/zsh-syntax-highlighting # Must be loaded last to load all completions

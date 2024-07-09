@@ -1,11 +1,34 @@
-# set PATH so it includes user's private bin if it exists
+# TMUX autoconnect
+if [[ "$TMUX" = "" ]]; then
+  # Automatically connect to the session
+  sessions=("$(tmux ls -F "#{session_name}:#{session_attached}" 2> /dev/null)")
+  for session in "${sessions[@]}";
+  do
+    parts=("${(s/:/)session}")
+    if [[ "${parts[1]}" = "default" ]]; then
+      default_session_state=${parts[2]}
+      break
+    fi
+  done
+
+  if [[ "$default_session_state" = "" ]]; # Session does not exist
+  then
+    exec tmux new -s default >/dev/null
+  elif [[ "$default_session_state" = 0 ]]; # Session exists but is not attached
+  then
+    exec tmux attach -t default
+  fi
+fi
+
+# Set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-# set PATH so it includes user's private bin if it exists
+# Set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-export PATH="$HOME/.local/share/mise/shims:$PATH"
+# Start SSH agent on launch
+ssh-activate

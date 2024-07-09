@@ -1,7 +1,7 @@
 # TMUX autoconnect
 if [[ "$TMUX" = "" ]]; then
   # Automatically connect to the session
-  sessions=($(tmux ls -F "#{session_name}:#{session_attached}" 2> /dev/null))
+  sessions=("$(tmux ls -F "#{session_name}:#{session_attached}" 2> /dev/null)")
   for session in "${sessions[@]}";
   do
     parts=("${(s/:/)session}")
@@ -40,12 +40,12 @@ source "${ZINIT_HOME}/zinit.zsh"
 # Add in zsh plugins
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
-ZSH_AUTOSUGGEST_USE_ASYNC=true
+export ZSH_AUTOSUGGEST_USE_ASYNC=true
 zinit light olets/zsh-abbr
 zinit light Aloxaf/fzf-tab
 
 # Postpone loading fzf so it doesn't get messed up by vi mode
-zinit ice lucid wait
+# zinit ice lucid wait
 zinit snippet OMZP::fzf
 
 # Add in snippets
@@ -89,10 +89,10 @@ bindkey -M emacs "^ " magic-space
 bindkey -M emacs "^M" abbr-expand-and-accept
 
 # History
-HISTSIZE=5000
-HISTFILE=~/.zsh_history
-SAVEHIST=$HISTSIZE
-HISTDUP=erase
+export HISTSIZE=5000
+export HISTFILE=~/.zsh_history
+export SAVEHIST=$HISTSIZE
+export HISTDUP=erase
 setopt appendhistory
 setopt sharehistory
 setopt hist_ignore_space
@@ -121,6 +121,7 @@ ssh-activate
 
 eval "$(oh-my-posh init zsh --config ~/.dotfiles/configs/oh-my-posh/theme_default.yaml)"
 eval "$(mise activate zsh)"
+eval "$(mise completions zsh)"
 source <(fzf --zsh)
 
 # TODO: Customize
@@ -130,7 +131,7 @@ __git_status_files() {
   local -a unstaged_files
   local -a staged_files
   for entry in "${status_files[@]}"; do
-    if [[ "${entry}" == '' ]];
+    if [[ "$entry" == '' ]];
     then
       continue
     fi

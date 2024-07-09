@@ -1,4 +1,3 @@
----
 version: 2
 final_space: true
 console_title_template: '{{ .Shell }} in {{ .Folder }}'
@@ -19,9 +18,10 @@ blocks:
         foreground: p:grey
         background: transparent
         templates:
-          - ' {{.HEAD}}'
+          - ' {{.BranchStatus}}{{.HEAD}}'
           - '{{if or (.Working.Changed) (.Staging.Changed)}}*{{end}}'
           - ' <cyan>{{ if gt .Behind 0 }}{{.Behind}}⇣{{ end }}{{ if gt .Ahead 0 }}{{.Ahead}}⇡{{end}}</>'
+          - ' {{ if gt .StashCount 0 }} {{ .StashCount }}{{ end }}'
         properties:
           branch_icon: ''
           commit_icon: '@'
@@ -73,7 +73,7 @@ blocks:
         foreground: red
         background: transparent
         properties:
-          status_template: '{{if ne .Code 0}}{{reason .Code}} {{.Code}}{{end}}'
+          status_template: '{{if ne .Code 0}}{{reason .Code}} {{ .Code -}}{{end}}'
 transient_prompt:
   foreground_templates:
     - '{{if gt .Code 0}}red{{end}}'

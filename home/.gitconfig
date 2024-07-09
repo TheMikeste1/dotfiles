@@ -2,7 +2,7 @@
   hist = log --graph --decorate --pretty=oneline --abbrev-commit
   root = rev-parse --show-toplevel
 [core]
-	editor = code --wait
+	editor = nvim
 	excludesFile = ~/.gitignore_global
 	pager = delta
 [delta]

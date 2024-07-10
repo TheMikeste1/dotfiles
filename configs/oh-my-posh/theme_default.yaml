@@ -20,7 +20,7 @@ blocks:
         templates:
           - ' {{.HEAD}}'
           - '{{if or (.Working.Changed) (.Staging.Changed)}}*{{end}}'
-          - ' <cyan>{{.BranchStatus}}</>'
+          - ' {{.BranchStatus}}'
           - ' {{ if gt .StashCount 0 }} {{ .StashCount }}{{ end }}'
         properties:
           branch_icon: ''
@@ -34,16 +34,16 @@ blocks:
           - '{{if gt .PhysicalPercentUsed 80}}  {{ round .PhysicalPercentUsed .Precision }}%{{end}}'
         properties:
           precision: 2
-      - type: cmake
-        style: plain
-        cache_version: true
-        template: '  {{ .Full  }}'
       - type: node
       - type: go
       - type: lua
         style: plain
         template: '  {{ .Full }}'
       - type: python
+        templates:
+          - ' '
+          - '{{if .Venv}}({{ .Venv }}){{end}}'
+          - ' {{.Full}}'
       - type: rust
       - type: dotnet
   - type: prompt

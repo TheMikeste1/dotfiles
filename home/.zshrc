@@ -27,17 +27,43 @@ zinit snippet OMZP::sudo
 zinit snippet OMZP::command-not-found
 
 # Load completions
-autoload -Uz compinit && compinit
+autoload -Uz compinit
+# Load compinit from the cache if it's been less than 24 hours
+setopt extendedglob local_options
+if [[ -n "${ZDOTDIR:-$HOME}"/.zcompdump(#qN.mh+24) ]]; then
+  echo "Refreshing compinit cache. . ."
+  compinit
+else
+  compinit -C
+fi
+unsetopt extendedglob local_options
+
 zinit cdreplay -q
 
 if [[ -f "$HOME"/.bash_aliases ]]; then
   source "$HOME"/.bash_aliases
 fi
 
-eval "$(oh-my-posh init zsh --config ~/.dotfiles/configs/oh-my-posh/theme_default.yaml)"
-eval "$(mise activate zsh)"
-eval "$(mise completions zsh)"
-source <(fzf --zsh)
+readonly EVAL_CACHE_DIR="$HOME/.cache/eval"
+if [[ ! -d "$EVAL_CACHE_DIR" ]]; then
+  mkdir -p "$EVAL_CACHE_DIR"
+fi
+
+setopt extendedglob local_options
+if [ ! -f "$EVAL_CACHE_DIR"/.last_cache ] || [[ -n "$EVAL_CACHE_DIR"/.last_cache(#qN.mh+24) ]]; then
+  echo "Refreshing eval cache. . ."
+  oh-my-posh init zsh --config ~/.dotfiles/configs/oh-my-posh/theme_default.yaml > "$EVAL_CACHE_DIR/oh-my-posh_init.zsh"
+  mise activate zsh > "$EVAL_CACHE_DIR/mise_init.zsh"
+  mise completions zsh > "$EVAL_CACHE_DIR/mise_comp.zsh"
+  fzf --zsh > "$EVAL_CACHE_DIR/fzf_comp.zsh"
+  touch "$EVAL_CACHE_DIR"/.last_cache
+fi
+unsetopt extendedglob local_options
+
+source "$EVAL_CACHE_DIR/oh-my-posh_init.zsh"
+source "$EVAL_CACHE_DIR/mise_init.zsh"
+source "$EVAL_CACHE_DIR/mise_comp.zsh"
+source "$EVAL_CACHE_DIR/fzf_comp.zsh"
 
 zinit light zsh-users/zsh-syntax-highlighting # Must be loaded last to load all completions
 

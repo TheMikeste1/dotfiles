@@ -159,7 +159,27 @@ __git_staged_files() {
 }
 
 __git_modified_files() {
-  __git_status_files
+  # TODO: Update to use porcelain instead of raw status
+  local -a status_files=( "${(@f)"$(git status -s)"}" )
+  local -a unstaged_files
+  for entry in "${status_files[@]}"; do
+    if [[ "$entry" == '' ]];
+    then
+      continue
+    fi
+
+    local stts="${entry[1,3]}"
+    local file="${entry[4,-1]}"
+
+    if [[ "${stts[2]}" != ' ' ]];
+    then
+      unstaged_files+=$file
+    fi
+  done
+
+  _describe -t unstaged 'Unstaged' unstaged_files && ret=0
+
+  return "$ret"
 }
 
 __git_treeish-to-index_files() {

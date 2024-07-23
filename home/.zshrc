@@ -119,13 +119,13 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview "ls --color \$realpath"
 zstyle ':fzf-tab:complete:git*:*' fzf-preview
 
-
 # TODO: Customize
 # Source: <https://www.reddit.com/r/zsh/comments/ass2tc/gitadd_completion_with_full_paths_listed_at_once/>
 __git_status_files() {
-  local -a status_files=( "${(0)"$(git status -z)"}" )
-  local -a unstaged_files
+  # TODO: Update to use porcelain instead of raw status
+  local -a status_files=( "${(@f)"$(git status -s)"}" )
   local -a staged_files
+  local -a unstaged_files
   for entry in "${status_files[@]}"; do
     if [[ "$entry" == '' ]];
     then
@@ -135,14 +135,14 @@ __git_status_files() {
     local stts="${entry[1,3]}"
     local file="${entry[4,-1]}"
 
-    if [[ "${stts[2]}" != ' ' ]];
-    then
-      unstaged_files+=$file
-    fi
-
     if [[ "${stts[1]}" != ' ' ]] && [[ "${stts[1]}"  != '?' ]];
     then
       staged_files+=$file
+    fi
+
+    if [[ "${stts[2]}" != ' ' ]];
+    then
+      unstaged_files+=$file
     fi
   done
 

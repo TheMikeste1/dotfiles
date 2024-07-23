@@ -53,6 +53,7 @@ setopt extendedglob local_options
 if [ ! -f "$EVAL_CACHE_DIR"/.last_cache ] || [[ -n "$EVAL_CACHE_DIR"/.last_cache(#qN.mh+24) ]]; then
   echo "Refreshing eval cache. . ."
   oh-my-posh init zsh --config ~/.dotfiles/configs/oh-my-posh/theme_default.yaml > "$EVAL_CACHE_DIR/oh-my-posh_init.zsh"
+  oh-my-posh completion zsh > "$EVAL_CACHE_DIR/oh-my-posh_comp.zsh"
   mise activate zsh > "$EVAL_CACHE_DIR/mise_init.zsh"
   mise completions zsh > "$EVAL_CACHE_DIR/mise_comp.zsh"
   fzf --zsh > "$EVAL_CACHE_DIR/fzf_comp.zsh"
@@ -61,6 +62,7 @@ fi
 unsetopt extendedglob local_options
 
 source "$EVAL_CACHE_DIR/oh-my-posh_init.zsh"
+source "$EVAL_CACHE_DIR/oh-my-posh_comp.zsh"
 source "$EVAL_CACHE_DIR/mise_init.zsh"
 source "$EVAL_CACHE_DIR/mise_comp.zsh"
 source "$EVAL_CACHE_DIR/fzf_comp.zsh"

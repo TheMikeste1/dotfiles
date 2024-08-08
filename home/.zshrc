@@ -26,6 +26,18 @@ zinit snippet OMZP::fzf
 zinit snippet OMZP::sudo
 zinit snippet OMZP::command-not-found
 
+# Additional completions
+zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+fpath=("$HOME"/.zsh $fpath)
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # Set case insensitive
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview "ls --color \$realpath"
+zstyle ':fzf-tab:complete:git*:*' fzf-preview
+
+
 # Load completions
 autoload -Uz compinit
 # Load compinit from the cache if it's been less than 24 hours
@@ -112,13 +124,6 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
-# Completion styling
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # Set case insensitive
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview "ls --color \$realpath"
-zstyle ':fzf-tab:complete:git*:*' fzf-preview
-
 # TODO: Customize
 # Source: <https://www.reddit.com/r/zsh/comments/ass2tc/gitadd_completion_with_full_paths_listed_at_once/>
 __git_status_files() {
@@ -153,7 +158,9 @@ __git_status_files() {
 }
 
 __git_staged_files() {
+  echo "__git_staged_files" # Echo to determine when this is actually called
   local -a staged_files=( "${"${(0)"$(git diff-index -z --name-only --no-color --cached HEAD)"}"}" )
+
   _describe -t staged 'Staged files' staged_files && ret=0
   return "$ret"
 }

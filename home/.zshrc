@@ -95,7 +95,6 @@ bindkey -M viins '^[`' sudo-command-line
 # <https://zsh-abbr.olets.dev/advanced.html#alternative-keymaps>
 bindkey -M viins " " abbr-expand-and-insert
 bindkey -M viins "^ " magic-space
-bindkey -M viins "^M" abbr-expand-and-accept
 
 # Vi normal/command and visual
 function zvm_after_lazy_keybindings() {
@@ -109,12 +108,11 @@ bindkey -M emacs -r '\e\e'
 bindkey -M emacs '^[`' sudo-command-line
 bindkey -M emacs " " abbr-expand-and-insert
 bindkey -M emacs "^ " magic-space
-bindkey -M emacs "^M" abbr-expand-and-accept
 
 # History
 export HISTSIZE=5000
-export HISTFILE=~/.zsh_history
-export SAVEHIST=$HISTSIZE
+export HISTFILE="$HOME/.zsh_history"
+export SAVEHIST="$HISTSIZE"
 export HISTDUP=erase
 setopt appendhistory
 setopt sharehistory

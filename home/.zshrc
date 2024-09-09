@@ -38,6 +38,41 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview "ls --color \$realpath"
 zstyle ':fzf-tab:complete:git*:*' fzf-preview
 
 
+if [[ -f "$HOME"/.bash_aliases ]]; then
+  source "$HOME"/.bash_aliases
+fi
+
+readonly EVAL_CACHE_DIR="$HOME/.cache/eval"
+if [[ ! -d "$EVAL_CACHE_DIR" ]]; then
+  mkdir -p "$EVAL_CACHE_DIR"
+fi
+
+function refresh_eval_cache() {
+  oh-my-posh init zsh --config ~/.dotfiles/configs/oh-my-posh/theme_default.yaml > "$EVAL_CACHE_DIR/oh-my-posh_init.zsh"
+  oh-my-posh completion zsh > "$EVAL_CACHE_DIR/oh-my-posh_comp.zsh"
+  mise activate zsh > "$EVAL_CACHE_DIR/mise_init.zsh"
+  mise completions zsh > "$EVAL_CACHE_DIR/mise_comp.zsh"
+  fzf --zsh > "$EVAL_CACHE_DIR/fzf_comp.zsh"
+  touch "$EVAL_CACHE_DIR"/.last_cache
+}
+
+function source_eval_cache() {
+  source "$EVAL_CACHE_DIR/oh-my-posh_init.zsh"
+  source "$EVAL_CACHE_DIR/oh-my-posh_comp.zsh"
+  source "$EVAL_CACHE_DIR/mise_init.zsh"
+  source "$EVAL_CACHE_DIR/mise_comp.zsh"
+  source "$EVAL_CACHE_DIR/fzf_comp.zsh"
+}
+
+setopt extendedglob local_options
+if [ ! -f "$EVAL_CACHE_DIR"/.last_cache ] || [[ -n "$EVAL_CACHE_DIR"/.last_cache(#qN.mh+24) ]]; then
+  echo "Refreshing eval cache. . ."
+  refresh_eval_cache
+fi
+unsetopt extendedglob local_options
+
+source_eval_cache
+
 # Load completions
 autoload -Uz compinit
 # Load compinit from the cache if it's been less than 24 hours
@@ -51,33 +86,6 @@ fi
 unsetopt extendedglob local_options
 
 zinit cdreplay -q
-
-if [[ -f "$HOME"/.bash_aliases ]]; then
-  source "$HOME"/.bash_aliases
-fi
-
-readonly EVAL_CACHE_DIR="$HOME/.cache/eval"
-if [[ ! -d "$EVAL_CACHE_DIR" ]]; then
-  mkdir -p "$EVAL_CACHE_DIR"
-fi
-
-setopt extendedglob local_options
-if [ ! -f "$EVAL_CACHE_DIR"/.last_cache ] || [[ -n "$EVAL_CACHE_DIR"/.last_cache(#qN.mh+24) ]]; then
-  echo "Refreshing eval cache. . ."
-  oh-my-posh init zsh --config ~/.dotfiles/configs/oh-my-posh/theme_default.yaml > "$EVAL_CACHE_DIR/oh-my-posh_init.zsh"
-  oh-my-posh completion zsh > "$EVAL_CACHE_DIR/oh-my-posh_comp.zsh"
-  mise activate zsh > "$EVAL_CACHE_DIR/mise_init.zsh"
-  mise completions zsh > "$EVAL_CACHE_DIR/mise_comp.zsh"
-  fzf --zsh > "$EVAL_CACHE_DIR/fzf_comp.zsh"
-  touch "$EVAL_CACHE_DIR"/.last_cache
-fi
-unsetopt extendedglob local_options
-
-source "$EVAL_CACHE_DIR/oh-my-posh_init.zsh"
-source "$EVAL_CACHE_DIR/oh-my-posh_comp.zsh"
-source "$EVAL_CACHE_DIR/mise_init.zsh"
-source "$EVAL_CACHE_DIR/mise_comp.zsh"
-source "$EVAL_CACHE_DIR/fzf_comp.zsh"
 
 zinit light zsh-users/zsh-syntax-highlighting # Must be loaded last to load all completions
 

@@ -6,4 +6,4 @@ compile_commands.json
 CMakeKits.json
 .lefthook.yml
 lefthook.yml
-.venv/
+.venv

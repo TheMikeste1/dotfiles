@@ -103,6 +103,10 @@ bindkey '^[[1~' beginning-of-line
 bindkey '^[[4~' end-of-line
 bindkey '^[[3~' delete-char
 
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
 # Vi insert
 bindkey -M viins -r '\e\e'
 bindkey -M viins '^[`' sudo-command-line

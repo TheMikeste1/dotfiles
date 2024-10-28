@@ -5,12 +5,14 @@
   tasks:
     - name: Add nightly Neovim PPA
       become: true
+      when: false
       ansible.builtin.apt_repository:
         repo: ppa:neovim-ppa/unstable
         state: present
 
     - name: Install Neovim
       become: true
+      when: false
       ansible.builtin.apt:
         name:
           - neovim
@@ -18,6 +20,7 @@
         state: present
 
     - name: Pull NeoVim config
+      when: false
       ansible.builtin.git:
         repo: git@github.com:TheMikeste1/my-neovim.git
         dest: ../home/.config/nvim

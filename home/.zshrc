@@ -53,6 +53,9 @@ function refresh_eval_cache() {
   mise activate zsh > "$EVAL_CACHE_DIR/mise_init.zsh"
   mise completions zsh > "$EVAL_CACHE_DIR/mise_comp.zsh"
   fzf --zsh > "$EVAL_CACHE_DIR/fzf_comp.zsh"
+  mdbook completions zsh > "$EVAL_CACHE_DIR/mdbook_comp.zsh"
+  lefthook completion zsh > "$EVAL_CACHE_DIR/lefthook_comp.zsh"
+
   touch "$EVAL_CACHE_DIR"/.last_cache
 }
 
@@ -62,6 +65,8 @@ function source_eval_cache() {
   source "$EVAL_CACHE_DIR/mise_init.zsh"
   source "$EVAL_CACHE_DIR/mise_comp.zsh"
   source "$EVAL_CACHE_DIR/fzf_comp.zsh"
+  source "$EVAL_CACHE_DIR/mdbook_comp.zsh"
+  source "$EVAL_CACHE_DIR/lefthook_comp.zsh"
 }
 
 setopt extendedglob local_options

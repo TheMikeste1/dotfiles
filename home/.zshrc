@@ -12,6 +12,7 @@ fi
 source "${ZINIT_HOME}/zinit.zsh"
 
 # Add in zsh plugins
+zinit ice blockf atpull'zinit creinstall -q .'
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
@@ -41,6 +42,20 @@ zstyle ':fzf-tab:complete:git*:*' fzf-preview
 if [[ -f "$HOME"/.bash_aliases ]]; then
   source "$HOME"/.bash_aliases
 fi
+
+# Load completions
+autoload -Uz compinit
+# Load compinit from the cache if it's been less than 24 hours
+setopt extendedglob local_options
+if [[ -n "${ZDOTDIR:-$HOME}"/.zcompdump(#qN.mh+24) ]]; then
+  echo "Refreshing compinit cache. . ."
+  compinit
+else
+  compinit -C
+fi
+unsetopt extendedglob local_options
+
+zinit cdreplay -q
 
 readonly EVAL_CACHE_DIR="$HOME/.cache/eval"
 if [[ ! -d "$EVAL_CACHE_DIR" ]]; then
@@ -77,20 +92,6 @@ fi
 unsetopt extendedglob local_options
 
 source_eval_cache
-
-# Load completions
-autoload -Uz compinit
-# Load compinit from the cache if it's been less than 24 hours
-setopt extendedglob local_options
-if [[ -n "${ZDOTDIR:-$HOME}"/.zcompdump(#qN.mh+24) ]]; then
-  echo "Refreshing compinit cache. . ."
-  compinit
-else
-  compinit -C
-fi
-unsetopt extendedglob local_options
-
-zinit cdreplay -q
 
 zinit light zsh-users/zsh-syntax-highlighting # Must be loaded last to load all completions
 

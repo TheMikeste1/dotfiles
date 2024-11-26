@@ -48,9 +48,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 # Get access to NVim Mason executables
 export PATH="$PATH:$HOME/.local/share/nvim/mason/bin"
 
-# Mise
-export PATH="$HOME/.local/share/mise/shims:$PATH"
-
 # No telemetry
 export DOTNET_CLI_TELEMETRY_OPTOUT="true"
 

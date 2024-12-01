@@ -9,4 +9,6 @@ if (Test-Path($ChocolateyProfile)) {
   Import-Module "$ChocolateyProfile"
 }
 
+Set-Alias G git
+
 oh-my-posh init pwsh --config "C:\Users\micha\.config\oh-my-posh\theme_default.yaml" | Invoke-Expression

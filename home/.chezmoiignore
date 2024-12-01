@@ -1,0 +1,21 @@
+{{ if ne .chezmoi.os "windows" }}
+Documents/
+.ideavimrc
+{{ end }}
+
+{{ if ne .chezmoi.os "linux" }}
+.config/bat
+.config/zsh-abbr
+
+.bash*
+.profile
+
+.zsh/
+.zprofile
+.zsh*
+
+.tmux.conf
+.vimrc
+{{ end }}
+
+**/.dotfiles_include

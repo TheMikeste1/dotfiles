@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Initialize where the dotfiles are
-export DOTFILES="$HOME/.dotfiles"
+export DOTFILES="$HOME/.local/share/chezmoi"
 
 # Use WSLu for browser integration
 export BROWSER=wslview
@@ -25,6 +25,7 @@ export PATH="$PATH:$DOTFILES/git_commands"
 
 # Go
 export PATH="$PATH:/usr/local/go/bin"
+export GOBIN="$HOME/.local/go/bin"
 
 # Ninja by default
 export CMAKE_GENERATOR=Ninja

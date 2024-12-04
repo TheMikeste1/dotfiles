@@ -10,5 +10,6 @@ if (Test-Path($ChocolateyProfile)) {
 }
 
 Set-Alias G git
-
-oh-my-posh init pwsh --config "C:\Users\micha\.config\oh-my-posh\theme_default.yaml" | Invoke-Expression
+if (Get-Command oh-my-posh -errorAction SilentlyContinue) {
+  oh-my-posh init pwsh --config "$env:USERPROFILE\.config\oh-my-posh\theme_default.yaml" | Invoke-Expression
+}

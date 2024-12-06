@@ -29,20 +29,20 @@
   tags:
     - cmake
 
-- name: Setup Fish
-  ansible.builtin.import_playbook: playbooks/fish.yaml
+- name: Setup Rust
+  ansible.builtin.import_playbook: playbooks/rust.yaml
   tags:
-    - fish
+    - rust
+
+- name: Setup Mise
+  ansible.builtin.import_playbook: playbooks/mise.yaml
+  tags:
+    - mise
 
 - name: Setup NeoVim
   ansible.builtin.import_playbook: playbooks/neovim.yaml
   tags:
     - neovim
-
-- name: Setup Rust
-  ansible.builtin.import_playbook: playbooks/rust.yaml
-  tags:
-    - rust
 
 - name: Setup WSL Utilities
   ansible.builtin.import_playbook: playbooks/wslview.yaml
@@ -54,13 +54,21 @@
   tags:
     - zsh
 
-- name: Link
-  hosts: localhost
-  tasks:
-    # TODO: Replace this script entirely
-    - name: Run Python initialization script
-      ansible.builtin.script: ./init.py
-      environment:
-        DOTFILES: "{{ playbook_dir }}"
-      tags:
-        - update
+- name: Setup Fish
+  when: false
+  ansible.builtin.import_playbook: playbooks/fish.yaml
+  tags:
+    - fish
+
+
+# TODO: Replace with chezmoi
+# - name: Link
+#   hosts: localhost
+#   tasks:
+#     # TODO: Replace this script entirely
+#     - name: Run Python initialization script
+#       ansible.builtin.script: ./init.py
+#       environment:
+#         DOTFILES: "{{ playbook_dir }}"
+#       tags:
+#         - update

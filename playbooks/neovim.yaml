@@ -1,7 +1,18 @@
 ---
+- name: Check for NeoVim
+  hosts: localhost
+  tasks:
+    - name: Check whether NeoVim is installed and on system path
+      command: "which nvim"
+      register: nvim_installed
+      ignore_errors: true
+
+- name: Build NeoVim
+  ansible.builtin.import_playbook: build/neovim.yaml
+  when: nvim_installed is failed
+
 - name: Initialize NeoVim
   hosts: localhost
-
   tasks:
     - name: Add nightly Neovim PPA
       become: true
@@ -20,9 +31,7 @@
         state: present
 
     - name: Pull NeoVim config
-      when: false
       ansible.builtin.git:
         repo: git@github.com:TheMikeste1/my-neovim.git
-        dest: ../home/.config/nvim
-      tags:
-        - update
+        dest: ~/.config/nvim
+        update: no

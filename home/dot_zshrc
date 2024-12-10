@@ -111,6 +111,9 @@ bindkey '^[[1;5D' forward-word
 bindkey '^[[1~' beginning-of-line
 bindkey '^[[4~' end-of-line
 bindkey '^[[3~' delete-char
+exit_zsh() { exit }
+zle -N exit_zsh
+bindkey '^D' exit_zsh
 
 autoload -z edit-command-line
 zle -N edit-command-line

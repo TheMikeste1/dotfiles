@@ -3,36 +3,35 @@
 " You can find a list of commands here: https://jb.gg/h38q75
 " Find more examples here: https://jb.gg/share-ideavimrc
 
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+set which-key
+Plug 'machakann/vim-highlightedyank'
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'preservim/nerdtree'
+set peekaboo
+set functiontextobj
+set quickscope
 
-"" -- Suggested options --
-" Show a few lines of context around the cursor. Note that this makes the
-" text scroll if you mouse-click near the start or end of the window.
+" --- Settings
+set clipboard^=ideaput
+set relativenumber
+set notimeout
+set incsearch
 set scrolloff=5
 
-" Do incremental searching.
-set incsearch
-
-" Don't use Ex mode, use Q for formatting.
-map Q gq
-
-" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
-
-" Highlight copied text
-Plug 'machakann/vim-highlightedyank'
-
-"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
-"" Map \r to the Reformat Code action
-"map \r <Action>(ReformatCode)
-
-"" Map <leader>d to start debug
-"map <leader>d <Action>(Debug)
-
-"" Map \b to toggle the breakpoint on the current line
-"map \b <Action>(ToggleLineBreakpoint)
-
-source ~/.vimrc
-set clipboard^=ideaput
-
-set quickscope
 let g:qs_primary_color   = '#afff5f'
 let g:qs_secondary_color = '#5fffff'
+
+" --- Keybinds
+" Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+map <leader><C-e> :NERDTree<CR>
+map <leader>b <Action>(ToggleLineBreakpoint)
+map <leader>d <Action>(Debug)
+map <M-e> <Action>(ShowErrorDescription)
+map <Space>rn <Action>(RenameElement)
+
+"source ~/.vimrc

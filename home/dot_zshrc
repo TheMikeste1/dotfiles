@@ -11,6 +11,16 @@ fi
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
+readonly EVAL_CACHE_DIR="$HOME/.cache/eval"
+if [[ ! -d "$EVAL_CACHE_DIR" ]]; then
+  mkdir -p "$EVAL_CACHE_DIR"
+fi
+
+readonly COMPLETIONS_DIR="$ZSH_CACHE_DIR/completions"
+if [[ ! -d "$COMPLETIONS_DIR" ]]; then
+  mkdir -p "$COMPLETIONS_DIR"
+fi
+
 # Add in zsh plugins
 zinit ice blockf atpull'zinit creinstall -q .'
 zinit light zsh-users/zsh-completions
@@ -22,6 +32,7 @@ zinit light Aloxaf/fzf-tab
 # Postpone loading fzf so it doesn't get messed up by vi mode
 # zinit ice lucid wait
 zinit snippet OMZP::fzf
+zinit snippet OMZP::rust
 
 # Add in snippets
 zinit snippet OMZP::sudo
@@ -37,7 +48,6 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview "ls --color \$realpath"
 zstyle ':fzf-tab:complete:git*:*' fzf-preview
-
 
 if [[ -f "$HOME"/.bash_aliases ]]; then
   source "$HOME"/.bash_aliases
@@ -57,44 +67,45 @@ fi
 unsetopt extendedglob local_options
 
 zinit cdreplay -q
-
-readonly EVAL_CACHE_DIR="$HOME/.cache/eval"
-if [[ ! -d "$EVAL_CACHE_DIR" ]]; then
-  mkdir -p "$EVAL_CACHE_DIR"
-fi
+fpath+=("$COMPLETIONS_DIR")
 
 function refresh_eval_cache() {
   oh-my-posh init zsh --config "$HOME/.config/oh-my-posh/theme_default.yaml" > "$EVAL_CACHE_DIR/oh-my-posh_init.zsh"
-  oh-my-posh completion zsh > "$EVAL_CACHE_DIR/oh-my-posh_comp.zsh"
   mise activate zsh > "$EVAL_CACHE_DIR/mise_init.zsh"
-  mise completions zsh > "$EVAL_CACHE_DIR/mise_comp.zsh"
-  fzf --zsh > "$EVAL_CACHE_DIR/fzf_comp.zsh"
-  mdbook completions zsh > "$EVAL_CACHE_DIR/mdbook_comp.zsh"
-  lefthook completion zsh > "$EVAL_CACHE_DIR/lefthook_comp.zsh"
-  chezmoi completion zsh > "$EVAL_CACHE_DIR/chezmoi_comp.zsh"
 
   touch "$EVAL_CACHE_DIR"/.last_cache
 }
 
+function refresh_comp_cache() {
+  oh-my-posh completion zsh > "$COMPLETIONS_DIR/_oh-my-posh"
+  mise completions zsh      > "$COMPLETIONS_DIR/_mise"
+  fzf --zsh                 > "$COMPLETIONS_DIR/_fzf"
+  mdbook completions zsh    > "$COMPLETIONS_DIR/_mdbook"
+  lefthook completion zsh   > "$COMPLETIONS_DIR/_lefthook"
+  chezmoi completion zsh    > "$COMPLETIONS_DIR/_chezmoi"
+}
+
 function source_eval_cache() {
   source "$EVAL_CACHE_DIR/oh-my-posh_init.zsh"
-  source "$EVAL_CACHE_DIR/oh-my-posh_comp.zsh"
   source "$EVAL_CACHE_DIR/mise_init.zsh"
-  source "$EVAL_CACHE_DIR/mise_comp.zsh"
-  source "$EVAL_CACHE_DIR/fzf_comp.zsh"
-  source "$EVAL_CACHE_DIR/mdbook_comp.zsh"
-  source "$EVAL_CACHE_DIR/lefthook_comp.zsh"
-  source "$EVAL_CACHE_DIR/chezmoi_comp.zsh"
 }
 
 setopt extendedglob local_options
 if [ ! -f "$EVAL_CACHE_DIR"/.last_cache ] || [[ -n "$EVAL_CACHE_DIR"/.last_cache(#qN.mh+24) ]]; then
   echo "Refreshing eval cache. . ."
   refresh_eval_cache
+  refresh_comp_cache
 fi
 unsetopt extendedglob local_options
 
 source_eval_cache
+
+autoload -Uz _oh-my-posh && typeset -g -A _comps && _comps[oh-my-posh]=_oh-my-posh
+autoload -Uz _mise       && typeset -g -A _comps && _comps[mise]=_mise
+autoload -Uz _fzf        && typeset -g -A _comps && _comps[fzf]=_fzf
+autoload -Uz _mdbook     && typeset -g -A _comps && _comps[mdbook]=_mdbook
+autoload -Uz _lefthook   && typeset -g -A _comps && _comps[lefthook]=_lefthook
+autoload -Uz _chezmoi    && typeset -g -A _comps && _comps[chezmoi]=_chezmoi
 
 zinit light zsh-users/zsh-syntax-highlighting # Must be loaded last to load all completions
 

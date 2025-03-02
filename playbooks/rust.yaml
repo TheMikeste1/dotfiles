@@ -29,8 +29,5 @@
           - fd-find
           - mise
           - ripgrep
-          - starship
           - cargo-update
         state: present
-      environment:
-        RUSTC_WRAPPER: sccache

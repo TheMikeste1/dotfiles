@@ -8,9 +8,9 @@
       ansible.builtin.apt:
         name:
           - build-essential
-          - fzf
+          - fzf # TODO: Replace with building; add lazygit
           - git
-          - ninja-build
+          - ninja-build # TODO: Replace with building
           - tmux
           - software-properties-common
           - python3-pip
@@ -54,21 +54,10 @@
   tags:
     - zsh
 
+# TODO: Initialize TMUX plugins
+
 - name: Setup Fish
   when: false
   ansible.builtin.import_playbook: playbooks/fish.yaml
   tags:
     - fish
-
-
-# TODO: Replace with chezmoi
-# - name: Link
-#   hosts: localhost
-#   tasks:
-#     # TODO: Replace this script entirely
-#     - name: Run Python initialization script
-#       ansible.builtin.script: ./init.py
-#       environment:
-#         DOTFILES: "{{ playbook_dir }}"
-#       tags:
-#         - update

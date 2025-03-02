@@ -1,0 +1,33 @@
+---
+- name: Build NeoVim
+  hosts: localhost
+  tasks:
+    - name: Pull
+      ansible.builtin.git:
+        repo: git@github.com:neovim/neovim.git
+        dest: ~/src/neovim
+        clone: true
+        update: true
+        single_branch: true
+        version: master
+      register: nvim_pull
+    - name: Make Clean
+      make:
+        chdir: ~/src/neovim
+        target: distclean
+      when: nvim_pull.changed
+    - name: Make Dependencies
+      make:
+        chdir: ~/src/neovim
+        target: deps
+      when: nvim_pull.changed
+    - name: Build
+      make:
+        chdir: ~/src/neovim
+        params:
+          CMAKE_BUILD_TYPE: Release
+    - name: Install
+      make:
+        chdir: "{{ ansible_facts.user_dir }}/src/neovim"
+        target: install
+      become: true

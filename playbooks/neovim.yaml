@@ -9,29 +9,13 @@
 
 - name: Build NeoVim
   ansible.builtin.import_playbook: build/neovim.yaml
-  when: nvim_installed is failed
+  when: not nvim_installed
 
 - name: Initialize NeoVim
   hosts: localhost
   tasks:
-    - name: Add nightly Neovim PPA
-      become: true
-      when: false
-      ansible.builtin.apt_repository:
-        repo: ppa:neovim-ppa/unstable
-        state: present
-
-    - name: Install Neovim
-      become: true
-      when: false
-      ansible.builtin.apt:
-        name:
-          - neovim
-          - python3-neovim
-        state: present
-
     - name: Pull NeoVim config
       ansible.builtin.git:
         repo: git@github.com:TheMikeste1/my-neovim.git
         dest: ~/.config/nvim
-        update: no
+        update: false

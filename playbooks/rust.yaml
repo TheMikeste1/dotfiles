@@ -19,11 +19,6 @@
       when: rust_installed is failed
       shell: /tmp/sh.rustup.rs -y
 
-    - name: Install sccache to speed up Rust compilation
-      community.general.cargo:
-        name:
-          - sccache
-        state: present
 
     - name: Install Rust packages
       community.general.cargo:

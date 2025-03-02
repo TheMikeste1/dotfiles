@@ -1,26 +1,15 @@
 ---
-- name: Initialize CMake
+- name: Check for CMake
   hosts: localhost
-
   tasks:
-    - name: Add Kitware repository key
-      become: true
-      ansible.builtin.apt_key:
-        url: https://apt.kitware.com/keys/kitware-archive-latest.asc
-        state: present
+    - command: "which cmake"
+      register: cmake_installed
+      ignore_errors: true
 
-    - name: Add Kitware repository for CMake
-      become: true
-      ansible.builtin.apt_repository:
-        repo: deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ jammy main
-        state: present
-        filename: kitware.list
-        mode: "0644"
-        update_cache: true
+- name: Install CMake from apt
+  ansible.builtin.import_playbook: apt/cmake.yaml
+  when: false
 
-    - name: Install CMake
-      become: true
-      ansible.builtin.apt:
-        name:
-          - cmake
-        state: present
+- name: Build CMake
+  ansible.builtin.import_playbook: build/cmake.yaml
+  when: not cmake_installed

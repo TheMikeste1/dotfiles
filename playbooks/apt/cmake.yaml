@@ -1,0 +1,21 @@
+- name: Install CMake from apt
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Add Kitware repository key
+      apt_key:
+        url: https://apt.kitware.com/keys/kitware-archive-latest.asc
+        keyring: /etc/apt/trusted.gpg.d/kitware.gpg
+        state: present
+    - name: Add repository source
+      apt_repository:
+        state: present
+        repo: deb [signed-by=/etc/apt/trusted.gpg.d/kitware.gpg] https://apt.kitware.com/ubuntu/ "{{ ansible_distribution_release }}" main
+        filename: kitware
+        mode: "0644"
+        update_cache: true
+    - name: Install CMake
+      ansible.builtin.apt:
+        name:
+          - cmake
+        state: present

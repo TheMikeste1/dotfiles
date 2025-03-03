@@ -1,0 +1,11 @@
+---
+- name: Check for ninja-build
+  hosts: localhost
+  tasks:
+    - command: "which ninja"
+      register: ninja_installed
+      ignore_errors: true
+
+- name: Build ninja-build
+  ansible.builtin.import_playbook: build/ninja.yaml
+  when: not ninja_installed

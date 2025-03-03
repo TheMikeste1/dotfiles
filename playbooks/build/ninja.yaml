@@ -1,0 +1,29 @@
+---
+- name: Build ninja-build
+  hosts: localhost
+  tasks:
+    - name: Pull
+      ansible.builtin.git:
+        repo: git@github.com:ninja-build/ninja.git
+        dest: ~/src/ninja
+        clone: true
+        update: true
+        single_branch: true
+        version: release
+      register: ninja_build_pull
+    - name: Configure
+      command:
+        chdir: ~/src/ninja
+        cmd: cmake -B build-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_GENERATOR="Unix Makefiles"
+      when: ninja_build_pull.changed
+    - name: Build
+      command:
+        chdir: ~/src/ninja
+        cmd: cmake --build build-cmake --parallel
+      when: ninja_build_pull.changed
+    - name: Install
+      become: true
+      command:
+        chdir: "{{ ansible_facts.user_dir }}/src/ninja"
+        cmd: cmake --build build-cmake --target install
+      when: ninja_build_pull.changed

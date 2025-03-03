@@ -10,7 +10,6 @@
           - build-essential
           - fzf # TODO: Replace with building; add lazygit
           - git
-          - ninja-build # TODO: Replace with building
           - tmux
           - software-properties-common
           - python3-pip
@@ -28,6 +27,11 @@
   ansible.builtin.import_playbook: playbooks/cmake.yaml
   tags:
     - cmake
+
+- name: Setup ninja-build
+  ansible.builtin.import_playbook: playbooks/ninja.yaml
+  tags:
+    - ninja
 
 - name: Setup Rust
   ansible.builtin.import_playbook: playbooks/rust.yaml

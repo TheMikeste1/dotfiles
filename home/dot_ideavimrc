@@ -20,6 +20,7 @@ set relativenumber
 set notimeout
 set incsearch
 set scrolloff=5
+set easymotion
 
 let g:qs_primary_color   = '#afff5f'
 let g:qs_secondary_color = '#5fffff'

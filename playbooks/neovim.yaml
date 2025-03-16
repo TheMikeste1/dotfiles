@@ -4,12 +4,15 @@
   tasks:
     - name: Check whether NeoVim is installed and on system path
       command: "which nvim"
+      check_mode: false
+      changed_when: false
+      failed_when: nvim_installed.rc > 0
       register: nvim_installed
       ignore_errors: true
 
 - name: Build NeoVim
   ansible.builtin.import_playbook: build/neovim.yaml
-  when: not nvim_installed
+  when: nvim_installed.failed
 
 - name: Initialize NeoVim
   hosts: localhost

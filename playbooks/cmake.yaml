@@ -3,6 +3,9 @@
   hosts: localhost
   tasks:
     - command: "which cmake"
+      check_mode: false
+      changed_when: false
+      failed_when: cmake_installed.rc > 0
       register: cmake_installed
       ignore_errors: true
 
@@ -12,4 +15,4 @@
 
 - name: Build CMake
   ansible.builtin.import_playbook: build/cmake.yaml
-  when: not cmake_installed
+  when: cmake_installed.failed

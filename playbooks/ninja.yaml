@@ -3,9 +3,12 @@
   hosts: localhost
   tasks:
     - command: "which ninja"
+      check_mode: false
+      changed_when: false
+      failed_when: ninja_installed.rc > 0
       register: ninja_installed
       ignore_errors: true
 
 - name: Build ninja-build
   ansible.builtin.import_playbook: build/ninja.yaml
-  when: not ninja_installed
+  when: ninja_installed.failed

@@ -17,9 +17,12 @@
 
     - name: Check whether oh-my-posh is installed and on system path
       command: "which oh-my-posh"
+      check_mode: false
+      changed_when: false
+      failed_when: omp_installed.rc > 0
       register: omp_installed
       ignore_errors: true
     - name: Install oh-my-posh
       command: curl -s https://ohmyposh.dev/install.sh | bash -s
-      when: not omp_installed
+      when: omp_installed.failed
 

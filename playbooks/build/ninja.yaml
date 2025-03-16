@@ -14,7 +14,7 @@
     - name: Configure
       command:
         chdir: ~/src/ninja
-        cmd: cmake -B build-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_GENERATOR="Unix Makefiles"
+        cmd: cmake -B build-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_GENERATOR="Unix Makefiles" -DBUILD_TESTING=OFF
       when: ninja_build_pull.changed
     - name: Build
       command:

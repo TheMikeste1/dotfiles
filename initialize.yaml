@@ -14,6 +14,9 @@
           - software-properties-common
           - python3-pip
           - python3-venv
+          - zip
+          - unzip
+          - xsel
         state: present
 
     - name: Pull git extensions
@@ -38,10 +41,6 @@
   tags:
     - rust
 
-- name: Setup Mise
-  ansible.builtin.import_playbook: playbooks/mise.yaml
-  tags:
-    - mise
 
 - name: Setup NeoVim
   ansible.builtin.import_playbook: playbooks/neovim.yaml

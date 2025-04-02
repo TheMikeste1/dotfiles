@@ -41,6 +41,7 @@ zinit snippet OMZP::command-not-found
 # Additional completions
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 fpath=("$HOME"/.zsh $fpath)
+fpath+=("$HOME"/.zfunc)
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # Set case insensitive
@@ -94,11 +95,14 @@ setopt extendedglob local_options
 if [ ! -f "$EVAL_CACHE_DIR"/.last_cache ] || [[ -n "$EVAL_CACHE_DIR"/.last_cache(#qN.mh+24) ]]; then
   echo "Refreshing eval cache. . ."
   refresh_eval_cache
+  # Need to source before we set up the comp cache
+  source_eval_cache
   refresh_comp_cache
+else
+  source_eval_cache
 fi
 unsetopt extendedglob local_options
 
-source_eval_cache
 
 autoload -Uz _oh-my-posh && typeset -g -A _comps && _comps[oh-my-posh]=_oh-my-posh
 autoload -Uz _mise       && typeset -g -A _comps && _comps[mise]=_mise

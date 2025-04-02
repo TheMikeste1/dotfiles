@@ -1,5 +1,8 @@
 ITAR
 repurposing
+iff
+lexicographically
+booleans
 mhegerhorst
 dataflow
 @endverbatim

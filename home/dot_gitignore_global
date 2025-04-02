@@ -7,3 +7,4 @@ CMakeKits.json
 .lefthook.yml
 lefthook.yml
 .venv
+.null-ls*

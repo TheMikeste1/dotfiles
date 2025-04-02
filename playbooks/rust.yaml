@@ -30,4 +30,5 @@
           - mise
           - ripgrep
           - cargo-update
+          - tree-sitter
         state: present

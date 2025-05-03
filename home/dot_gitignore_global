@@ -8,3 +8,4 @@ CMakeKits.json
 lefthook.yml
 .venv
 .null-ls*
+.bacon-locations

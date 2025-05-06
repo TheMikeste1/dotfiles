@@ -17,6 +17,9 @@ export CMAKE_EXPORT_COMPILE_COMMANDS=ON
 # C# tools
 export PATH="$PATH:$HOME/.dotnet/tools"
 
+# Docker
+export COMPOSE_BAKE=true
+
 # Enable GPG signing
 # export GPG_TTY=$(tty)  # Replaced with pinentry in gpg-agent.conf
 
@@ -51,6 +54,14 @@ export PATH="$PATH:$HOME/.local/share/nvim/mason/bin"
 
 # No telemetry
 export DOTNET_CLI_TELEMETRY_OPTOUT="true"
+
+# WSL
+export ON_WSL=false
+if uname -r | grep -q "WSL"; then
+  ON_WSL=true
+fi
+readonly ON_WSL
+
 
 # Machine-specific env and overrides
 source "$HOME/.local.bash_env" 2>/dev/null

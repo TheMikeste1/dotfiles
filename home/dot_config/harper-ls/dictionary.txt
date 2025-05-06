@@ -4,9 +4,12 @@
 @tparam
 ITAR
 booleans
+callback
+clippy
 dataflow
 iff
 lexicographically
+lsp
 mhegerhorst
 programmatically
 repurposing

@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
+readonly EVAL_CACHE_DIR="$HOME/.cache/eval"
+if [[ ! -d "$EVAL_CACHE_DIR" ]]; then
+    mkdir -p "$EVAL_CACHE_DIR"
+fi
+
 # Initialize where the dotfiles are
 export DOTFILES="$HOME/.local/share/chezmoi"
-
-# Use WSLu for browser integration
-export BROWSER=wslview
 
 export EDITOR=nvim
 
@@ -19,9 +21,6 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 
 # Docker
 export COMPOSE_BAKE=true
-
-# Enable GPG signing
-# export GPG_TTY=$(tty)  # Replaced with pinentry in gpg-agent.conf
 
 # Custom git commands
 export PATH="$PATH:$DOTFILES/git_commands"
@@ -56,11 +55,24 @@ export PATH="$PATH:$HOME/.local/share/nvim/mason/bin"
 export DOTNET_CLI_TELEMETRY_OPTOUT="true"
 
 # WSL
-export ON_WSL=false
 if uname -r | grep -q "WSL"; then
-  ON_WSL=true
+    # Use WSLu for browser integration
+    export BROWSER=wslview
+
+    declare -xr ON_WSL=true
+    export PATH="$PATH:/mnt/c/Windows/System32"
+    export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0"
+
+    if [[ ! -f "$EVAL_CACHE_DIR/wsl_constants.bash" ]]; then
+        echo "Performing WSL first time setup. . ."
+
+        echo "declare -xr WINDOWS_USERNAME=\"$(powershell.exe -Command 'echo $env:USERNAME' | tr -d '\r')\"
+        export PATH=\"\$PATH:/mnt/c/users/\$WINDOWS_USERNAME/AppData/Local/Programs/Microsoft VS Code/bin\"" \
+        > "$EVAL_CACHE_DIR/wsl_constants.bash"
+    fi
+
+    source "$EVAL_CACHE_DIR/wsl_constants.bash"
 fi
-readonly ON_WSL
 
 
 # Machine-specific env and overrides

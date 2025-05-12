@@ -11,11 +11,6 @@ fi
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-readonly EVAL_CACHE_DIR="$HOME/.cache/eval"
-if [[ ! -d "$EVAL_CACHE_DIR" ]]; then
-  mkdir -p "$EVAL_CACHE_DIR"
-fi
-
 readonly COMPLETIONS_DIR="$ZSH_CACHE_DIR/completions"
 if [[ ! -d "$COMPLETIONS_DIR" ]]; then
   mkdir -p "$COMPLETIONS_DIR"

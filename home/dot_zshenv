@@ -1,9 +1,6 @@
 skip_global_compinit=1
 
-if [[ -f "$HOME"/.bash_env ]]; then
-  source "$HOME"/.bash_env
-fi
-
-if [[ -f "$HOME"/.bash_commands ]]; then
-  source "$HOME"/.bash_commands
+declare -rx EVAL_CACHE_DIR="$HOME/.cache/eval"
+if [[ ! -d "$EVAL_CACHE_DIR" ]]; then
+    mkdir -p "$EVAL_CACHE_DIR"
 fi

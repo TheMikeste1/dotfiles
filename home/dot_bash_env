@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-readonly EVAL_CACHE_DIR="$HOME/.cache/eval"
-if [[ ! -d "$EVAL_CACHE_DIR" ]]; then
-    mkdir -p "$EVAL_CACHE_DIR"
-fi
-
 # Initialize where the dotfiles are
 export DOTFILES="$HOME/.local/share/chezmoi"
 
@@ -62,6 +57,7 @@ if uname -r | grep -q "WSL"; then
     declare -xr ON_WSL=true
     export PATH="$PATH:/mnt/c/Windows/System32"
     export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0"
+    export PATH="$PATH:/mnt/c/Program Files/Git/cmd"
 
     if [[ ! -f "$EVAL_CACHE_DIR/wsl_constants.bash" ]]; then
         echo "Performing WSL first time setup. . ."
@@ -74,6 +70,7 @@ if uname -r | grep -q "WSL"; then
     source "$EVAL_CACHE_DIR/wsl_constants.bash"
 fi
 
+export PATH=$(echo "$PATH" | sed -e "s%:$HOME/.vscode-server/bin/.\+/bin/remote-cli%%")
 
 # Machine-specific env and overrides
 source "$HOME/.local.bash_env" 2>/dev/null

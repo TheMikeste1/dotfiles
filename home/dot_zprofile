@@ -30,5 +30,13 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+if [[ -f "$HOME"/.bash_env ]]; then
+  source "$HOME"/.bash_env
+fi
+
+if [[ -f "$HOME"/.bash_commands ]]; then
+  source "$HOME"/.bash_commands
+fi
+
 # Start SSH agent on launch
 ssh-activate

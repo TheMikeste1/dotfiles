@@ -25,7 +25,7 @@
         name:
           - bat
           - git-delta
-          - exa
+          - eza
           - fd-find
           - mise
           - ripgrep

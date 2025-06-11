@@ -11,3 +11,4 @@
 - Install NPM?
 
 - Add cargo to path after install
+- Install local NVIM plugins

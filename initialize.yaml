@@ -10,6 +10,7 @@
           - build-essential
           - fzf # TODO: Replace with building; add lazygit
           - git
+          - luarocks
           - pkg-config
           - python3-pip
           - python3-venv

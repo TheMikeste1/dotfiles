@@ -1,5 +1,3 @@
-[user]
-signingkey =
-
 [commit]
 gpgsign = true
+signingkey =

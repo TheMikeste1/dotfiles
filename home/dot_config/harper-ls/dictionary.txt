@@ -1,7 +1,3 @@
-@cond
-@endcond
-@endverbatim
-@tparam
 ITAR
 booleans
 callback

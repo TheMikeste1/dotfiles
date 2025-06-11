@@ -19,16 +19,15 @@
       when: rust_installed is failed
       shell: /tmp/sh.rustup.rs -y
 
-
     - name: Install Rust packages
       community.general.cargo:
         name:
           - bat
-          - git-delta
+          - cargo-update
           - eza
           - fd-find
+          - git-delta
           - mise
           - ripgrep
-          - cargo-update
-          - tree-sitter
+          - tree-sitter-cli
         state: present

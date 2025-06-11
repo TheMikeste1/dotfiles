@@ -10,13 +10,14 @@
           - build-essential
           - fzf # TODO: Replace with building; add lazygit
           - git
-          - tmux
-          - software-properties-common
+          - pkg-config
           - python3-pip
           - python3-venv
-          - zip
+          - software-properties-common
+          - tmux
           - unzip
           - xsel
+          - zip
         state: present
 
     - name: Pull git extensions
@@ -25,6 +26,15 @@
         dest: ./git_commands
       tags:
         - update
+    - name: Install TMUX Package Manager
+      ansible.builtin.git:
+        repo: https://github.com/tmux-plugins/tpm.git
+        dest: ~/.tmux/plugins/tpm
+        clone: true
+        update: true
+        single_branch: true
+    - name: Install TMUX plugins
+      command: tmux source-file ~/.tmux.conf
 
 - name: Setup CMake
   ansible.builtin.import_playbook: playbooks/cmake.yaml

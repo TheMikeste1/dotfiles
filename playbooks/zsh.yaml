@@ -22,7 +22,14 @@
       failed_when: omp_installed.rc > 0
       register: omp_installed
       ignore_errors: true
-    - name: Install oh-my-posh
-      command: curl -s https://ohmyposh.dev/install.sh | bash -s
+    - name: Download OhMyPosh installer
       when: omp_installed.failed
+      get_url:
+        url: https://ohmyposh.dev/install.sh
+        dest: /tmp/ohmyposh-install.sh
+        mode: "0755"
+        force: true
+    - name: Install oh-my-posh
+      when: omp_installed.failed
+      shell: /tmp/ohmyposh-install.sh
 

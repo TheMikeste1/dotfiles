@@ -51,23 +51,24 @@ export DOTNET_CLI_TELEMETRY_OPTOUT="true"
 
 # WSL
 if uname -r | grep -q "WSL"; then
-    # Use WSLu for browser integration
-    export BROWSER=wslview
-
     declare -xr ON_WSL=true
     export PATH="$PATH:/mnt/c/Windows/System32"
     export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0"
     export PATH="$PATH:/mnt/c/Program Files/Git/cmd"
 
+
     if [[ ! -f "$EVAL_CACHE_DIR/wsl_constants.bash" ]]; then
         echo "Performing WSL first time setup. . ."
-
-        echo "declare -xr WINDOWS_USERNAME=\"$(powershell.exe -Command 'echo $env:USERNAME' | tr -d '\r')\"
-        export PATH=\"\$PATH:/mnt/c/users/\$WINDOWS_USERNAME/AppData/Local/Programs/Microsoft VS Code/bin\"" \
-        > "$EVAL_CACHE_DIR/wsl_constants.bash"
+        echo "declare -xr WINDOWS_USERNAME=\"$(powershell.exe -Command 'echo $env:USERNAME' | tr -d '\r')\"" \
+            > "$EVAL_CACHE_DIR/wsl_constants.bash"
     fi
 
     source "$EVAL_CACHE_DIR/wsl_constants.bash"
+
+    export PATH="$PATH:/mnt/c/users/$WINDOWS_USERNAME/AppData/Local/Programs/Microsoft VS Code/bin"
+    export PATH="$PATH:/mnt/c/users/$WINDOWS_USERNAME/AppData/Local/Mozilla Firefox"
+    export BROWSER=firefox.exe
+    alias firefox firefox.exe
 fi
 
 export PATH=$(echo "$PATH" | sed -e "s%:$HOME/.vscode-server/bin/.\+/bin/remote-cli%%")

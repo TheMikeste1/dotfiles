@@ -58,17 +58,10 @@
   tags:
     - neovim
 
-- name: Setup WSL Utilities
-  ansible.builtin.import_playbook: playbooks/wslview.yaml
-  tags:
-    - wsl
-
 - name: Setup Zsh
   ansible.builtin.import_playbook: playbooks/zsh.yaml
   tags:
     - zsh
-
-# TODO: Initialize TMUX plugins
 
 - name: Setup Fish
   when: false

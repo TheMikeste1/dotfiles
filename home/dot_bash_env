@@ -71,7 +71,7 @@ if uname -r | grep -q "WSL"; then
     alias firefox firefox.exe
 fi
 
-export PATH=$(echo "$PATH" | sed -e "s%:$HOME/.vscode-server/bin/.\+/bin/remote-cli%%")
+export PATH="${PATH%:"${HOME}"/.vscode-server/bin/*/bin/remote-cli}"
 
 # Machine-specific env and overrides
 source "$HOME/.local.bash_env" 2>/dev/null

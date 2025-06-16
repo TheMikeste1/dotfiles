@@ -11,6 +11,7 @@
           - fzf # TODO: Replace with building; add lazygit
           - git
           - luarocks
+          - npm
           - pkg-config
           - python3-pip
           - python3-venv

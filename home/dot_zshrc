@@ -49,6 +49,10 @@ if [[ -f "$HOME"/.bash_aliases ]]; then
   source "$HOME"/.bash_aliases
 fi
 
+if [[ -f "$HOME"/.bash_commands ]]; then
+  source "$HOME"/.bash_commands
+fi
+
 # Load completions
 autoload -Uz compinit
 # Load compinit from the cache if it's been less than 24 hours

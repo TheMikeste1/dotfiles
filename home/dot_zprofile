@@ -34,9 +34,25 @@ if [[ -f "$HOME"/.bash_env ]]; then
   source "$HOME"/.bash_env
 fi
 
-if [[ -f "$HOME"/.bash_commands ]]; then
-  source "$HOME"/.bash_commands
-fi
+# https://stackoverflow.com/a/18915067
+function ssh-activate() {
+  function __start_agent {
+    ssh-agent | sed 's/^SSH/export SSH/' | sed 's/^echo/#echo/' >"$SSH_ENV"
+    chmod 600 "$SSH_ENV"
+    # shellcheck source=/dev/null
+    . "$SSH_ENV" >/dev/null
+  }
+
+  if [ -f "$SSH_ENV" ]; then
+    # shellcheck source=/dev/null
+    . "$SSH_ENV" >/dev/null
+    ps -ef | grep "$SSH_AGENT_PID" | grep ssh-agent$ >/dev/null || {
+      __start_agent
+    }
+  else
+    __start_agent
+  fi
+}
 
 # Start SSH agent on launch
 ssh-activate

@@ -30,10 +30,6 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-if [[ -f "$HOME"/.bash_env ]]; then
-  source "$HOME"/.bash_env
-fi
-
 # https://stackoverflow.com/a/18915067
 function ssh-activate() {
   function __start_agent {

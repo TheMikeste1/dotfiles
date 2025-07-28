@@ -1,31 +1,31 @@
 #!/bin/bash
 
 function explorer() {
-  if ! pushd "$1" &>/dev/null; then
-    echo "Could not find directory \"$1\""
-    return
-  fi
-  /mnt/c/windows/explorer.exe .
-  popd &>/dev/null || return
+    if ! pushd "$1" &>/dev/null; then
+        echo "Could not find directory \"$1\""
+        return
+    fi
+    /mnt/c/windows/explorer.exe .
+    popd &>/dev/null || return
 }
 
 function git() {
-  if ! $(command -v wslpath >/dev/null) || wslpath -w . | grep -q '\\wsl'; then
-    command git "$@"
-  else
-    echo "Windows path detected, using git.exe"
-    git.exe "$@"
-  fi
+    if ! command -v wslpath >/dev/null || wslpath -w . | grep -q '\\wsl'; then
+        command git "$@"
+    else
+        echo "Windows path detected, using git.exe"
+        git.exe "$@"
+    fi
 }
 
 function petalinux-activate() {
-  petalinux_version="v2022_2"
-  petalinux_directory=$HOME/.petalinux-installs/$petalinux_version
-  echo "Initializing PetaLinux to $petalinux_version in $petalinux_directory. . ."
-  source "$petalinux_directory/settings.sh" >/dev/null # > /dev/null to silence the script; you may want to disable this when testing it works
+    petalinux_version="v2022_2"
+    petalinux_directory=$HOME/.petalinux-installs/$petalinux_version
+    echo "Initializing PetaLinux to $petalinux_version in $petalinux_directory. . ."
+    source "$petalinux_directory/settings.sh" >/dev/null # > /dev/null to silence the script; you may want to disable this when testing it works
 }
 
 function petalinux-superboot() {
-  python3 ~/scripts/petalinux_superboot.py "${@}"
+    python3 ~/scripts/petalinux_superboot.py "${@}"
 }
 

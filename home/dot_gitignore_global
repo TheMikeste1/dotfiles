@@ -9,3 +9,4 @@ lefthook.yml
 .venv
 .null-ls*
 .bacon-locations
+*:Zone.Identifier

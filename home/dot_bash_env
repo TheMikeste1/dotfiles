@@ -29,6 +29,9 @@ export CMAKE_GENERATOR=Ninja
 export NINJA_STATUS="[%p (%f/%t) :: (%e|%E)] "
 export CMAKE_COLOR_DIAGNOSTICS=ON
 
+# Mold by default
+export CMAKE_LINKER_TYPE=MOLD
+
 # Python packages
 export PATH="$HOME/.local/bin:$PATH"
 

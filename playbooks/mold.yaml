@@ -1,0 +1,14 @@
+---
+- name: Check for mold-build
+  hosts: localhost
+  tasks:
+    - command: "which mold"
+      check_mode: false
+      changed_when: false
+      failed_when: mold_installed.rc > 0
+      register: mold_installed
+      ignore_errors: true
+
+- name: Build mold-build
+  ansible.builtin.import_playbook: build/mold.yaml
+  when: mold_installed.failed

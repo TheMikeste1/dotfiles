@@ -48,6 +48,11 @@
   tags:
     - ninja
 
+- name: Setup mold linker
+  ansible.builtin.import_playbook: playbooks/mold.yaml
+  tags:
+    - mold
+
 - name: Setup Rust
   ansible.builtin.import_playbook: playbooks/rust.yaml
   tags:

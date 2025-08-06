@@ -8,10 +8,10 @@
       ansible.builtin.apt:
         name:
           - build-essential
-          - fzf # TODO: Replace with building; add lazygit
           - git
           - luarocks
           - npm
+          - pinentry-qt
           - pkg-config
           - python3-pip
           - python3-venv
@@ -26,8 +26,7 @@
       ansible.builtin.git:
         repo: git@github.com:TheMikeste1/git-galaxy.git
         dest: ./git_commands
-      tags:
-        - update
+
     - name: Install TMUX Package Manager
       ansible.builtin.git:
         repo: https://github.com/tmux-plugins/tpm.git
@@ -40,37 +39,28 @@
 
 - name: Setup CMake
   ansible.builtin.import_playbook: playbooks/cmake.yaml
-  tags:
-    - cmake
 
 - name: Setup ninja-build
   ansible.builtin.import_playbook: playbooks/ninja.yaml
-  tags:
-    - ninja
 
 - name: Setup mold linker
   ansible.builtin.import_playbook: playbooks/mold.yaml
-  tags:
-    - mold
+
+- name: Setup Go
+  ansible.builtin.import_playbook: playbooks/go.yaml
 
 - name: Setup Rust
   ansible.builtin.import_playbook: playbooks/rust.yaml
-  tags:
-    - rust
-
 
 - name: Setup NeoVim
   ansible.builtin.import_playbook: playbooks/neovim.yaml
-  tags:
-    - neovim
+
+- name: Setup Mise
+  ansible.builtin.import_playbook: playbooks/mise.yaml
 
 - name: Setup Zsh
   ansible.builtin.import_playbook: playbooks/zsh.yaml
-  tags:
-    - zsh
 
 - name: Setup Fish
   when: false
   ansible.builtin.import_playbook: playbooks/fish.yaml
-  tags:
-    - fish

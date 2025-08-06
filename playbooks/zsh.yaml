@@ -32,4 +32,3 @@
     - name: Install oh-my-posh
       when: omp_installed.failed
       shell: /tmp/ohmyposh-install.sh
-

@@ -1,3 +1,4 @@
+---
 - name: Initialize Rust and Packages
   hosts: localhost
 
@@ -27,6 +28,7 @@
           - eza
           - fd-find
           - git-delta
+          - mdbook
           - mise
           - ripgrep
           - tree-sitter-cli

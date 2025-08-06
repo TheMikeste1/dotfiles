@@ -1,3 +1,4 @@
+---
 - name: Build CMake
   hosts: localhost
   tasks:

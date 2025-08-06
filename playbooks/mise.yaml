@@ -1,1 +1,12 @@
-# TODO: Mise install python, go, ???
+---
+- name: Initialize Mise packages
+  hosts: localhost
+  tasks:
+    - name: Install a specific Mise package
+      ansible.builtin.command: >
+        mise install {{ item.key }}@{{ item.value }}
+      with_dict:
+        chezmoi: "latest"
+        python: "latest"
+      loop_control:
+        label: "{{ item.key }}"

@@ -21,8 +21,8 @@ export COMPOSE_BAKE=true
 export PATH="$PATH:$DOTFILES/git_commands"
 
 # Go
-export PATH="$PATH:/usr/local/go/bin"
 export GOBIN="$HOME/.local/go/bin"
+export PATH="$PATH:/usr/local/go/bin:$GOBIN"
 
 # Ninja by default
 export CMAKE_GENERATOR=Ninja
@@ -30,7 +30,8 @@ export NINJA_STATUS="[%p (%f/%t) :: (%e|%E)] "
 export CMAKE_COLOR_DIAGNOSTICS=ON
 
 # Mold by default
-export CMAKE_LINKER_TYPE=MOLD
+export CMAKE_CXX_LINKER_LAUNCHER='mold;-run'
+export CMAKE_C_LINKER_LAUNCHER='mold;-run'
 
 # Python packages
 export PATH="$HOME/.local/bin:$PATH"

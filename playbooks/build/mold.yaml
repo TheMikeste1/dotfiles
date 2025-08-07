@@ -14,16 +14,16 @@
     - name: Configure
       command:
         chdir: ~/src/mold
-        cmd: cmake -B build-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=c++
+        cmd: cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=c++ -B build
       when: mold_build_pull.changed
     - name: Build
       command:
         chdir: ~/src/mold
-        cmd: cmake --build build-cmake --parallel
+        cmd: cmake --build build --parallel
       when: mold_build_pull.changed
     - name: Install
       become: true
       command:
         chdir: "{{ ansible_facts.user_dir }}/src/mold"
-        cmd: cmake --build build-cmake --target install
+        cmd: cmake --build build --target install
       when: mold_build_pull.changed

@@ -33,3 +33,7 @@
           - ripgrep
           - tree-sitter-cli
         state: present
+
+    - name: Install UV
+      command:
+        cmd: cargo install --git https://github.com/astral-sh/uv uv

@@ -72,13 +72,30 @@ function refresh_eval_cache() {
   touch "$EVAL_CACHE_DIR"/.last_cache
 }
 
+function try_generate_comp_cache() {
+  if ! command -v $1 >/dev/null 2>&1
+  then
+    echo "$1 is not installed; not generating completions"
+    return 1
+  fi
+
+  command $@ > "$COMPLETIONS_DIR/_$1"
+  return 0
+}
+
+function autoload_completion() {
+  autoload -Uz _$1 && typeset -g -A _comps && _comps[$1]=_$1
+}
+
 function refresh_comp_cache() {
-  oh-my-posh completion zsh > "$COMPLETIONS_DIR/_oh-my-posh"
-  mise completions zsh      > "$COMPLETIONS_DIR/_mise"
-  fzf --zsh                 > "$COMPLETIONS_DIR/_fzf"
-  mdbook completions zsh    > "$COMPLETIONS_DIR/_mdbook"
-  lefthook completion zsh   > "$COMPLETIONS_DIR/_lefthook"
-  chezmoi completion zsh    > "$COMPLETIONS_DIR/_chezmoi"
+  try_generate_comp_cache chezmoi completion zsh
+  try_generate_comp_cache fzf --zsh
+  try_generate_comp_cache lefthook completion zsh
+  try_generate_comp_cache mdbook completions zsh
+  try_generate_comp_cache mise completions zsh
+  # try_generate_comp_cache oh-my-posh completion zsh
+  try_generate_comp_cache uv generate-shell-completion zsh
+  try_generate_comp_cache uvx --generate-shell-completion zsh
 }
 
 function source_eval_cache() {
@@ -98,13 +115,11 @@ else
 fi
 unsetopt extendedglob local_options
 
-
-autoload -Uz _oh-my-posh && typeset -g -A _comps && _comps[oh-my-posh]=_oh-my-posh
-autoload -Uz _mise       && typeset -g -A _comps && _comps[mise]=_mise
-autoload -Uz _fzf        && typeset -g -A _comps && _comps[fzf]=_fzf
-autoload -Uz _mdbook     && typeset -g -A _comps && _comps[mdbook]=_mdbook
-autoload -Uz _lefthook   && typeset -g -A _comps && _comps[lefthook]=_lefthook
-autoload -Uz _chezmoi    && typeset -g -A _comps && _comps[chezmoi]=_chezmoi
+for f in "$COMPLETIONS_DIR"/*
+do
+  f="${f##*/}"
+  autoload -Uz _$f && typeset -g -A _comps && _comps[$f]=_$f
+done
 
 zinit light zsh-users/zsh-syntax-highlighting # Must be loaded last to load all completions
 

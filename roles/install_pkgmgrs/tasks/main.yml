@@ -1,0 +1,9 @@
+# $schema: https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks
+---
+- name: Ensure package managers are installed
+  include_tasks: install_package.yml
+  loop: '{{ package_managers }}'
+  loop_control:
+    label: '{{ item.name }}'
+  vars:
+    package: '{{ item }}'

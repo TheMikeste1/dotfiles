@@ -1,0 +1,23 @@
+# $schema: https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/packages
+---
+- name: Install {{ package.name }} via system package manager
+  when: package.install_with == 'system'
+  package:
+    name: '{{ package.pkg_name | default(package.name) }}'
+    state: present
+- name: Install {{ package.name }} via cargo
+  when: package.install_with == 'cargo'
+  community.general.cargo:
+    name: '{{ package.pkg_name }}'
+    state: present
+- name: Install {{ package.name }} via script
+  when: package.install_with == 'script'
+  block:
+    - name: Check if {{ package.name }} is installed
+      command: which {{ package.bin }}
+      register: pm_check
+      ignore_errors: true
+      changed_when: false
+    - name: Run script for {{ package.name }}
+      when: pm_check.rc != 0
+      shell: '{{ package.install_script }}'

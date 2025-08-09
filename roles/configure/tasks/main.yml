@@ -1,0 +1,20 @@
+---
+- name: Pull NeoVim config
+  git:
+    repo: git@github.com:TheMikeste1/my-neovim.git
+    dest: ~/.config/nvim
+    update: false
+
+- name: Pull git extensions
+  git:
+    repo: git@github.com:TheMikeste1/git-galaxy.git
+    dest: ./git_commands
+
+- name: Install TMUX plugins
+  command: tmux source-file ~/.tmux.conf
+
+- name: Set Zsh as default shell
+  become: true
+  user:
+    name: '{{ ansible_user_id }}'
+    shell: /usr/bin/zsh

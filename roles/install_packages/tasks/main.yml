@@ -1,0 +1,56 @@
+---
+- name: Install system packages
+  become: true
+  package:
+    name: '{{ managed_packages.system }}'
+    state: present
+- name: Install Rust packages
+  block:
+    - name: Cargo
+      community.general.cargo:
+        name: '{{ managed_packages.cargo }}'
+        state: present
+    - name: Cargo Git
+      include_tasks: build_from_cargo_git.yml
+      loop: '{{ managed_packages.cargo_git }}'
+      loop_control:
+        label: '{{ item.name }}'
+      vars:
+        package: '{{ item }}'
+- name: Install Go packages
+  command: go install {{ item.url }}@{{ item.version }}
+  loop: '{{ managed_packages.go }}'
+  loop_control:
+    label: '{{ item.name }}'
+- name: Install Mise packages
+  ignore_errors: true  # Mise fails when the GitHub rate limit is exceeded.. Which seems to happen a lot
+  command: mise install {{ item.name }}@{{ item.version }}
+  loop: '{{ managed_packages.mise }}'
+  loop_control:
+    label: '{{ item.name }}'
+- name: Ensure OhMyPosh is installed
+  block:
+    - name: Check whether OhMyPosh is installed and on system path
+      command: which oh-my-posh
+      check_mode: false
+      changed_when: false
+      register: omp_installed
+      ignore_errors: true
+    - name: Install OhMyPosh
+      when: omp_installed.rc != 0
+      block:
+        - name: Download OhMyPosh installer
+          get_url:
+            url: https://ohmyposh.dev/install.sh
+            dest: /tmp/ohmyposh-install.sh
+            mode: '0755'
+            force: true
+        - name: Install oh-my-posh
+          shell: /tmp/ohmyposh-install.sh
+- name: Install TMUX Package Manager
+  git:
+    repo: https://github.com/tmux-plugins/tpm.git
+    dest: ~/.tmux/plugins/tpm
+    clone: true
+    update: true
+    single_branch: true

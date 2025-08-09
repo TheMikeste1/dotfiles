@@ -1,0 +1,112 @@
+---
+- name: Ensure build tools are installed
+  become: true
+  package:
+    name: '{{ build_tools.system }}'
+    state: present
+- name: Build dev tools from source
+  include_tasks: build_from_source.yml
+  loop: '{{ build_tools.git_build }}'
+  loop_control:
+    label: '{{ item.name }}'
+  vars:
+    name: '{{ item.name }}'
+    bin: '{{ item.bin }}'
+    repo: '{{ item.repo }}'
+    configure_flags: '{{ item.configure_flags }}'
+- name: Ensure CMake is installed
+  block:
+    - name: Check if CMake is installed
+      shell: command -v cmake
+      register: cmake_installed
+      ignore_errors: true
+      changed_when: false
+    - name: Build CMake
+      when: cmake_installed.rc != 0
+      block:
+        - name: Pull
+          ansible.builtin.git:
+            repo: git@github.com:Kitware/CMake.git
+            dest: '{{ persist_source_packages_dir }}/cmake'
+            clone: true
+            update: true
+            single_branch: true
+            version: release
+        - name: Install CMake dependencies
+          become: true
+          package:
+            name: libssl-dev
+            state: present
+        # TODO: Might be nice to have a clean step
+        - name: Bootstrap
+          command:
+            cmd: ./bootstrap "--parallel={{ ansible_processor_nproc }}"
+            chdir: '{{ persist_source_packages_dir }}/cmake'
+        - name: Build
+          make:
+            chdir: '{{ persist_source_packages_dir }}/cmake'
+            params:
+              parallel: '{{ ansible_processor_nproc }}'
+              CMAKE_BUILD_TYPE: Release
+        - name: Install
+          become: true
+          make:
+            chdir: '{{ persist_source_packages_dir }}/cmake'
+            target: install
+- name: Ensure Rust is installed
+  block:
+    - name: Check if Rust is installed
+      shell: command -v rustup
+      register: rust_installed
+      ignore_errors: true
+      changed_when: false
+    - name: Install Rust
+      when: rust_installed.rc != 0
+      block:
+        - name: Download Rust installer
+          get_url:
+            url: https://sh.rustup.rs
+            dest: /tmp/sh.rustup.rs
+            mode: '0755'
+            force: true
+        - name: Run Rust installer
+          shell: /tmp/sh.rustup.rs -y
+- name: Ensure Go is installed
+  block:
+    - name: Check if Go is installed
+      shell: command -v go
+      register: go_installed
+      ignore_errors: true
+      changed_when: false
+    - name: Install Go
+      when: go_installed.rc != 0
+      vars:
+        go_version: 1.24.5
+        go_archive: go{{ go_version }}.linux-amd64.tar.gz
+        go_download_url: https://go.dev/dl/{{ go_archive }}
+        go_install_path: /usr/local
+        go_symlink_path: /usr/local/go
+      block:
+        - name: Download Go archive
+          get_url:
+            url: '{{ go_download_url }}'
+            dest: /tmp/{{ go_archive }}
+            mode: '0644'
+        - name: Extract Go archive to /usr/local
+          unarchive:
+            src: /tmp/{{ go_archive }}
+            dest: '{{ go_install_path }}'
+          become: true
+        - name: Remove downloaded Go archive
+          file:
+            path: /tmp/{{ go_archive }}
+            state: absent
+    - name: Verify Go installation
+      block:
+        - name: Get Go version
+          command: go version
+          register: go_version_output
+          changed_when: false
+        - name: Display Go version
+          debug:
+            var: go_version_output.stdout

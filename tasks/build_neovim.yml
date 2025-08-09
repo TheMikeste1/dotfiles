@@ -1,0 +1,31 @@
+# $schema: https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks
+---
+- name: Pull NeoVim
+  git:
+    repo: git@github.com:neovim/neovim.git
+    dest: '{{ persist_source_packages_dir }}/neovim'
+    clone: true
+    update: true
+    single_branch: true
+    version: master
+  register: nvim_pull
+- name: Make NeoVim Clean
+  make:
+    chdir: '{{ persist_source_packages_dir }}/neovim'
+    target: distclean
+  when: nvim_pull.changed
+- name: Make NeoVim dependencies
+  make:
+    chdir: '{{ persist_source_packages_dir }}/neovim'
+    target: deps
+  when: nvim_pull.changed
+- name: Build NeoVim
+  make:
+    chdir: '{{ persist_source_packages_dir }}/neovim'
+    params:
+      CMAKE_BUILD_TYPE: Release
+- name: Install NeoVim
+  make:
+    chdir: '{{ persist_source_packages_dir }}/neovim'
+    target: install
+  become: true

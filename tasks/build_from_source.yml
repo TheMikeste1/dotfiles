@@ -1,0 +1,30 @@
+# $schema: https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks
+---
+- name: Check if {{ name }} is installed
+  shell: command -v {{ bin }}
+  register: tool_installed
+  ignore_errors: true
+  changed_when: false
+- name: Install {{ name }}
+  when: tool_installed.rc != 0
+  block:
+    - name: Pull {{ name }}
+      git:
+        repo: '{{ repo }}'
+        dest: '{{ persist_source_packages_dir }}/{{ name }}'
+        clone: true
+        update: true
+        single_branch: true
+        version: stable
+    - name: Configure {{ name }}
+      command:
+        cmd: cmake -S '{{ persist_source_packages_dir }}/{{ name }}' -B build '{{ configure_flags }}'
+    - name: Build {{ name }}
+      command:
+        chdir: '{{ persist_source_packages_dir }}/{{ name }}'
+        cmd: cmake --build build --parallel
+    - name: Install {{ name }}
+      become: true
+      command:
+        chdir: '{{ persist_source_packages_dir }}/{{ name }}'
+        cmd: cmake --build build --target install

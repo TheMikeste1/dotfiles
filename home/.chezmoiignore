@@ -15,7 +15,6 @@ Documents/
 .zsh*
 
 .tmux.conf
-.vimrc
 {{ end }}
 
 **/.dotfiles_include

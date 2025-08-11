@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # TMUX autoconnect
 if [[ "$TMUX" = "" ]]; then
   # Automatically connect to the session

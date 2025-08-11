@@ -33,9 +33,6 @@ export CMAKE_COLOR_DIAGNOSTICS=ON
 export CMAKE_CXX_LINKER_LAUNCHER='mold;-run'
 export CMAKE_C_LINKER_LAUNCHER='mold;-run'
 
-# Python packages
-export PATH="$HOME/.local/bin:$PATH"
-
 # SSH
 export SSH_ENV="$HOME/.ssh/agent-environment"
 export SSH_ASKPASS="/usr/lib/openssh/gnome-ssh-askpass"
@@ -63,6 +60,7 @@ if uname -r | grep -q "WSL"; then
 
     if [[ ! -f "$EVAL_CACHE_DIR/wsl_constants.bash" ]]; then
         echo "Performing WSL first time setup. . ."
+        # shellcheck disable=SC2016
         echo "declare -xr WINDOWS_USERNAME=\"$(powershell.exe -Command 'echo $env:USERNAME' | tr -d '\r')\"" \
             > "$EVAL_CACHE_DIR/wsl_constants.bash"
     fi

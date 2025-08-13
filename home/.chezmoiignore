@@ -1,4 +1,5 @@
 {{ if ne .chezmoi.os "windows" }}
+AppData/
 Documents/
 .ideavimrc
 {{ end }}

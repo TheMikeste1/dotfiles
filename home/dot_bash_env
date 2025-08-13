@@ -60,17 +60,26 @@ if uname -r | grep -q "WSL"; then
 
     if [[ ! -f "$EVAL_CACHE_DIR/wsl_constants.bash" ]]; then
         echo "Performing WSL first time setup. . ."
+        WINDOWS_USERNAME="$(powershell.exe -Command 'echo $env:USERNAME' | tr -d '\r')"
+        VSCODE_PATH="/mnt/c/users/$WINDOWS_USERNAME/AppData/Local/Programs/Microsoft VS Code/bin"
+        FIREFOX_PATH="/mnt/c/users/$WINDOWS_USERNAME/AppData/Local/Mozilla Firefox"
+        if [[ ! -f "$FIREFOX_PATH/firefox.exe" ]]; then
+          FIREFOX_PATH="/mnt/c/Program Files/Mozilla Firefox"
+        fi
+
+
         # shellcheck disable=SC2016
-        echo "declare -xr WINDOWS_USERNAME=\"$(powershell.exe -Command 'echo $env:USERNAME' | tr -d '\r')\"" \
+        echo "declare -xr WINDOWS_USERNAME=\"$WINDOWS_USERNAME\"
+        declare -xr FIREFOX_PATH=\"$FIREFOX_PATH\"
+        declare -xr VSCODE_PATH=\"$VSCODE_PATH\"" \
             > "$EVAL_CACHE_DIR/wsl_constants.bash"
     fi
 
     source "$EVAL_CACHE_DIR/wsl_constants.bash"
 
-    export PATH="$PATH:/mnt/c/users/$WINDOWS_USERNAME/AppData/Local/Programs/Microsoft VS Code/bin"
-    export PATH="$PATH:/mnt/c/users/$WINDOWS_USERNAME/AppData/Local/Mozilla Firefox"
+    export PATH="$PATH:$VSCODE_PATH"
+    export PATH="$PATH:$FIREFOX_PATH"
     export BROWSER=firefox.exe
-    alias firefox firefox.exe
 fi
 
 export PATH="${PATH%:"${HOME}"/.vscode-server/bin/*/bin/remote-cli}"

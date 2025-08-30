@@ -2,6 +2,7 @@
 AppData/
 Documents/
 .ideavimrc
+.wezterm.lua
 {{ end }}
 
 {{ if ne .chezmoi.os "linux" }}
@@ -16,6 +17,7 @@ Documents/
 .zsh*
 
 .tmux.conf
+.wezterm.sh
 {{ end }}
 
 **/.dotfiles_include

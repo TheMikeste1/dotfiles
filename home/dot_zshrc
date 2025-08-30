@@ -180,6 +180,12 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
+# Emulator-specific settings
+if [[ "$TERM_PROGRAM" == "WezTerm" ]]
+then
+  source "$HOME"/.wezterm.sh
+fi
+
 # TODO: Customize
 # Source: <https://www.reddit.com/r/zsh/comments/ass2tc/gitadd_completion_with_full_paths_listed_at_once/>
 __git_status_files() {

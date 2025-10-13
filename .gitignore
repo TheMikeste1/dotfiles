@@ -3,4 +3,4 @@ git_commands/
 home/.config/fish/
 home/.config/nvim/
 home/.config/fish/
-bin/
+./bin/

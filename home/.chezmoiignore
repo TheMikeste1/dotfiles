@@ -18,6 +18,8 @@ Documents/
 
 .tmux.conf
 .wezterm.sh
+
+bin/
 {{ end }}
 
 **/.dotfiles_include

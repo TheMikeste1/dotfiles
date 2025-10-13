@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+if [[ "$#" -lt 1 ]]
+then
+  echo "Usage: quicknote 'Some note'"
+  exit 1
+fi
+
+readonly note="$*"
+readonly title="$(echo $note | head -1)"
+readonly template="$HOME/Documents/PublicNotes/_Templates/Quick Note.md"
+readonly output="$HOME/Documents/PublicNotes/QuickNotes/${title}.md"
+# TODO: Support multiple lines of note
+cat "$template" | sed "s/{{VALUE}}/${note}/" > "$output"
+echo "Created note at $output"

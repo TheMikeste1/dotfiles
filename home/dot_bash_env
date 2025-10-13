@@ -3,6 +3,9 @@
 # Initialize where the dotfiles are
 export DOTFILES="$HOME/.local/share/chezmoi"
 
+# My command line utilities
+export PATH="$HOME/bin:$PATH"
+
 export EDITOR=nvim
 
 # Cargo

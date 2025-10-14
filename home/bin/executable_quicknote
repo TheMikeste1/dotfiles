@@ -1,15 +1,87 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
+"""
+quicknote — Create a markdown note from a template.
 
-if [[ "$#" -lt 1 ]]
-then
-  echo "Usage: quicknote 'Some note'"
-  exit 1
-fi
+Usage:
+  quicknote -t /path/to/template.md -o /path/to/output_dir "My note text"
+"""
 
-readonly note="$*"
-readonly title="$(echo $note | head -1)"
-readonly template="$HOME/Documents/PublicNotes/_Templates/Quick Note.md"
-readonly output="$HOME/Documents/PublicNotes/QuickNotes/${title}.md"
-# TODO: Support multiple lines of note
-cat "$template" | sed "s/{{VALUE}}/${note}/" > "$output"
-echo "Created note at $output"
+import argparse
+import os
+from pathlib import Path
+
+
+def load_template(template_path: Path) -> str:
+    if not template_path.exists():
+        raise FileNotFoundError(f"Error: Template file not found: {template_path}")
+    return template_path.read_text(encoding="utf-8")
+
+
+def render_template(template_str: str, value: str) -> str:
+    """Replace placeholders in text"""
+    value = value.replace("\n", "\n> ")
+    return template_str.replace("{{VALUE}}", value)
+
+
+def sanitize_filename(name: str) -> str:
+    """Generate a safe filename from the note title."""
+    invalid_chars = '<>:"/\\|?*'
+    safe = "".join("_" if c in invalid_chars else c for c in name)
+    return safe.strip().replace(" ", "_")
+
+
+def create_note(note: str, template_path: Path, output_dir: Path) -> Path:
+    title = note.splitlines()[0].strip() or "Untitled"
+    filename = sanitize_filename(title) + ".md"
+    output_path = output_dir / filename
+
+    template_text = load_template(template_path)
+    rendered = render_template(template_text, note)
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(rendered, encoding="utf-8")
+
+    return output_path
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Create a quick markdown note from a template")
+    parser.add_argument(
+        "note",
+        help="The note text",
+    )
+    parser.add_argument(
+        "-t",
+        "--template",
+        default=os.getenv("QUICKNOTE_TEMPLATE_FILE", None),
+        help="Path to the markdown template file",
+        type=Path,
+    )
+    parser.add_argument(
+        "-o",
+        "--output-dir",
+        default=os.getenv("QUICKNOTE_OUTPUT_DIR", None),
+        help="Directory to save the generated note",
+        type=Path,
+    )
+
+    args = parser.parse_args()
+
+    if args.template is None:
+        raise argparse.ArgumentError(args.template, "Template file must be provided")
+    if args.output_dir is None:
+        raise argparse.ArgumentError(args.output_dir, "Output directory must be provided")
+
+    template_path = args.template.expanduser().resolve()
+    output_dir = args.output_dir.expanduser().resolve()
+
+    note = args.note.strip()
+    if not note:
+        parser.error("Note text cannot be empty.")
+
+    output_path = create_note(note, template_path, output_dir)
+    print(f"Created note at: {output_path}")
+
+
+if __name__ == "__main__":
+    main()

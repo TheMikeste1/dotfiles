@@ -56,7 +56,6 @@ export DOTNET_CLI_TELEMETRY_OPTOUT="true"
 # WSL
 if uname -r | grep -q "WSL"; then
     declare -xr ON_WSL=true
-    export PATH="$PATH:/mnt/c/Windows/System32"
     export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0"
     export PATH="$PATH:/mnt/c/Program Files/Git/cmd"
 

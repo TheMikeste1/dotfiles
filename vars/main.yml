@@ -59,6 +59,12 @@ managed_packages:
     - name: fzf
       url: github.com/junegunn/fzf
       version: v0.65.1
+    - name: lazygit
+      url: github.com/jesseduffield/lazygit
+      version: latest
+    - name: lazydocker
+      url: github.com/jesseduffield/lazydocker
+      version: latest
   mise:
     - name: chezmoi
       version: latest

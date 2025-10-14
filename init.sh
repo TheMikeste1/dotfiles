@@ -17,4 +17,4 @@ if ! [ -x "$(command -v ansible)" ]; then
     ansible-galaxy collection install community.general
 fi
 
-ansible-playbook --ask-become-pass playbook.yaml
+ansible-playbook --ask-become-pass playbook.yml

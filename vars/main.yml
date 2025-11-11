@@ -21,6 +21,10 @@ build_tools:
       repo: git@github.com:ninja-build/ninja.git
       configure_flags: -DCMAKE_BUILD_TYPE=Release -DCMAKE_GENERATOR="Unix Makefiles"
         -DBUILD_TESTING=OFF
+    - name: llvm
+      bin: lldb
+      repo: git@github.com:llvm/llvm-project.git
+      configure_flags: -S llvm -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lldb"
 
 # Package managers to install
 package_managers:

@@ -11,3 +11,4 @@ lefthook.yml
 .bacon-locations
 *:Zone.Identifier
 .nvim.lua
+.nvim/

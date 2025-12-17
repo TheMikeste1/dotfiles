@@ -1,109 +1,114 @@
+---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
-
 secondary_prompt:
-  template: "> "
+  template: '> '
   foreground: green
   background: transparent
 transient_prompt:
-  template: "{{if gt .Code 0}}\uf00d{{else}}❯{{end}} "
+  template: '{{if gt .Code 0}}{{else}}❯{{end}} '
   background: transparent
   foreground_templates:
-  - "{{if gt .Code 0}}red{{end}}"
-  - "{{if eq .Code 0}}green{{end}}"
-console_title_template: "{{ .Shell }} in {{ .Folder }}"
+    - '{{if gt .Code 0}}red{{end}}'
+    - '{{if eq .Code 0}}green{{end}}'
+console_title_template: '{{ .Shell }} in {{ .Folder }}'
 blocks:
-- type: prompt
-  alignment: left
-  segments:
-  - properties:
-      cache_duration: none
-      style: full
-    template: "{{ .Path }}"
-    foreground: blue
-    background: transparent
-    type: path
-    style: plain
-  - properties:
-      branch_icon: ""
-      cache_duration: none
-      commit_icon: "@"
-      fetch_status: true
-    foreground: p:grey
-    background: transparent
-    type: git
-    style: plain
-    templates:
-    - " {{.HEAD}}"
-    - "{{if or (.Working.Changed) (.Staging.Changed)}}*{{end}}"
-    - " {{.BranchStatus}}"
-    - " {{ if gt .StashCount 0 }}\uf0c7 {{ .StashCount }}{{ end }}"
-  newline: true
-- type: prompt
-  alignment: right
-  segments:
-  - properties:
-      cache_duration: none
-      precision: 2
-    type: sysinfo
-    templates:
-    - "{{if gt .PhysicalPercentUsed 80}} \ue266 {{ round .PhysicalPercentUsed .Precision }}%{{end}}"
-  - properties:
-      cache_duration: none
-    type: node
-  - properties:
-      cache_duration: none
-    type: go
-  - properties:
-      cache_duration: none
-    template: " \ue620 {{ .Full }}"
-    type: lua
-    style: plain
-  - properties:
-      cache_duration: none
-    type: python
-    templates:
-    - " \ue73c"
-    - "{{if .Venv}}({{ .Venv }}){{end}}"
-    - " {{.Full}}"
-  - properties:
-      cache_duration: none
-    type: rust
-  - properties:
-      cache_duration: none
-    type: dotnet
-- type: prompt
-  alignment: left
-  segments:
-  - properties:
-      cache_duration: none
-    templates_logic: first_match
-    background: transparent
-    type: text
-    style: plain
-    foreground_templates:
-    - "{{if gt .Code 0}}red{{end}}"
-    - "{{if eq .Code 0}}green{{end}}"
-    templates:
-    - "{{if gt .Code 0}}\uf00d{{end}}"
-    - "{{if eq .Code 0}}❯{{end}}"
-  newline: true
-- type: rprompt
-  overflow: hidden
-  segments:
-  - properties:
-      cache_duration: none
-      threshold: 5000
-    template: "{{ .FormattedMs }}"
-    foreground: yellow
-    background: transparent
-    type: executiontime
-    style: plain
-  - properties:
-      cache_duration: none
-      status_template: "{{if ne .Code 0}}{{reason .Code}} {{ .Code -}}{{end}}"
-    foreground: red
-    background: transparent
-    type: status
-    style: plain
+  - type: prompt
+    alignment: left
+    segments:
+      - type: path
+        options:
+          cache_duration: none
+          style: full
+        style: plain
+        foreground: blue
+        background: transparent
+        template: '{{ .Path }}'
+      - type: git
+        options:
+          branch_icon: ''
+          cache_duration: none
+          commit_icon: '@'
+          fetch_status: true
+        style: plain
+        foreground: white
+        background: transparent
+        templates:
+          - ' {{ if glob "*.jj" }}{{else}}{{.HEAD}}{{end}}'
+          - '{{if or (.Working.Changed) (.Staging.Changed)}}*{{end}}'
+          - ' {{.BranchStatus}}'
+          - ' {{ if gt .StashCount 0 }} {{ .StashCount }}{{ end }}'
+      - type: jujutsu
+        options:
+          fetch_status: true
+          ignore_working_copy: false
+        style: plain
+        foreground: green
+        background: transparent
+        templates:
+          - ' {{.ClosestBookmarks}}{{.ChangeID}}'
+          - '{{if .Working.Changed}} {{ .Working.String }}{{ end }}'
+    newline: true
+  - type: prompt
+    alignment: right
+    segments:
+      - options:
+          cache_duration: none
+          precision: 2
+        type: sysinfo
+        templates:
+          - '{{if gt .PhysicalPercentUsed 80}}  {{ round .PhysicalPercentUsed .Precision }}%{{end}}'
+      - options:
+          cache_duration: none
+        type: node
+      - options:
+          cache_duration: none
+        type: go
+      - options:
+          cache_duration: none
+        template: '  {{ .Full }}'
+        type: lua
+        style: plain
+      - options:
+          cache_duration: none
+        type: python
+        templates: [' ', '{{if .Venv}}({{ .Venv }}){{end}}', ' {{.Full}}']
+      - options:
+          cache_duration: none
+        type: rust
+      - options:
+          cache_duration: none
+        type: dotnet
+  - type: prompt
+    alignment: left
+    segments:
+      - options:
+          cache_duration: none
+        templates_logic: first_match
+        background: transparent
+        type: text
+        style: plain
+        foreground_templates:
+          - '{{if gt .Code 0}}red{{end}}'
+          - '{{if eq .Code 0}}green{{end}}'
+        templates: ['{{if gt .Code 0}}{{end}}', '{{if eq .Code 0}}❯{{end}}']
+    newline: true
+  - type: rprompt
+    overflow: hidden
+    segments:
+      - options:
+          cache_duration: none
+          threshold: 5000
+        template: '{{ .FormattedMs }}'
+        foreground: yellow
+        background: transparent
+        type: executiontime
+        style: plain
+      - options:
+          cache_duration: none
+          status_template: '{{if ne .Code 0}}{{reason .Code}} {{ .Code -}}{{end}}'
+        foreground: red
+        background: transparent
+        type: status
+        style: plain
 version: 3
 final_space: true

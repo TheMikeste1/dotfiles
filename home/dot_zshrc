@@ -98,6 +98,7 @@ function refresh_comp_cache() {
   # try_generate_comp_cache oh-my-posh completion zsh
   try_generate_comp_cache uv generate-shell-completion zsh
   try_generate_comp_cache uvx --generate-shell-completion zsh
+  try_generate_comp_cache jj util completion zsh
 }
 
 function source_eval_cache() {

@@ -3,9 +3,11 @@ booleans
 callback
 clippy
 dataflow
+downlink
 iff
 lexicographically
 lsp
 mhegerhorst
 programmatically
 repurposing
+uplink

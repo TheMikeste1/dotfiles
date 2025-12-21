@@ -1,0 +1,9 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+
+[user]
+name = "Michael Hegerhorst"
+email = "michael.hegerhorst@gmail.com"
+
+[signing]
+behavior = "own"
+backend = "gpg"

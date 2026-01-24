@@ -41,6 +41,9 @@ export SSH_ENV="$HOME/.ssh/agent-environment"
 export SSH_ASKPASS="/usr/lib/openssh/gnome-ssh-askpass"
 export SSH_ASKPASS_REQUIRE=prefer
 
+# Lua
+export PATH="$PATH:$HOME/.luarocks"
+
 # `less` config
 # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
 export LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4'

@@ -2,8 +2,11 @@ ITAR
 booleans
 callback
 clippy
+cpp
 dataflow
 downlink
+endverbatim
+hpp
 iff
 lexicographically
 lsp

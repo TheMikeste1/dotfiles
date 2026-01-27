@@ -12,3 +12,4 @@ lefthook.yml
 *:Zone.Identifier
 .nvim.lua
 .nvim/
+memories/

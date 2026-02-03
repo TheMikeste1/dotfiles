@@ -12,10 +12,6 @@ build_tools:
     - unzip
     - zip
   git_build:
-    - name: mold
-      bin: mold
-      repo: git@github.com:rui314/mold.git
-      configure_flags: -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=c++
     - name: ninja-build
       bin: ninja
       repo: git@github.com:ninja-build/ninja.git
@@ -59,10 +55,10 @@ managed_packages:
   go:
     - name: lefthook
       url: github.com/evilmartians/lefthook
-      version: v1.12.2
+      version: latest
     - name: fzf
       url: github.com/junegunn/fzf
-      version: v0.65.1
+      version: latest
     - name: lazygit
       url: github.com/jesseduffield/lazygit
       version: latest

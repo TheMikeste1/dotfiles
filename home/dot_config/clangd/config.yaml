@@ -1,0 +1,39 @@
+---
+Diagnostics:
+  ClangTidy:
+    Add:
+      # noexcept and attributes
+      - performance-noexcept-move-constructor
+      - performance-noexcept-swap
+      - modernize-use-noexcept
+      - modernize-use-nodiscard
+      - bugprone-exception-escape
+      # Other useful checks
+      - bugprone-use-after-move
+      - bugprone-dangling-handle
+      - bugprone-assert-side-effect
+      - performance-move-const-arg
+      - performance-unnecessary-copy-initialization
+      - readability-const-return-type
+      - readability-container-size-empty
+      - readability-simplify-boolean-expr
+      - modernize-use-override
+      - modernize-use-nullptr
+      - modernize-use-auto
+      - cppcoreguidelines-pro-type-member-init
+      - cppcoreguidelines-slicing
+  UnusedIncludes: Strict  # Warn about unnecessary  # includes
+  MissingIncludes: Strict  # Warn about missing  # includes
+CompileFlags:
+  Add: [-Wall, -Wextra, -Wno-unused-parameter]  # Common warnings
+Index:
+  Background: Build  # Index in background while building
+Completion:
+  AllScopes: true  # Show completions from all namespaces
+InlayHints:
+  Enabled: true
+  ParameterNames: true  # Show parameter names inline
+  DeducedTypes: true  # Show auto-deduced types
+  Designators: false  # C designated initializers (usually noisy)
+Hover:
+  ShowAKA: true  # Show 'also known as' for typedefs/aliases

@@ -7,3 +7,8 @@ email = "michael.hegerhorst@gmail.com"
 [signing]
 behavior = "own"
 backend = "gpg"
+
+[aliases]
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@"]
+# 'tug-' moves to the previous commit instead of the current one
+tug- = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]

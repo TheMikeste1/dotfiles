@@ -42,7 +42,7 @@ export SSH_ASKPASS="/usr/lib/openssh/gnome-ssh-askpass"
 export SSH_ASKPASS_REQUIRE=prefer
 
 # Lua
-export PATH="$PATH:$HOME/.luarocks"
+export PATH="$PATH:$HOME/.luarocks/bin"
 
 # `less` config
 # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/

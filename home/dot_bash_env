@@ -55,7 +55,9 @@ if grep -qi microsoft /proc/version || grep -qi microsoft /proc/sys/kernel/osrel
 
     if [[ ! -f "$EVAL_CACHE_DIR/wsl_constants.bash" ]]; then
         echo "Performing WSL first time setup. . ."
+        # shellcheck disable=SC2016
         windows_username="$(powershell.exe -Command 'echo $env:USERNAME' | tr -d '\r')"
+        # shellcheck disable=SC2016
         windows_homedir="$(wslpath -u "$(powershell.exe -Command 'echo $env:USERPROFILE')" | tr -d '\r')"
         vscode_path="$windows_homedir/AppData/Local/Programs/Microsoft VS Code/bin"
         firefox_path="$windows_homedir/AppData/Local/Mozilla Firefox"
@@ -72,8 +74,10 @@ declare -xr VSCODE_PATH=\"$vscode_path\"" > "$EVAL_CACHE_DIR/wsl_constants.bash"
     # shellcheck disable=SC1091
     source "$EVAL_CACHE_DIR/wsl_constants.bash"
 
-    add_to_path "$vscode_path" false
-    add_to_path "$firefox_path" false
+    # shellcheck disable=SC2153
+    add_to_path "$VSCODE_PATH" false
+    # shellcheck disable=SC2153
+    add_to_path "$FIREFOX_PATH" false
     declare -x BROWSER=firefox.exe
 fi
 

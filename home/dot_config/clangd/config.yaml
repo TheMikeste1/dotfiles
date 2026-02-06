@@ -94,7 +94,6 @@ Diagnostics:
       - readability-avoid-const-params-in-decls
       - readability-braces-around-statements
       - readability-const-return-type
-      - readability-const-return-type
       - readability-container-size-empty
       - readability-convert-member-functions-to-static
       - readability-delete-null-pointer
@@ -122,6 +121,7 @@ Diagnostics:
       - readability-string-compare
       - readability-uniqueptr-delete-release
       - readability-uppercase-literal-suffix
+    FastCheckFilter: None
   UnusedIncludes: Strict
   MissingIncludes: Strict
 CompileFlags:

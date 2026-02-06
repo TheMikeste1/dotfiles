@@ -62,18 +62,20 @@ if uname -r | grep -q "WSL"; then
     if [[ ! -f "$EVAL_CACHE_DIR/wsl_constants.bash" ]]; then
         echo "Performing WSL first time setup. . ."
         WINDOWS_USERNAME="$(powershell.exe -Command 'echo $env:USERNAME' | tr -d '\r')"
-        VSCODE_PATH="/mnt/c/users/$WINDOWS_USERNAME/AppData/Local/Programs/Microsoft VS Code/bin"
-        FIREFOX_PATH="/mnt/c/users/$WINDOWS_USERNAME/AppData/Local/Mozilla Firefox"
+        WINDOWS_HOMEDIR="$(wslpath -u "$(powershell.exe -Command 'echo $env:USERPROFILE')" | tr -d '\r')"
+        VSCODE_PATH="$WINDOWS_HOMEDIR/AppData/Local/Programs/Microsoft VS Code/bin"
+        FIREFOX_PATH="$WINDOWS_HOMEDIR/AppData/Local/Mozilla Firefox"
         if [[ ! -f "$FIREFOX_PATH/firefox.exe" ]]; then
-          FIREFOX_PATH="/mnt/c/Program Files/Mozilla Firefox"
+            FIREFOX_PATH="/mnt/c/Program Files/Mozilla Firefox"
         fi
 
 
         # shellcheck disable=SC2016
         echo "declare -xr WINDOWS_USERNAME=\"$WINDOWS_USERNAME\"
-        declare -xr FIREFOX_PATH=\"$FIREFOX_PATH\"
-        declare -xr VSCODE_PATH=\"$VSCODE_PATH\"" \
-            > "$EVAL_CACHE_DIR/wsl_constants.bash"
+declare -xr WINDOWS_HOMEDIR=\"$WINDOWS_HOMEDIR\"
+declare -xr FIREFOX_PATH=\"$FIREFOX_PATH\"
+declare -xr VSCODE_PATH=\"$VSCODE_PATH\"
+" > "$EVAL_CACHE_DIR/wsl_constants.bash"
     fi
 
     source "$EVAL_CACHE_DIR/wsl_constants.bash"

@@ -1,91 +1,91 @@
 #!/usr/bin/env bash
 
-# Initialize where the dotfiles are
-export DOTFILES="$HOME/.local/share/chezmoi"
+# Add a directory to $PATH only if it isn’t already present.
+#   $1 – directory to add (trailing slash is stripped)
+#   $2 – “prepend” flag (true / false).  If omitted, defaults to false (append).
+function add_to_path() {
+    local dir="${1%/}"            # normalise, drop trailing slash
+    local prepend="${2:-false}"    # default to append
 
-# My command line utilities
-export PATH="$HOME/bin:$PATH"
+    # Skip non‑existent directories – same behaviour as the original.
+    [[ -d "$dir" ]] || return
 
-export EDITOR=nvim
+    # Fast check: does $PATH already contain this entry?
+    # The leading and trailing ':' prevent false‑positives for substrings.
+    [[ ":$PATH:" == *":$dir:"* ]] && return
 
-# Cargo
-export PATH="$HOME/.cargo/bin:$PATH"
+    if [[ $prepend == true ]]; then
+        PATH="${dir}:$PATH"
+    else
+        PATH="${PATH}:${dir}"
+    fi
+    export PATH
+}
 
-# CMake
-export CMAKE_EXPORT_COMPILE_COMMANDS=ON
+declare -x  CMAKE_COLOR_DIAGNOSTICS=ON
+declare -x  CMAKE_EXPORT_COMPILE_COMMANDS=ON
+declare -x  CMAKE_GENERATOR=Ninja
+declare -x  COMPOSE_BAKE=true
+declare -xr DOTFILES="$HOME/.local/share/chezmoi"
+declare -xr DOTNET_CLI_TELEMETRY_OPTOUT="true"
+declare -x  EDITOR=nvim
+declare -xr GOBIN="$HOME/.local/go/bin"
+declare -x  LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4' # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
+declare -x  NINJA_STATUS="[%p (%f/%t) :: (%e|%E)] "
+declare -x  SSH_ASKPASS="/usr/lib/openssh/gnome-ssh-askpass"
+declare -x  SSH_ASKPASS_REQUIRE=prefer
+declare -x  SSH_ENV="$HOME/.ssh/agent-environment"
+declare -xr XDG_CONFIG_HOME="$HOME/.config"
 
-# C# tools
-export PATH="$PATH:$HOME/.dotnet/tools"
-
-# Docker
-export COMPOSE_BAKE=true
-
-# Custom git commands
-export PATH="$PATH:$DOTFILES/git_commands"
-
-# Go
-export GOBIN="$HOME/.local/go/bin"
-export PATH="$PATH:/usr/local/go/bin:$GOBIN"
-
-# Ninja by default
-export CMAKE_GENERATOR=Ninja
-export NINJA_STATUS="[%p (%f/%t) :: (%e|%E)] "
-export CMAKE_COLOR_DIAGNOSTICS=ON
-
-# SSH
-export SSH_ENV="$HOME/.ssh/agent-environment"
-export SSH_ASKPASS="/usr/lib/openssh/gnome-ssh-askpass"
-export SSH_ASKPASS_REQUIRE=prefer
-
-# Lua
-export PATH="$PATH:$HOME/.luarocks/bin"
-
-# `less` config
-# https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
-export LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4'
-
-export XDG_CONFIG_HOME="$HOME/.config"
-
-# Get access to NVim Mason executables
-export PATH="$PATH:$HOME/.local/share/nvim/mason/bin"
-
-# No telemetry
-export DOTNET_CLI_TELEMETRY_OPTOUT="true"
+add_to_path "$DOTFILES/git_commands" false
+add_to_path "$HOME/.cargo/bin" false
+add_to_path "$HOME/.dotnet/tools" false
+add_to_path "$HOME/.local/share/nvim/mason/bin" false
+add_to_path "$HOME/.luarocks/bin" false
+add_to_path "$HOME/bin" false
+add_to_path "/usr/local/go/bin" false
+add_to_path "$GOBIN" false
 
 # WSL
-if uname -r | grep -q "WSL"; then
+if grep -qi microsoft /proc/version || grep -qi microsoft /proc/sys/kernel/osrelease; then
     declare -xr ON_WSL=true
-    export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0"
-    export PATH="$PATH:/mnt/c/Program Files/Git/cmd"
-    export PATH="$PATH:/mnt/c/Windows/System32"
+    add_to_path "/mnt/c/Windows/System32/WindowsPowerShell/v1.0" false
+    add_to_path "/mnt/c/Program Files/Git/cmd" false
+    add_to_path "/mnt/c/Windows/System32" false
 
     if [[ ! -f "$EVAL_CACHE_DIR/wsl_constants.bash" ]]; then
         echo "Performing WSL first time setup. . ."
-        WINDOWS_USERNAME="$(powershell.exe -Command 'echo $env:USERNAME' | tr -d '\r')"
-        WINDOWS_HOMEDIR="$(wslpath -u "$(powershell.exe -Command 'echo $env:USERPROFILE')" | tr -d '\r')"
-        VSCODE_PATH="$WINDOWS_HOMEDIR/AppData/Local/Programs/Microsoft VS Code/bin"
-        FIREFOX_PATH="$WINDOWS_HOMEDIR/AppData/Local/Mozilla Firefox"
-        if [[ ! -f "$FIREFOX_PATH/firefox.exe" ]]; then
-            FIREFOX_PATH="/mnt/c/Program Files/Mozilla Firefox"
+        windows_username="$(powershell.exe -Command 'echo $env:USERNAME' | tr -d '\r')"
+        windows_homedir="$(wslpath -u "$(powershell.exe -Command 'echo $env:USERPROFILE')" | tr -d '\r')"
+        vscode_path="$windows_homedir/AppData/Local/Programs/Microsoft VS Code/bin"
+        firefox_path="$windows_homedir/AppData/Local/Mozilla Firefox"
+        if [[ ! -f "$firefox_path/firefox.exe" ]]; then
+            firefox_path="/mnt/c/Program Files/Mozilla Firefox"
         fi
 
-
-        # shellcheck disable=SC2016
-        echo "declare -xr WINDOWS_USERNAME=\"$WINDOWS_USERNAME\"
-declare -xr WINDOWS_HOMEDIR=\"$WINDOWS_HOMEDIR\"
-declare -xr FIREFOX_PATH=\"$FIREFOX_PATH\"
-declare -xr VSCODE_PATH=\"$VSCODE_PATH\"
-" > "$EVAL_CACHE_DIR/wsl_constants.bash"
+        echo "declare -xr WINDOWS_USERNAME=\"$windows_username\"
+declare -xr WINDOWS_HOMEDIR=\"$windows_homedir\"
+declare -xr FIREFOX_PATH=\"$firefox_path\"
+declare -xr VSCODE_PATH=\"$vscode_path\"" > "$EVAL_CACHE_DIR/wsl_constants.bash"
     fi
 
+    # shellcheck disable=SC1091
     source "$EVAL_CACHE_DIR/wsl_constants.bash"
 
-    export PATH="$PATH:$VSCODE_PATH"
-    export PATH="$PATH:$FIREFOX_PATH"
-    export BROWSER=firefox.exe
+    add_to_path "$vscode_path" false
+    add_to_path "$firefox_path" false
+    declare -x BROWSER=firefox.exe
 fi
 
-export PATH="${PATH%:"${HOME}"/.vscode-server/bin/*/bin/remote-cli}"
+# Remove the local code command, since it messes with launching VSCode sometimes
+if [[ "$PATH" == *"$HOME/.vscode-server/bin/"*"/bin/remote-cli"* ]]; then
+    PATH="${PATH//:${HOME}\/.vscode-server\/bin\/*\/bin\/remote-cli/}"
+    PATH="${PATH#:}"   # strip leading colon if created
+    PATH="${PATH%:}"   # strip trailing colon if created
+fi
+export PATH
 
 # Machine-specific env and overrides
-source "$HOME/.local.bash_env" 2>/dev/null
+if [ -f "$HOME/.local.bash_env" ]; then
+    source "$HOME/.local.bash_env"
+fi

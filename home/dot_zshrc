@@ -113,6 +113,12 @@ if [ ! -f "$EVAL_CACHE_DIR"/.last_cache ] || [[ -n "$EVAL_CACHE_DIR"/.last_cache
   # Need to source before we set up the comp cache
   source_eval_cache
   refresh_comp_cache
+
+  duplicate_paths="$(echo "$PATH" | tr ':' '\n' | sort | uniq -d | sed 's/^/  /')"
+  if [[ -n $duplicate_paths ]]; then
+    print "Duplicate PATH entries:
+$duplicate_paths"
+  fi
 else
   source_eval_cache
 fi

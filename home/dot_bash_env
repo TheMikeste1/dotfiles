@@ -37,12 +37,15 @@ declare -x  SSH_ASKPASS_REQUIRE=prefer
 declare -x  SSH_ENV="$HOME/.ssh/agent-environment"
 declare -xr XDG_CONFIG_HOME="$HOME/.config"
 
-add_to_path "$DOTFILES/git_commands" false
-add_to_path "$HOME/.cargo/bin" false
-add_to_path "$HOME/.dotnet/tools" false
-add_to_path "$HOME/.local/share/nvim/mason/bin" false
-add_to_path "$HOME/.luarocks/bin" false
-add_to_path "$HOME/bin" false
+add_to_path "$DOTFILES/git_commands" true
+
+add_to_path "$HOME/.cargo/bin" true
+add_to_path "$HOME/.dotnet/tools" true
+add_to_path "$HOME/.local/bin" true
+add_to_path "$HOME/.local/share/nvim/mason/bin" true
+add_to_path "$HOME/.luarocks/bin" true
+add_to_path "$HOME/bin" true
+
 add_to_path "/usr/local/go/bin" false
 add_to_path "$GOBIN" false
 

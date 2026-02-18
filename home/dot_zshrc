@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Set the directory we want to store zinit and plugins
-readonly ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+export ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
 # Download Zinit, if it's not there yet
 if [[ ! -d "$ZINIT_HOME" ]]; then
@@ -13,7 +13,7 @@ fi
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-readonly COMPLETIONS_DIR="$ZSH_CACHE_DIR/completions"
+export COMPLETIONS_DIR="$ZSH_CACHE_DIR/completions"
 if [[ ! -d "$COMPLETIONS_DIR" ]]; then
   mkdir -p "$COMPLETIONS_DIR"
 fi
@@ -92,13 +92,13 @@ function autoload_completion() {
 function refresh_comp_cache() {
   try_generate_comp_cache chezmoi completion zsh
   try_generate_comp_cache fzf --zsh
+  try_generate_comp_cache jj util completion zsh
+  try_generate_comp_cache just --completions zsh
   try_generate_comp_cache lefthook completion zsh
   try_generate_comp_cache mdbook completions zsh
   try_generate_comp_cache mise completions zsh
-  # try_generate_comp_cache oh-my-posh completion zsh
   try_generate_comp_cache uv generate-shell-completion zsh
   try_generate_comp_cache uvx --generate-shell-completion zsh
-  try_generate_comp_cache jj util completion zsh
 }
 
 function source_eval_cache() {

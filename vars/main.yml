@@ -45,6 +45,7 @@ managed_packages:
     - eza
     - fd-find
     - git-delta
+    - just
     - mdbook
     - mise
     - ripgrep

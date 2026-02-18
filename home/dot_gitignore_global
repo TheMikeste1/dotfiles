@@ -13,3 +13,4 @@ lefthook.yml
 .nvim.lua
 .nvim/
 memories/
+AGENTS.md

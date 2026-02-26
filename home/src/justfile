@@ -18,7 +18,7 @@ all: default
 [script]
 _git-ensure repo url branch:
     if [ ! -d "./{{ repo }}" ]; then
-        git clone --recursive --single-branch --branch {{ branch }} --jobs={{ nproc }} -- {{ url }} ./{{ repo }}
+        git clone --recursive --depth 1 --single-branch --branch {{ branch }} --jobs={{ nproc }} -- {{ url }} ./{{ repo }}
     else
         git -C ./{{ repo }} fetch
         readonly local_commit=$(git -C ./{{ repo }} rev-parse HEAD)
@@ -28,7 +28,7 @@ _git-ensure repo url branch:
           exit 1
         fi
 
-        git -C ./{{ repo }} pull --ff-only
+        git -C ./{{ repo }} reset --hard @{u}
         git -C ./{{ repo }} submodule update --init --recursive --jobs={{ nproc }}
     fi
 

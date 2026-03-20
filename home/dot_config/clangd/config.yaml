@@ -120,7 +120,6 @@ Diagnostics:
       - readability-static-accessed-through-instance
       - readability-string-compare
       - readability-uniqueptr-delete-release
-      - readability-uppercase-literal-suffix
     FastCheckFilter: None
   UnusedIncludes: Strict
   MissingIncludes: Strict

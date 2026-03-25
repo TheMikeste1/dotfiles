@@ -17,49 +17,95 @@ all: default
 [no-exit-message]
 [script]
 _git-ensure repo url branch:
+    set -e
     if [ ! -d "./{{ repo }}" ]; then
         git clone --recursive --depth 1 --single-branch --branch {{ branch }} --jobs={{ nproc }} -- {{ url }} ./{{ repo }}
     else
         git -C ./{{ repo }} fetch
-        readonly local_commit=$(git -C ./{{ repo }} rev-parse HEAD)
-        readonly remote_commit=$(git -C ./{{ repo }} rev-parse @{u})
+        local_commit=$(git -C ./{{ repo }} rev-parse HEAD)
+        remote_commit=$(git -C ./{{ repo }} rev-parse @{u})
         if [ "$local_commit" = "$remote_commit" ]; then
           echo "{{ repo }} does not require updating"
           exit 1
         fi
 
+        echo "$local_commit" >> ".previous_versions_{{ repo }}"
+        tail -n10 ".previous_versions_{{ repo }}" \
+            > ".previous_versions_{{ repo }}.tmp" && \
+            mv ".previous_versions_{{ repo }}.tmp" ".previous_versions_{{ repo }}"
         git -C ./{{ repo }} reset --hard @{u}
         git -C ./{{ repo }} submodule update --init --recursive --jobs={{ nproc }}
     fi
 
+[script]
+_git-previous repo:
+    set -e
+    if [ -d "./{{ repo }}" ]; then
+        if [ ! -f  ".previous_versions_{{ repo }}" ]; then
+          echo "Cannot find previous versions for {{ repo }}" >&2
+          exit 1
+        fi
+
+        desired_commit=$(tail -n1 ".previous_versions_{{ repo }}")
+        if [ -z "$desired_commit" ]; then
+          echo "No previous versions for {{ repo }} found" >&2
+          exit 2
+        fi
+
+        git -C ./{{ repo }} fetch
+        git -C ./{{ repo }} reset --hard "$desired_commit"
+        sed -i '$d' ".previous_versions_{{ repo }}"
+        git -C ./{{ repo }} submodule update --init --recursive --jobs={{ nproc }}
+    fi
+
 [working-directory("cmake")]
-cmake: (_git-ensure "cmake" "git@github.com:Kitware/CMake.git" "release")
+build-cmake:
     cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_GENERATOR="{{ cmake_generator }}" -DCMAKE_INSTALL_PREFIX=$HOME/.local
     cmake --build build --parallel={{ nproc }}
     cmake --build build --target install
 
 [working-directory("ninja")]
-ninja-build: (_git-ensure "ninja" "git@github.com:ninja-build/ninja.git" "release")
+build-ninja-build:
     cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_GENERATOR="{{ cmake_generator }}" -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=$HOME/.local
     cmake --build build --parallel={{ nproc }}
     cmake --build build --target install
 
 [working-directory("neovim")]
-neovim: (_git-ensure "neovim" "git@github.com:neovim/neovim.git" "master")
+build-neovim:
     make distclean
     make deps
     make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=$HOME/.local
     make install
 
 [working-directory("llvm-project")]
-llvm: (_git-ensure "llvm-project" "git@github.com:llvm/llvm-project.git" "main")
+build-llvm:
     cmake -S llvm -B build -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lldb" -DCMAKE_INSTALL_PREFIX=$HOME/.local
     cmake --build build --parallel={{ nproc }}
     cmake --build build --target install
 
 [working-directory("tmux")]
-tmux: (_git-ensure "tmux" "git@github.com:tmux/tmux.git" "master")
+build-tmux:
     sh autogen.sh
     ./configure --prefix=$HOME/.local
     make
     make install
+
+cmake: (_git-ensure "cmake" "git@github.com:Kitware/CMake.git" "release") build-cmake
+
+ninja-build: (_git-ensure "ninja" "git@github.com:ninja-build/ninja.git" "release") build-ninja-build
+
+neovim: (_git-ensure "neovim" "git@github.com:neovim/neovim.git" "master") build-neovim
+
+llvm: (_git-ensure "llvm-project" "git@github.com:llvm/llvm-project.git" "main") build-llvm
+
+tmux: (_git-ensure "tmux" "git@github.com:tmux/tmux.git" "master") build-tmux
+
+revert-cmake: (_git-previous "cmake") build-cmake
+
+revert-ninja-build: (_git-previous "ninja") build-ninja-build
+
+revert-neovim: (_git-previous "neovim") build-neovim
+
+revert-llvm: (_git-previous "llvm-project") build-llvm
+
+revert-tmux: (_git-previous "tmux") build-tmux

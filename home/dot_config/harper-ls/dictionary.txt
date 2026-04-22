@@ -1,4 +1,5 @@
 ITAR
+assimp
 booleans
 callback
 clippy
@@ -7,6 +8,7 @@ dataflow
 doctest
 downlink
 endverbatim
+frontmatter
 func
 hpp
 iff

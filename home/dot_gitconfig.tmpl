@@ -3,6 +3,11 @@ name = {{ .user.git.name }}
 email = {{ .user.git.email | quote }}
 
 [alias]
+compare = "!f() { \
+    t=${1:-develop}; \
+    git rev-parse --verify \"$t\" >/dev/null 2>&1 || t=\"origin/$t\"; \
+    git log --color --cherry-mark --graph --oneline --boundary \"$t...HEAD\" --; \
+}; f"
 hist = log --graph --decorate --pretty=oneline --abbrev-commit
 root = rev-parse --show-toplevel
 

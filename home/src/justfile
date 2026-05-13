@@ -79,7 +79,7 @@ build-neovim:
 
 [working-directory("llvm-project")]
 build-llvm:
-    cmake -S llvm -B build -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lldb" -DCMAKE_INSTALL_PREFIX=$HOME/.local
+    cmake -S llvm -B build -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lldb;compiler-rt" -DCMAKE_INSTALL_PREFIX=$HOME/.local
     cmake --build build --parallel={{ nproc }}
     cmake --build build --target install
 

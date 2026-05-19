@@ -7,9 +7,6 @@ function add_to_path() {
     local dir="${1%/}"            # normalise, drop trailing slash
     local prepend="${2:-false}"    # default to append
 
-    # Skip non‑existent directories – same behaviour as the original.
-    [[ -d "$dir" ]] || return
-
     # Fast check: does $PATH already contain this entry?
     # The leading and trailing ':' prevent false‑positives for substrings.
     [[ ":$PATH:" == *":$dir:"* ]] && return
@@ -32,7 +29,6 @@ declare -x  EDITOR=nvim
 declare -xr GOBIN="$HOME/.local/go/bin"
 declare -x  LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4' # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
 declare -x  NINJA_STATUS="[%p (%f/%t) :: (%e|%E)] "
-declare -x  SSH_ASKPASS="/usr/lib/openssh/gnome-ssh-askpass"
 declare -x  SSH_ASKPASS_REQUIRE=prefer
 declare -x  SSH_ENV="$HOME/.ssh/agent-environment"
 declare -xr XDG_CONFIG_HOME="$HOME/.config"
@@ -52,6 +48,7 @@ add_to_path "$GOBIN" false
 # WSL
 if grep -qi microsoft /proc/version || grep -qi microsoft /proc/sys/kernel/osrelease; then
     declare -xr ON_WSL=true
+    declare -x  SSH_ASKPASS="/usr/lib/openssh/gnome-ssh-askpass"
     add_to_path "/mnt/c/Windows/System32/WindowsPowerShell/v1.0" false
     add_to_path "/mnt/c/Program Files/Git/cmd" false
     add_to_path "/mnt/c/Windows/System32" false

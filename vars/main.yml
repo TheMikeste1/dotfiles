@@ -4,23 +4,23 @@ persist_source_packages_dir: '{{ ansible_facts.user_dir }}/src'
 # Build tools (via system package manager)
 build_tools:
   system:
-    - build-essential
     - git
     - pinentry-qt
     - pkg-config
-    - software-properties-common
     - unzip
     - zip
   git_build:
     - name: ninja-build
       bin: ninja
+      version: release
       repo: git@github.com:ninja-build/ninja.git
       configure_flags: -DCMAKE_BUILD_TYPE=Release -DCMAKE_GENERATOR="Unix Makefiles"
         -DBUILD_TESTING=OFF
-    - name: llvm
-      bin: lldb
-      repo: git@github.com:llvm/llvm-project.git
-      configure_flags: -S llvm -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lldb"
+    #- name: llvm
+    #  bin: lldb
+    #  version: release
+    #  repo: git@github.com:llvm/llvm-project.git
+    #  configure_flags: -S llvm -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lldb;compiler-rt"
 
 # Package managers to install
 package_managers:
@@ -72,7 +72,6 @@ managed_packages:
     - name: python
       version: latest
   system:
-    - python3-venv
     - tmux
     - xsel
     - zsh

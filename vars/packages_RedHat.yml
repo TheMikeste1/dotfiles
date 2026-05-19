@@ -1,0 +1,8 @@
+distro_build_tools:
+  system:
+    - gcc
+    - gcc-c++
+    - make
+    - automake
+    - clang-devel
+  git_build: []

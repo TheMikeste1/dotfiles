@@ -1,19 +1,4 @@
 ---
-- name: Ensure build tools are installed
-  become: true
-  package:
-    name: '{{ build_tools.system }}'
-    state: present
-- name: Build dev tools from source
-  include_tasks: build_from_source.yml
-  loop: '{{ build_tools.git_build }}'
-  loop_control:
-    label: '{{ item.name }}'
-  vars:
-    name: '{{ item.name }}'
-    bin: '{{ item.bin }}'
-    repo: '{{ item.repo }}'
-    configure_flags: '{{ item.configure_flags }}'
 - name: Ensure CMake is installed
   block:
     - name: Check if CMake is installed
@@ -35,7 +20,7 @@
         - name: Install CMake dependencies
           become: true
           package:
-            name: libssl-dev
+            name: "{{ 'libssl-dev' if ansible_facts['os_family'] == 'Debian' else 'openssl-devel' }}"
             state: present
         # TODO: Might be nice to have a clean step
         - name: Bootstrap
@@ -53,6 +38,22 @@
           make:
             chdir: '{{ persist_source_packages_dir }}/cmake'
             target: install
+- name: Ensure build tools are installed
+  become: true
+  package:
+    name: '{{ build_tools.system + distro_build_tools.system }}'
+    state: present
+- name: Build dev tools from source
+  include_tasks: build_from_source.yml
+  loop: '{{ build_tools.git_build + distro_build_tools.git_build }}'
+  loop_control:
+    label: '{{ item.name }}'
+  vars:
+    item_name: '{{ item.name }}'
+    bin: '{{ item.bin }}'
+    version: '{{ item.version }}'
+    repo: '{{ item.repo }}'
+    configure_flags: '{{ item.configure_flags }}'
 - name: Ensure Rust is installed
   block:
     - name: Check if Rust is installed
@@ -78,29 +79,39 @@
       register: go_installed
       ignore_errors: true
       changed_when: false
+    - name: Get latest Go version
+      when: go_installed.rc != 0
+      uri:
+        url: https://go.dev/dl/?mode=json
+        return_content: true
+      register: go_releases
     - name: Install Go
       when: go_installed.rc != 0
       vars:
-        go_version: 1.25.5
+        go_version: "{{ (go_releases.json | first).version | regex_replace('^go', '') }}"
         go_archive: go{{ go_version }}.linux-amd64.tar.gz
         go_download_url: https://go.dev/dl/{{ go_archive }}
-        go_install_path: /usr/local
-        go_symlink_path: /usr/local/go
+        go_install_path: '{{ ansible_facts.user_dir }}/.local'
+        go_symlink_path: '{{ ansible_facts.user_dir }}/.local/bin'
       block:
         - name: Download Go archive
           get_url:
             url: '{{ go_download_url }}'
             dest: /tmp/{{ go_archive }}
             mode: '0644'
-        - name: Extract Go archive to /usr/local
+        - name: Extract Go archive
           unarchive:
             src: /tmp/{{ go_archive }}
             dest: '{{ go_install_path }}'
-          become: true
         - name: Remove downloaded Go archive
           file:
             path: /tmp/{{ go_archive }}
             state: absent
+        - name: Symlink Go
+          file:
+            src: '{{ go_install_path }}/go/bin/go'
+            dest: '{{ go_symlink_path }}/go'
+            state: link
     - name: Verify Go installation
       block:
         - name: Get Go version

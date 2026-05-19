@@ -1,6 +1,7 @@
 # $schema: https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/packages
 ---
 - name: Install {{ package.name }} via system package manager
+  become: true
   when: package.install_with == 'system'
   package:
     name: '{{ package.pkg_name | default(package.name) }}'

@@ -1,0 +1,23 @@
+# Basic Settings
+theme = Nightfox
+font-size = 10.5
+font-family = "JetBrainsMono NerdFont Mono"
+mouse-hide-while-typing = true
+shell-integration = zsh
+window-save-state = always
+
+# Leader-based Splits (tmux style)
+keybind = ctrl+q>shift+5=new_split:down
+keybind = ctrl+q>shift+quote=new_split:right
+
+# Navigation between splits (Vim/Tmux style)
+keybind = ctrl+q>h=goto_split:left
+keybind = ctrl+q>j=goto_split:bottom
+keybind = ctrl+q>k=goto_split:top
+keybind = ctrl+q>l=goto_split:right
+
+# Tab and Window management
+keybind = ctrl+q>n=next_tab
+keybind = ctrl+q>p=previous_tab
+keybind = ctrl+q>c=new_tab
+keybind = ctrl+q>f=toggle_split_zoom

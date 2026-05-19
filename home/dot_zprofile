@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # TMUX autoconnect
-if [[ "$IS_WSL" = "true" && "$TMUX" = "" ]]; then
+if [[ "$ON_WSL" = "true" && "$TMUX" = "" ]]; then
   # Automatically connect to the session
   sessions=("$(tmux ls -F "#{session_name}:#{session_attached}" 2> /dev/null)")
   for session in "${sessions[@]}";

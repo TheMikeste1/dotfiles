@@ -7,8 +7,8 @@ shell-integration = zsh
 window-save-state = always
 
 # Leader-based Splits (tmux style)
-keybind = ctrl+q>shift+5=new_split:down
-keybind = ctrl+q>shift+quote=new_split:right
+keybind = ctrl+q>shift+5=new_split:right
+keybind = ctrl+q>shift+quote=new_split:down
 
 # Navigation between splits (Vim/Tmux style)
 keybind = ctrl+q>h=goto_split:left

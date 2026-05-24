@@ -5,6 +5,7 @@ font-family = "JetBrainsMono NerdFont Mono"
 mouse-hide-while-typing = true
 shell-integration = zsh
 window-save-state = always
+confirm-close-surface = false
 
 # Leader-based Splits (tmux style)
 keybind = ctrl+q>shift+5=new_split:right
@@ -21,3 +22,8 @@ keybind = ctrl+q>n=next_tab
 keybind = ctrl+q>p=previous_tab
 keybind = ctrl+q>c=new_tab
 keybind = ctrl+q>f=toggle_split_zoom
+keybind = ctrl+q>&=close_tab
+keybind = ctrl+q>&=close_tab
+keybind = ctrl+q>x=close_surface
+
+keybind = performable:ctrl+c=copy_to_clipboard

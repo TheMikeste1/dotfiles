@@ -24,8 +24,8 @@
     chdir: '{{ persist_source_packages_dir }}/neovim'
     params:
       CMAKE_BUILD_TYPE: Release
+      CMAKE_INSTALL_PREFIX: "{{ ansible_facts.user_dir }}/.local"
 - name: Install NeoVim
   make:
     chdir: '{{ persist_source_packages_dir }}/neovim'
     target: install
-  become: true

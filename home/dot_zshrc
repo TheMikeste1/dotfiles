@@ -13,10 +13,14 @@ fi
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-export COMPLETIONS_DIR="$ZSH_CACHE_DIR/completions"
-if [[ ! -d "$COMPLETIONS_DIR" ]]; then
-  mkdir -p "$COMPLETIONS_DIR"
-fi
+export CACHED_COMPLETIONS_DIR="$ZSH_CACHE_DIR/completions"
+mkdir -p "$CACHED_COMPLETIONS_DIR"
+
+fpath=("$HOME"/.zsh $fpath)
+fpath+=("$HOME"/.zfunc)
+fpath+=("$CACHED_COMPLETIONS_DIR")
+fpath+=("$HOME"/.zsh/completions)
+fpath+=("$HOME"/.zsh/functions)
 
 # Add in zsh plugins
 zinit ice blockf atpull'zinit creinstall -q .'
@@ -37,8 +41,6 @@ zinit snippet OMZP::command-not-found
 
 # Additional completions
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
-fpath=("$HOME"/.zsh $fpath)
-fpath+=("$HOME"/.zfunc)
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # Set case insensitive
@@ -53,6 +55,7 @@ fi
 
 # Load completions
 autoload -Uz compinit
+
 # Load compinit from the cache if it's been less than 24 hours
 setopt extendedglob local_options
 if [[ -n "${ZDOTDIR:-$HOME}"/.zcompdump(#qN.mh+24) ]]; then
@@ -65,7 +68,6 @@ fi
 unsetopt extendedglob local_options
 
 zinit cdreplay -q
-fpath+=("$COMPLETIONS_DIR")
 
 function refresh_eval_cache() {
   oh-my-posh init zsh --config "$HOME/.config/oh-my-posh/theme_default.yaml" > "$EVAL_CACHE_DIR/oh-my-posh_init.zsh"
@@ -81,7 +83,7 @@ function try_generate_comp_cache() {
     return 1
   fi
 
-  command $@ > "$COMPLETIONS_DIR/_$1"
+  command $@ > "$CACHED_COMPLETIONS_DIR/_$1"
   return 0
 }
 
@@ -124,10 +126,13 @@ else
 fi
 unsetopt extendedglob local_options
 
-for f in "$COMPLETIONS_DIR"/*
+typeset -g -A _comps
+for f in "$HOME/.zsh/completions"/*(N) "$HOME/.zsh/functions"/*(N) "$CACHED_COMPLETIONS_DIR"/*(N)
 do
-  f="${f##*/}"
-  autoload -Uz _$f && typeset -g -A _comps && _comps[$f]=_$f
+  [[ -e "$f" ]] || continue
+
+  local name="${f:t}"
+  autoload -Uz "_$name" && _comps[$name]="_$name"
 done
 
 zinit light zsh-users/zsh-syntax-highlighting # Must be loaded last to load all completions
@@ -186,76 +191,3 @@ setopt hist_ignore_all_dups
 setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
-
-# TODO: Customize
-# Source: <https://www.reddit.com/r/zsh/comments/ass2tc/gitadd_completion_with_full_paths_listed_at_once/>
-__git_status_files() {
-  # TODO: Update to use porcelain instead of raw status
-  local -a status_files=( "${(@f)"$(git status -s)"}" )
-  local -a staged_files
-  local -a unstaged_files
-  for entry in "${status_files[@]}"; do
-    if [[ "$entry" == '' ]];
-    then
-      continue
-    fi
-
-    local stts="${entry[1,3]}"
-    local file="${entry[4,-1]}"
-
-    if [[ "${stts[1]}" != ' ' ]] && [[ "${stts[1]}"  != '?' ]];
-    then
-      staged_files+=$file
-    fi
-
-    if [[ "${stts[2]}" != ' ' ]];
-    then
-      unstaged_files+=$file
-    fi
-  done
-
-  _describe -t unstaged 'Unstaged' unstaged_files && ret=0
-  _describe -t staged 'Staged' staged_files && ret=0
-
-  return "$ret"
-}
-
-__git_staged_files() {
-  echo "__git_staged_files" # Echo to determine when this is actually called
-  local -a staged_files=( "${"${(0)"$(git diff-index -z --name-only --no-color --cached HEAD)"}"}" )
-
-  _describe -t staged 'Staged files' staged_files && ret=0
-  return "$ret"
-}
-
-__git_modified_files() {
-  # TODO: Update to use porcelain instead of raw status
-  local -a status_files=( "${(@f)"$(git status -s)"}" )
-  local -a unstaged_files
-  for entry in "${status_files[@]}"; do
-    if [[ "$entry" == '' ]];
-    then
-      continue
-    fi
-
-    local stts="${entry[1,3]}"
-    local file="${entry[4,-1]}"
-
-    if [[ "${stts[2]}" != ' ' ]];
-    then
-      unstaged_files+=$file
-    fi
-  done
-
-  _describe -t unstaged 'Unstaged' unstaged_files && ret=0
-
-  return "$ret"
-}
-
-__git_treeish-to-index_files() {
-  __git_staged_files
-}
-
-__git_other_files() {
-  return 0
-}

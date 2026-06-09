@@ -28,6 +28,7 @@ declare -xr DOTNET_CLI_TELEMETRY_OPTOUT="true"
 declare -x  EDITOR=nvim
 declare -xr GOBIN="$HOME/.local/go/bin"
 declare -x  LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4' # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
+declare -x  MANPAGER="nvim +Man!"
 declare -x  NINJA_STATUS="[%p (%f/%t) :: (%e|%E)] "
 declare -x  SSH_ASKPASS_REQUIRE=prefer
 declare -x  SSH_ENV="$HOME/.ssh/agent-environment"

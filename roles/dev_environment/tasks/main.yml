@@ -1,4 +1,9 @@
 ---
+- name: Ensure build tools are installed
+  become: true
+  package:
+    name: '{{ build_tools.system + distro_build_tools.system }}'
+    state: present
 - name: Ensure CMake is installed
   block:
     - name: Check if CMake is installed
@@ -38,11 +43,6 @@
           make:
             chdir: '{{ persist_source_packages_dir }}/cmake'
             target: install
-- name: Ensure build tools are installed
-  become: true
-  package:
-    name: '{{ build_tools.system + distro_build_tools.system }}'
-    state: present
 - name: Build dev tools from source
   include_tasks: build_from_source.yml
   loop: '{{ build_tools.git_build + distro_build_tools.git_build }}'

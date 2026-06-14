@@ -18,7 +18,7 @@
         version: '{{ version }}'
     - name: Configure {{ item_name }}
       command:
-        cmd: cmake -S '{{ persist_source_packages_dir }}/{{ item_name }}' -B build {{ configure_flags }}
+        cmd: cmake -S '{{ persist_source_packages_dir }}/{{ item_name }}' -B '{{ persist_source_packages_dir }}/{{ item_name }}/build' {{ configure_flags }}
     - name: Build {{ item_name }}
       command:
         chdir: '{{ persist_source_packages_dir }}/{{ item_name }}'

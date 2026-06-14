@@ -30,13 +30,13 @@
         # TODO: Might be nice to have a clean step
         - name: Bootstrap
           command:
-            cmd: ./bootstrap "--parallel={{ ansible_processor_nproc }}"
+            cmd: ./bootstrap "--parallel={{ ansible_facts["processor_nproc"] }}"
             chdir: '{{ persist_source_packages_dir }}/cmake'
         - name: Build
           make:
             chdir: '{{ persist_source_packages_dir }}/cmake'
             params:
-              parallel: '{{ ansible_processor_nproc }}'
+              parallel: '{{ ansible_facts["processor_nproc"] }}'
               CMAKE_BUILD_TYPE: Release
         - name: Install
           become: true

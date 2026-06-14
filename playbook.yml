@@ -5,6 +5,9 @@
   vars_files:
     - vars/main.yml
   pre_tasks:
+    - name: Check if WSL
+      set_fact:
+        is_wsl: "{{ 'microsoft' in ansible_facts['kernel'] | lower }}"
     - name: Load distro-specific vars
       include_vars: "vars/packages_{{ ansible_facts['os_family'] }}.yml"
   roles:
@@ -13,3 +16,4 @@
     - install_packages
     - build_packages
     - configure
+    - systemd.yml

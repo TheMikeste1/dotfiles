@@ -4,6 +4,7 @@ set unstable := true
 
 nproc := `echo $(( $(nproc) / 2 ))`
 cmake_generator := '$(command -v ninja >/dev/null 2>&1 && echo "Ninja" || echo "Unix Makefiles")'
+llvm_version := "22"
 
 default:
     -just cmake
@@ -34,6 +35,9 @@ _git-ensure repo url branch:
             > ".previous_versions_{{ repo }}.tmp" && \
             mv ".previous_versions_{{ repo }}.tmp" ".previous_versions_{{ repo }}"
         git -C ./{{ repo }} reset --hard @{u}
+        echo "=== {{ repo }} changelog ==="
+        git -C ./{{ repo }} log --oneline --no-merges "$local_commit"..HEAD
+        echo ""
         git -C ./{{ repo }} submodule update --init --recursive --jobs={{ nproc }}
     fi
 
@@ -96,7 +100,7 @@ ninja-build: (_git-ensure "ninja" "git@github.com:ninja-build/ninja.git" "releas
 
 neovim: (_git-ensure "neovim" "git@github.com:neovim/neovim.git" "master") build-neovim
 
-llvm: (_git-ensure "llvm-project" "git@github.com:llvm/llvm-project.git" "main") build-llvm
+llvm: (_git-ensure "llvm-project" "git@github.com:llvm/llvm-project.git" "release/{{ llvm_version }}.x") build-llvm
 
 tmux: (_git-ensure "tmux" "git@github.com:tmux/tmux.git" "master") build-tmux
 

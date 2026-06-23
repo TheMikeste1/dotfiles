@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Add a directory to $PATH only if it isn’t already present.
 #   $1 – directory to add (trailing slash is stripped)
 #   $2 – “prepend” flag (true / false).  If omitted, defaults to false (append).
@@ -80,15 +79,15 @@ declare -xr VSCODE_PATH=\"$vscode_path\"" > "$EVAL_CACHE_DIR/wsl_constants.bash"
     # shellcheck disable=SC2153
     add_to_path "$FIREFOX_PATH" false
     declare -x BROWSER=firefox.exe
-fi
 
-# Remove the local code command, since it messes with launching VSCode sometimes
-if [[ "$PATH" == *"$HOME/.vscode-server/bin/"*"/bin/remote-cli"* ]]; then
-    PATH="${PATH//:${HOME}\/.vscode-server\/bin\/*\/bin\/remote-cli/}"
-    PATH="${PATH#:}"   # strip leading colon if created
-    PATH="${PATH%:}"   # strip trailing colon if created
+    # Remove the local code command, since it messes with launching VSCode sometimes
+    if [[ "$PATH" == *"$HOME/.vscode-server/bin/"*"/bin/remote-cli"* ]]; then
+        PATH="${PATH//:${HOME}\/.vscode-server\/bin\/*\/bin\/remote-cli/}"
+        PATH="${PATH#:}"   # strip leading colon if created
+        PATH="${PATH%:}"   # strip trailing colon if created
+    fi
+    export PATH
 fi
-export PATH
 
 # Machine-specific env and overrides
 if [ -f "$HOME/.local.bash_env" ]; then

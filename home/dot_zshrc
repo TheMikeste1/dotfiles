@@ -20,7 +20,6 @@ fpath=("$HOME"/.zsh $fpath)
 fpath+=("$HOME"/.zfunc)
 fpath+=("$CACHED_COMPLETIONS_DIR")
 fpath+=("$HOME"/.zsh/completions)
-fpath+=("$HOME"/.zsh/functions)
 
 # Add in zsh plugins
 zinit ice blockf atpull'zinit creinstall -q .'

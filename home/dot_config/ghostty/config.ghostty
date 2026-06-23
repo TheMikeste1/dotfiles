@@ -30,4 +30,5 @@ keybind = ctrl+q>f=toggle_split_zoom
 keybind = ctrl+q>shift+7=close_tab
 keybind = ctrl+q>x=close_surface
 
+keybind = f11=toggle_fullscreen
 keybind = performable:ctrl+c=copy_to_clipboard

@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  echo "Usage:  [OPTIONS]"
+  echo '  -h, --help         Display this help message'
+  exit 1
+}
+
+if git rev-parse --git-dir >/dev/null 2>&1; then
+  global="--local"
+else
+  global="--global"
+fi
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --local)
+      global="--local"
+      ;;
+    --global)
+      global="--global"
+      ;;
+    *)
+      echo "Error: Unknown option $1" >&2
+      usage
+      ;;
+  esac
+done
+readonly global
+
+git_email="$(git config "$global" user.email)" || { echo "Please configure your git email" >&2; exit 1; }
+readonly git_email
+public_key_file="$(ssh-keygen -t ed25519 -C "$git_email" | tee /dev/stderr | grep "Your public key")"
+public_key_file="${public_key_file#Your public key has been saved in }"
+readonly public_key_file
+
+if grep -qE "(Microsoft|Microsoft-Standard-WSL2)" /proc/version 2> /dev/null; then
+  clip.exe < "$public_key_file"
+elif [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+  wl-copy < "$public_key_file"
+elif command -v xclip 2>/dev/null; then
+  xclip -sel clip < "$public_key_file"
+elif command -v xsel 2>/dev/null; then
+  xsel -ib < "$public_key_file"
+else
+  echo "Cannot determine clipboard. Copy the contents of $(realpath "$public_key_file") manually."
+  wait
+fi
+
+echo "Public key copied to clipboard."
+
+domain="$(git remote get-url origin 2>/dev/null | sed -E 's/.*@|https?:\/\/([^/:]+).*/\1/;s/:.*//')" || {
+  echo "No git domain found for $PWD. Go add your key to the desired repositories."
+  exit 0
+}
+readonly domain
+echo "Navigating to https://$domain. Paste the copied public key into the appropriate fields."
+sleep 0.1
+case "$domain" in
+  "github"*)
+    xdg-open "https://$domain/settings/ssh/new"
+    ;;
+  "bitbucket"*)
+    xdg-open "https://$domain/plugins/servlet/ssh/account/keys/add"
+    ;;
+esac

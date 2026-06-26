@@ -73,5 +73,5 @@ managed_packages:
       version: latest
   system:
     - tmux
-    - xsel
+    - xclip
     - zsh

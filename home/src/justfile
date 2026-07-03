@@ -36,7 +36,7 @@ _git-ensure repo url branch:
             mv ".previous_versions_{{ repo }}.tmp" ".previous_versions_{{ repo }}"
         git -C ./{{ repo }} reset --hard @{u}
         echo "=== {{ repo }} changelog ==="
-        git -C ./{{ repo }} log --oneline --no-merges "$local_commit"..HEAD
+        git -C ./{{ repo }} log --oneline --no-merges "$local_commit"..HEAD | tee "./.changelog-{{ repo }}.log"
         echo ""
         git -C ./{{ repo }} submodule update --init --recursive --jobs={{ nproc }}
     fi

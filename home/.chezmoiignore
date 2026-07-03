@@ -1,12 +1,12 @@
 {{ if ne .chezmoi.os "windows" }}
 AppData/
 Documents/
-.ideavimrc
 .wezterm.lua
 
   {{ if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
     # Patterns to ignore ONLY when running inside WSL
     .config/ghostty/
+    .ideavimrc
   {{ end }}
 {{ end }}
 

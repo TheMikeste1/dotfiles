@@ -4,6 +4,8 @@ set -euo pipefail
 usage() {
   echo "Usage:  [OPTIONS]"
   echo '  -h, --help         Display this help message'
+  echo '  --local            Generate the key for the current config'\''s email'
+  echo '  --global           Generate the key for the global config'\''s email'
   exit 1
 }
 

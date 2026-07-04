@@ -11,6 +11,9 @@ compare = "!f() { \
 hist = log --graph --decorate --pretty=oneline --abbrev-commit
 root = rev-parse --show-toplevel
 
+[commit]
+gpgsign = true
+
 [core]
 editor = nvim
 pager = delta
@@ -55,9 +58,13 @@ autoSetupRemote = true
 
 [tag]
 forceSignAnnotated = true
+gpgSign = true
 
 [rerere]
 enabled = true
+
+[url "git@github.com:"]
+insteadOf = https://github.com/
 
 [include]
 path = ~/.local.gitconfig

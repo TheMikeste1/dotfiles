@@ -36,6 +36,7 @@ public_key_file="$(ssh-keygen -t ed25519 -C "$git_email" | tee /dev/stderr | gre
 public_key_file="${public_key_file#Your public key has been saved in }"
 readonly public_key_file
 
+set +u
 if grep -qE "(Microsoft|Microsoft-Standard-WSL2)" /proc/version 2> /dev/null; then
   clip.exe < "$public_key_file"
 elif [ "$XDG_SESSION_TYPE" = "wayland" ]; then
@@ -48,6 +49,7 @@ else
   echo "Cannot determine clipboard. Copy the contents of $(realpath "$public_key_file") manually."
   wait
 fi
+set -u
 
 echo "Public key copied to clipboard."
 

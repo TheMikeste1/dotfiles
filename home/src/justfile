@@ -20,11 +20,11 @@ all: default
 _git-ensure repo url branch:
     set -e
     if [ ! -d "./{{ repo }}" ]; then
-        git clone --recursive --depth 1 --single-branch --branch {{ branch }} --jobs={{ nproc }} -- {{ url }} ./{{ repo }}
+        git clone --recursive --depth 1 --single-branch --branch "{{ branch }}" --jobs={{ nproc }} -- {{ url }} "./{{ repo }}"
     else
-        git -C ./{{ repo }} fetch
-        local_commit=$(git -C ./{{ repo }} rev-parse HEAD)
-        remote_commit=$(git -C ./{{ repo }} rev-parse @{u})
+        git -C "./{{ repo }}" fetch
+        local_commit=$(git -C "./{{ repo }}" rev-parse HEAD)
+        remote_commit=$(git -C "./{{ repo }}" rev-parse @{u})
         if [ "$local_commit" = "$remote_commit" ]; then
           echo "{{ repo }} does not require updating"
           exit 1
@@ -34,11 +34,11 @@ _git-ensure repo url branch:
         tail -n10 ".previous_versions_{{ repo }}" \
             > ".previous_versions_{{ repo }}.tmp" && \
             mv ".previous_versions_{{ repo }}.tmp" ".previous_versions_{{ repo }}"
-        git -C ./{{ repo }} reset --hard @{u}
+        git -C "./{{ repo }}" reset --hard @{u}
         echo "=== {{ repo }} changelog ==="
-        git -C ./{{ repo }} log --oneline --no-merges "$local_commit"..HEAD | tee "./.changelog-{{ repo }}.log"
+        git -C "./{{ repo }}" log --oneline --no-merges "$local_commit"..HEAD | tee "./.changelog-{{ repo }}.log"
         echo ""
-        git -C ./{{ repo }} submodule update --init --recursive --jobs={{ nproc }}
+        git -C "./{{ repo }}" submodule update --init --recursive --jobs={{ nproc }}
     fi
 
 [script]
@@ -56,10 +56,10 @@ _git-previous repo:
           exit 2
         fi
 
-        git -C ./{{ repo }} fetch
-        git -C ./{{ repo }} reset --hard "$desired_commit"
+        git -C "./{{ repo }}" fetch
+        git -C "./{{ repo }}" reset --hard "$desired_commit"
         sed -i '$d' ".previous_versions_{{ repo }}"
-        git -C ./{{ repo }} submodule update --init --recursive --jobs={{ nproc }}
+        git -C "./{{ repo }}" submodule update --init --recursive --jobs={{ nproc }}
     fi
 
 [working-directory("cmake")]
@@ -83,7 +83,7 @@ build-neovim:
 
 [working-directory("llvm-project")]
 build-llvm:
-    cmake -S llvm -B build -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lldb" -DLLVM_ENABLE_RUNTIMES="compiler-rt" -DCMAKE_INSTALL_PREFIX=$HOME/.local -DLLVM_TARGETS_TO_BUILD="X86" -DBUILD_SHARED_LIBS=ON -DLLVM_OPTIMIZED_TABLEGEN=ON
+    cmake -S llvm -B build -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lldb;lld" -DLLVM_ENABLE_RUNTIMES="compiler-rt" -DCMAKE_INSTALL_PREFIX=$HOME/.local -DLLVM_TARGETS_TO_BUILD="X86" -DBUILD_SHARED_LIBS=ON -DLLVM_OPTIMIZED_TABLEGEN=ON
     cmake --build build --parallel={{ nproc }}
     cmake --build build --target install
 
@@ -100,7 +100,7 @@ ninja-build: (_git-ensure "ninja" "git@github.com:ninja-build/ninja.git" "releas
 
 neovim: (_git-ensure "neovim" "git@github.com:neovim/neovim.git" "master") build-neovim
 
-llvm: (_git-ensure "llvm-project" "git@github.com:llvm/llvm-project.git" "release/{{ llvm_version }}.x") build-llvm
+llvm: (_git-ensure "llvm-project" "git@github.com:llvm/llvm-project.git" ("release/" + llvm_version + ".x")) build-llvm
 
 tmux: (_git-ensure "tmux" "git@github.com:tmux/tmux.git" "master") build-tmux
 

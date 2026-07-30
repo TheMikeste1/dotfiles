@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/refs/heads/master/src/schemas/json/clangd.json
+---
 If:
   PathExclude:
     - .*/build/.*
@@ -27,6 +29,7 @@ Diagnostics:
 
     Add:
       - bugprone-*
+      - bugprone-unchecked-optional-access
       - cert-*
       - cppcoreguidelines-*
       - misc-*
@@ -35,12 +38,13 @@ Diagnostics:
       - performance-*
       - portability-*
       - readability-*
+      - llvm-header-guard
 
     Remove:
       # Too noisy
       - readability-magic-numbers
+      - readability-math-missing-parentheses
       - cppcoreguidelines-avoid-magic-numbers
-
       - modernize-use-trailing-return-type
 
 Hover:

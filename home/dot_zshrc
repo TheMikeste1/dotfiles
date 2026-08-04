@@ -69,6 +69,8 @@ unsetopt extendedglob local_options
 zinit cdreplay -q
 
 function refresh_eval_cache() {
+  mkdir -p "$EVAL_CACHE_DIR"
+
   oh-my-posh init zsh --config "$HOME/.config/oh-my-posh/theme_default.yaml" > "$EVAL_CACHE_DIR/oh-my-posh_init.zsh"
   # tail off the first line because it hardcodes the current path
   mise activate zsh | tail -n +2 > "$EVAL_CACHE_DIR/mise_init.zsh"

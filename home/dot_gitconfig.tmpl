@@ -27,31 +27,19 @@ side-by-side = true
 [diff]
 algorithm = histogram
 colorMoved = default
-tool = vscode
 
 [difftool]
 prompt = false
-
-[difftool "vscode"]
-cmd = code --wait --diff $LOCAL $REMOTE
 
 [interactive]
 diffFilter = delta --color-only
 
 [merge]
 conflictstyle = diff3
-tool = vscode
 keepBackup = false
-external = code --wait $MERGED
-
-[merge.tool "vscode"]
-cmd = code --wait $MERGED
 
 [mergetool]
 keepBackup = false
-
-[mergetool "vscode"]
-cmd = code --wait $MERGED
 
 [push]
 autoSetupRemote = true

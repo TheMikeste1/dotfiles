@@ -41,11 +41,15 @@ Diagnostics:
       - llvm-header-guard
 
     Remove:
-      # Too noisy
-      - readability-magic-numbers
-      - readability-math-missing-parentheses
+      - bugprone-easily-swappable-parameters
+      - cppcoreguidelines-avoid-const-or-ref-data-members  # const is fair, but reference just means you need to manage your lifetimes correctly
       - cppcoreguidelines-avoid-magic-numbers
       - modernize-use-trailing-return-type
+      - readability-magic-numbers
+      - readability-math-missing-parentheses
+
+    CheckOptions:
+      cppcoreguidelines-avoid-do-while.IgnoreMacros: 'true'
 
 Hover:
   ShowAKA: true

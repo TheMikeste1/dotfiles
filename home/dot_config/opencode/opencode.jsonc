@@ -2,19 +2,23 @@
   "$schema": "https://opencode.ai/config.json",
   "agent": {
     "architect": {
-      "model": "google/gemini-3.8-flash#high",
+      "model": "google/gemini-3.8-flash",
+      "variant": "high"
     },
     "architecture-design": {
-      "model": "google/gemini-3.8-flash#high",
+      "model": "google/gemini-3.8-flash",
+      "variant": "high"
     },
     "code-reviewer": {
-      "model": "google/gemini-3.8-flash#high",
+      "model": "google/gemini-3.8-flash",
+      "variant": "high"
     },
     "developer": {
       "model": "opencode/big-pickle",
     },
     "tester": {
-      "model": "google/gemini-3.8-flash#high",
+      "model": "google/gemini-3.8-flash",
+      "variant": "high"
     },
   },
 }
@@ -23,10 +27,12 @@
 //   "$schema": "https://opencode.ai/config.json",
 //   "agent": {
 //     "architect": {
-//       "model": "google/gemini-3.8-flash#high",
+//       "model": "google/gemini-3.8-flash",
+//       "variant": "high",
 //     },
 //     "architecture-design": {
-//       "model": "google/gemma-4-26b-a4b-it#high",
+//       "model": "google/gemma-4-26b-a4b-it",
+//       "variant": "high",
 //     },
 //     "code-reviewer": {
 //       "model": "xiaomi/mimo-v2.5",
@@ -35,9 +41,10 @@
 //       "model": "opencode/big-pickle",
 //     },
 //     "tester": {
-//       "model": "google/gemma-4-26b-a4b-it#high",
-//     }
-//   }
+//       "model": "google/gemma-4-26b-a4b-it",
+//       "variant": "high",
+//     },
+//   },
 // }
 // Openrouter
 // {
@@ -45,23 +52,23 @@
 //   "agent": {
 //     "architect": {
 //       "model": "z-ai/glm-5.2:free",
-//       "reasoningEffort": "high",
+//       "variant": "high",
 //     },
 //     "architecture-design": {
 //       "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
-//       "reasoningEffort": "high",
+//       "variant": "high",
 //     },
 //     "code-reviewer": {
 //       "model": "minimax/minimax-m3:free",
-//       "reasoningEffort": "high",
+//       "variant": "high",
 //     },
 //     "developer": {
 //       "model": "z-ai/glm-5.2:free",
-//       "reasoningEffort": "medium",
+//       "variant": "medium",
 //     },
 //     "tester": {
 //       "model": "google/gemma-4-26b-a4b-it:free",
-//       "reasoningEffort": "high",
-//     }
-//   }
+//       "variant": "high",
+//     },
+//   },
 // }

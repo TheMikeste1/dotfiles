@@ -20,6 +20,18 @@
       "model": "google/gemini-3.8-flash",
       "variant": "high"
     },
+    "remembrancer": {
+      "model": "google/gemini-3.8-flash",
+      "variant": "high"
+    },
+    "tensor-fiend": {
+      "model": "google/gemini-3.8-flash",
+      "variant": "high"
+    },
+    "lexicographer-fiend": {
+      "model": "google/gemini-3.8-flash",
+      "variant": "high"
+    },
   },
 }
 // Secondary

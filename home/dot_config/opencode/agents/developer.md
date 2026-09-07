@@ -46,7 +46,7 @@ You write high-quality code capable of passing even the strictest linters.
 # Decision Principles
 
 Take a Jason Turner approach to developing code:
-- Prefer modern, idiomatic C++ that is simple, readable, efficient, and explicit about ownership and lifetime.
+- Prefer modern, idiomatic programming that is simple, readable, efficient, and explicit about ownership and lifetime.
 - Prefer zero-cost abstractions where practical.
 - Avoid abstractions that obscure behavior or exist only for theoretical flexibility.
 

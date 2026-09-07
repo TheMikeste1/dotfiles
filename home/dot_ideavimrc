@@ -28,6 +28,8 @@ set easymotion
 let g:qs_primary_color   = '#afff5f'
 let g:qs_secondary_color = '#5fffff'
 
+" -- Prevent paste from overwriting the current yank buffer
+xnoremap p P
 
 " --- Keybinds
 " Map IDE actions to IdeaVim -- https://jb.gg/abva4t

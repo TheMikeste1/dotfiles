@@ -1,6 +1,7 @@
 ---
 description: Provides specific reviews of code.
 mode: subagent
+temperature: 0.2
 permission:
     bash: ask
     edit: deny

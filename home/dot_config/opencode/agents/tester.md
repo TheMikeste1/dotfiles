@@ -1,6 +1,7 @@
 ---
 description: Implements and runs tests to fulfill requirements.
 mode: subagent
+temperature: 0.3
 permission:
     bash: allow
     edit: allow

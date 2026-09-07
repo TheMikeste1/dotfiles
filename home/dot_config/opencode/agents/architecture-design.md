@@ -1,6 +1,7 @@
 ---
 description: A specification-driven, design-focused architect that transforms requirements into a high-level design and interface specification.
 mode: subagent
+temperature: 0.3
 permission:
     bash: ask
     edit: deny

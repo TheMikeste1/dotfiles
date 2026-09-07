@@ -18,20 +18,22 @@ function add_to_path() {
     export PATH
 }
 
-declare -x  CMAKE_COLOR_DIAGNOSTICS=ON
-declare -x  CMAKE_EXPORT_COMPILE_COMMANDS=ON
-declare -x  CMAKE_GENERATOR=Ninja
-declare -x  COMPOSE_BAKE=true
-declare -xr DOTFILES="$HOME/.local/share/chezmoi"
-declare -xr DOTNET_CLI_TELEMETRY_OPTOUT="true"
-declare -x  EDITOR=nvim
-declare -xr GOBIN="$HOME/.local/go/bin"
-declare -x  LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4' # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
-declare -x  MANPAGER="nvim +Man!"
-declare -x  NINJA_STATUS="[%p (%f/%t) :: (%e|%E)] "
-declare -x  SSH_ASKPASS_REQUIRE=prefer
-declare -x  SSH_ENV="$HOME/.ssh/agent-environment"
-declare -xr XDG_CONFIG_HOME="$HOME/.config"
+declare -x CMAKE_COLOR_DIAGNOSTICS=ON
+declare -x CMAKE_EXPORT_COMPILE_COMMANDS=ON
+declare -x CMAKE_GENERATOR=Ninja
+declare -x CMAKE_PREFIX_PATH="$HOME/.local:$CMAKE_PREFIX_PATH"
+declare -x COMPOSE_BAKE=true
+declare -x DOTFILES="$HOME/.local/share/chezmoi"
+declare -x DOTNET_CLI_TELEMETRY_OPTOUT="true"
+declare -x EDITOR=nvim
+declare -x GOBIN="$HOME/.local/go/bin"
+declare -x LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4' # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
+declare -x MANPAGER="nvim +Man!"
+declare -x NINJA_STATUS="[%p (%f/%t) :: (%e|%E)] "
+declare -x SSH_ASKPASS_REQUIRE=prefer
+declare -x SSH_ENV="$HOME/.ssh/agent-environment"
+declare -x XDG_CONFIG_HOME="$HOME/.config"
+declare -x PKG_CONFIG_PATH="$HOME/.local/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 add_to_path "$DOTFILES/git_commands" true
 

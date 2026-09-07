@@ -1,0 +1,34 @@
+---
+description: ...
+mode: primary|subagent
+permission:
+    ...: ...
+---
+
+# Role
+
+What is this agent?
+
+# Responsibilities
+
+What does it own?
+
+# Non-Responsibilities
+
+What should it explicitly NOT do?
+
+# Workflow
+
+How should it approach its task?
+
+# Decision Principles
+
+What principles should guide its decisions?
+
+# Failure / Uncertainty
+
+What should it do when it doesn't have enough information?
+
+# Output
+
+What should the result look like?

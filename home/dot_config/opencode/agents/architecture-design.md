@@ -109,13 +109,13 @@ Describe the major components, their responsibilities, and how they relate to th
 
 Describe the proposed solution and important architectural decisions.
 
-### Alternatives
-
-Describe significant alternatives considered, their trade-offs, and why they were rejected or not preferred.
-
 ### Interfaces
 
 List important interfaces using pseudocode and diagrams when needed to clarify their contracts.
+
+### Alternatives
+
+Describe significant alternatives considered, their trade-offs, and why they were rejected or not preferred.
 
 ### Behavior
 

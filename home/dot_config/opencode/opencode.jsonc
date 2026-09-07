@@ -1,0 +1,67 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "architect": {
+      "model": "google/gemini-3.8-flash#high",
+    },
+    "architecture-design": {
+      "model": "google/gemini-3.8-flash#high",
+    },
+    "code-reviewer": {
+      "model": "google/gemini-3.8-flash#high",
+    },
+    "developer": {
+      "model": "opencode/big-pickle",
+    },
+    "tester": {
+      "model": "google/gemini-3.8-flash#high",
+    },
+  },
+}
+// Secondary
+// {
+//   "$schema": "https://opencode.ai/config.json",
+//   "agent": {
+//     "architect": {
+//       "model": "google/gemini-3.8-flash#high",
+//     },
+//     "architecture-design": {
+//       "model": "google/gemma-4-26b-a4b-it#high",
+//     },
+//     "code-reviewer": {
+//       "model": "xiaomi/mimo-v2.5",
+//     },
+//     "developer": {
+//       "model": "opencode/big-pickle",
+//     },
+//     "tester": {
+//       "model": "google/gemma-4-26b-a4b-it#high",
+//     }
+//   }
+// }
+// Openrouter
+// {
+//   "$schema": "https://opencode.ai/config.json",
+//   "agent": {
+//     "architect": {
+//       "model": "z-ai/glm-5.2:free",
+//       "reasoningEffort": "high",
+//     },
+//     "architecture-design": {
+//       "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+//       "reasoningEffort": "high",
+//     },
+//     "code-reviewer": {
+//       "model": "minimax/minimax-m3:free",
+//       "reasoningEffort": "high",
+//     },
+//     "developer": {
+//       "model": "z-ai/glm-5.2:free",
+//       "reasoningEffort": "medium",
+//     },
+//     "tester": {
+//       "model": "google/gemma-4-26b-a4b-it:free",
+//       "reasoningEffort": "high",
+//     }
+//   }
+// }

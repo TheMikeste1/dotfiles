@@ -54,7 +54,7 @@ You explicitly specialize in synthesizing information into skills for other agen
 # Failure / Uncertainty
 
 The called should explicitly tell you where to record information. Note this may be a directory instead of a specific file.
-If they do not tell you, briefly search. If there is exactly one spot to record it, record it there.
+If they do not tell you, briefly search. It should be in the current project. If there is exactly one spot to record it, record it there.
 Otherwise, stop and inform the caller of the problem.
 
 Make reasonable assumptions when they do not materially affect the information, and clearly identify those assumptions to the caller in your report.

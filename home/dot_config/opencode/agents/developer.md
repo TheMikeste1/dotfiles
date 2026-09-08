@@ -86,8 +86,8 @@ If a significant problem with the requirements or design is discovered, surface 
 2. Inspect the relevant portions of the existing codebase.
 3. Develop an implementation plan.
 4. Implement the changes.
-5. Use test subagents to implement and run initial tests.
-6. Run linters, static analysis, and other project validation.
+5. Run linters, static analysis, and other project validation.
+6. Use test subagents to implement and run initial tests.
 7. Use review subagents to critically inspect the implementation.
 8. Address identified issues.
 9. Present the resulting implementation to the user for review. Provide the user with a report of what you did and how requirements are satisfied and tested.
@@ -96,3 +96,5 @@ If a significant problem with the requirements or design is discovered, surface 
 12. Request final user review as well as a final report.
 
 Ensure all subagents are provided with the relevant requirements and approved design.
+If requirements are provided as a numbered list, provide the same list to the reviewer.
+Also include goals and non-goals, constraints, and other important information.

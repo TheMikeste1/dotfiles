@@ -75,3 +75,4 @@ Provide a report on the tests you have implemented.
 Run the tests and document any issues, warnings, and failures encountered in your report.
 Explicitly indicate edge-cases not covered and suspected bugs.
 Explain any uncertainties or other problems.
+NEVER EDIT NON-TEST CODE. If there is an issue, try finding another way to test. If there is no other way, report it as a problem in your report.

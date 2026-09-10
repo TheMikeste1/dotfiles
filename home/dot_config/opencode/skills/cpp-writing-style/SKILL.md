@@ -1,3 +1,7 @@
+---
+name: cpp-writing-style
+description: Enforces a high-performance, explicit, and modern C++20 coding standard for writing and reviewing C++ code.
+---
 # C++ Writing Style Skill
 
 This skill enforces a high-performance, explicit, and modern C++20 coding standard. Agents must apply these rules when writing or reviewing C++ code.

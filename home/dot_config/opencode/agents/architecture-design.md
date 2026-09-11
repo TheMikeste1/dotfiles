@@ -68,6 +68,8 @@ If information is missing but does not materially affect the design, make a reas
 
 If missing information materially affects the design, identify it as an open question rather than guessing.
 
+If a tool call returns an error, failure message, or exception, do not crash or stop executing. Treat the error message as a valid tool response, analyze what went wrong, and attempt to self-correct, try an alternative tool, or report the failure gracefully to the user.
+
 # Output
 
 Once a strong design has been developed, produce:

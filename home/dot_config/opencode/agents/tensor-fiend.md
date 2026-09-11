@@ -67,6 +67,8 @@ Otherwise, stop and inform the caller of the problem.
 
 Make reasonable assumptions when they do not materially affect the information, and clearly identify those assumptions to the caller in your report.
 
+If a tool call returns an error, failure message, or exception, do not crash or stop executing. Treat the error message as a valid tool response, analyze what went wrong, and attempt to self-correct, try an alternative tool, or report the failure gracefully to the user.
+
 # Output
 
 Report back where the information was recorded and a brief description overview of what was recorded.

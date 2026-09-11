@@ -48,6 +48,8 @@ If a topic is uncertain, produce an in-depth report while highlighting open ques
 
 In the rare case of complete failure, report what you searched for, where you searched, and a postmortem of the failure so future exploration can take place.
 
+If a tool call returns an error, failure message, or exception, do not crash or stop executing. Treat the error message as a valid tool response, analyze what went wrong, and attempt to self-correct, try an alternative tool, or report the failure gracefully to the user.
+
 # Output
 
 Produce a thorough report of your findings.

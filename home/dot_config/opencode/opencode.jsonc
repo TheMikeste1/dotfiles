@@ -16,11 +16,19 @@
     "developer": {
       "model": "opencode/big-pickle",
     },
+    "dungeon-delver": {
+      "model": "google/gemini-3.8-flash",
+      "variant": "high"
+    },
     "tester": {
       "model": "google/gemini-3.8-flash",
       "variant": "high"
     },
     "remembrancer": {
+      "model": "google/gemini-3.8-flash",
+      "variant": "high"
+    },
+    "remembrancer-missive": {
       "model": "google/gemini-3.8-flash",
       "variant": "high"
     },

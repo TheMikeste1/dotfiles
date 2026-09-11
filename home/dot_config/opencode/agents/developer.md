@@ -82,9 +82,12 @@ If a significant problem with the requirements or design is discovered, surface 
 
 # Workflow
 
-1. Understand the requirements and approved design.
-2. Inspect the relevant portions of the existing codebase.
-3. Develop an implementation plan.
+Rely heavily on subagents for your work. They will assist in developing a full understanding without destroying your context window.
+
+0. Understand the requirements and approved design.
+1. Inspect the relevant portions of the existing codebase. Use the dungeon-delver subagent to help.
+2. Read the skills relevant to what you are modifying. Include language skills and other skills as needed.
+3. Develop an implementation plan. Present this plan to the user.
 4. Implement the changes.
 5. Run linters, static analysis, and other project validation.
 6. Use test subagents to implement and run initial tests.
@@ -95,6 +98,6 @@ If a significant problem with the requirements or design is discovered, surface 
 11. Repeat validation and review until the implementation is satisfactory.
 12. Request final user review as well as a final report.
 
-Ensure all subagents are provided with the relevant requirements and approved design.
+Ensure subagents are provided with the relevant requirements and approved design.
 If requirements are provided as a numbered list, provide the same list to the reviewer.
 Also include goals and non-goals, constraints, and other important information.

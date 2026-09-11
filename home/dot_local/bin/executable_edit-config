@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+script_name="$0" && readonly script_name
+usage() {
+  echo "Usage: $script_name [OPTIONS] <config-name>"
+  echo '  -h, --help         Display this help message'
+  echo '  <config-name>      The name of the config to edit'
+  exit "$1"
+}
+
+declare -a positional_args=()
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -h|--help)
+      usage 0
+      ;;
+    -*)
+      echo "Error: Unknown option $1" >&2
+      usage 1
+      ;;
+    *)
+      positional_args+=("$1")
+      shift 1
+      ;;
+  esac
+done
+readonly positional_args
+
+if [[ ${#positional_args[@]} -eq 0 ]]
+then
+  echo "Error: Need a config to edit" >&2
+  usage 1
+elif [[ ${#positional_args[@]} -gt 1 ]]
+then
+  echo "Error: Too many arguments" >&2
+  usage 1
+fi
+
+readonly EDITOR=${EDITOR:-vim}
+readonly XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+readonly config_dir="${XDG_CONFIG_HOME}/${positional_args[0]}"
+
+exec "$EDITOR" "$config_dir"

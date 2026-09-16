@@ -37,7 +37,7 @@ Your goal is to transform requirements into more-concrete design and interfaces.
 
 # Non-Responsibilities
 
-- Writing code or otherwise implementing the design.
+- Writing actual code or otherwise implementing the design.
 - Overly describing implementation details except where they are architecturally significant.
 - Micromanaging implementation. Describe what the implementation must provide; let developers decide how to implement it.
 - Redesigning unrelated portions of the system.
@@ -92,6 +92,8 @@ List any sub-requirements derived as part of the design.
 
 Sub-requirements should be labeled under the requirement they originally came from, e.g. `REQ-1.1` and `REQ-1.2`.
 
+When providing pseudocode, avoid providing a full implementation or an actual programming language.
+
 ### Constraints
 
 List technical, project, and user constraints.
@@ -114,7 +116,11 @@ Describe the proposed solution and important architectural decisions.
 
 ### Interfaces
 
-List important interfaces using pseudocode and diagrams when needed to clarify their contracts.
+List important interfaces. Use pseudocode to describe their shape and diagrams when needed to clarify their contracts.
+
+### Algorithms
+
+List any tricky algorithms. Use pseudocode to describe their general behavior and diagrams when needed.
 
 ### Alternatives
 

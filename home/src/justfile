@@ -4,7 +4,7 @@ set unstable := true
 
 nproc := `echo $(( $(nproc) / 2 ))`
 cmake_generator := '$(command -v ninja >/dev/null 2>&1 && echo "Ninja" || echo "Unix Makefiles")'
-llvm_version := "22"
+llvm_version := "23"
 
 default:
     -just cmake
@@ -22,9 +22,12 @@ _git-ensure repo url branch:
     if [ ! -d "./{{ repo }}" ]; then
         git clone --recursive --depth 1 --single-branch --branch "{{ branch }}" --jobs={{ nproc }} -- {{ url }} "./{{ repo }}"
     else
-        git -C "./{{ repo }}" fetch
+        git -C "./{{ repo }}" remote set-branches origin "{{ branch }}"
+        git -C "./{{ repo }}" fetch --depth 1 origin "{{ branch }}"
+
         local_commit=$(git -C "./{{ repo }}" rev-parse HEAD)
-        remote_commit=$(git -C "./{{ repo }}" rev-parse @{u})
+        remote_commit=$(git -C "./{{ repo }}" rev-parse "origin/{{ branch }}")
+
         if [ "$local_commit" = "$remote_commit" ]; then
           echo "{{ repo }} does not require updating"
           exit 1
@@ -34,11 +37,17 @@ _git-ensure repo url branch:
         tail -n10 ".previous_versions_{{ repo }}" \
             > ".previous_versions_{{ repo }}.tmp" && \
             mv ".previous_versions_{{ repo }}.tmp" ".previous_versions_{{ repo }}"
-        git -C "./{{ repo }}" reset --hard @{u}
+
+        git -C "./{{ repo }}" checkout -B "{{ branch }}" --track "origin/{{ branch }}"
+
         echo "=== {{ repo }} changelog ==="
         git -C "./{{ repo }}" log --oneline --no-merges "$local_commit"..HEAD | tee "./.changelog-{{ repo }}.log"
         echo ""
+
         git -C "./{{ repo }}" submodule update --init --recursive --jobs={{ nproc }}
+
+        git -C "./{{ repo }}" reflog expire --expire=now --all
+        git -C "./{{ repo }}" gc --prune=now
     fi
 
 [script]

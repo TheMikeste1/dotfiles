@@ -224,6 +224,11 @@ Diagnostics:
 
     CheckOptions:
       cppcoreguidelines-avoid-do-while.IgnoreMacros: 'true'
+      bugprone-signed-char-misuse.CharTypdefsToIgnore: 'Int8'
+      misc-include-cleaner.IgnoreHeaders: "bits/.*"
+      misc-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic: 'true'
+      readability-identifier-length.IgnoredLoopCounterNames: '^[ijkxyz_]$'
+      readability-identifier-length.IgnoredVariableNames: '^id$|^l$|^ec$|^it$|^fd$|^a$|^b$'
 
 Hover:
   ShowAKA: true

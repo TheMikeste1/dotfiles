@@ -16,6 +16,11 @@
     repo: git@github.com:TheMikeste1/git-galaxy.git
     dest: ./git_commands
 
+- name: Pull git hooks
+  git:
+    repo: git@github.com:TheMikeste1/.githooks.git
+    dest: ~/.githooks
+
 #- name: Install TMUX plugins
   #command: tmux source-file ~/.tmux.conf
 

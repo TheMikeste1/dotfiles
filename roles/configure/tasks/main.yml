@@ -11,15 +11,10 @@
     dest: ~/.config/nvim
     update: false
 
-- name: Pull git extensions
+- name: Pull git extensions and hooks
   git:
     repo: git@github.com:TheMikeste1/git-galaxy.git
-    dest: ./git_commands
-
-- name: Pull git hooks
-  git:
-    repo: git@github.com:TheMikeste1/.githooks.git
-    dest: ~/.githooks
+    dest: ./git-galaxy
 
 #- name: Install TMUX plugins
   #command: tmux source-file ~/.tmux.conf

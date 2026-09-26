@@ -35,7 +35,7 @@ declare -x SSH_ENV="$HOME/.ssh/agent-environment"
 declare -x XDG_CONFIG_HOME="$HOME/.config"
 declare -x PKG_CONFIG_PATH="$HOME/.local/lib/pkgconfig:$PKG_CONFIG_PATH"
 
-add_to_path "$DOTFILES/git_commands" true
+add_to_path "$DOTFILES/git-galaxy/bin" true
 
 add_to_path "$HOME/.cargo/bin" true
 add_to_path "$HOME/.dotnet/tools" true

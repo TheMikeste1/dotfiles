@@ -3,7 +3,7 @@ description: Records knowledge and lessons learned for human consumption, record
 mode: subagent
 temperature: 0.3
 permission:
-    bash: ask
+    bash: allow
     edit: allow
     glob: allow
     grep: allow
@@ -13,7 +13,7 @@ permission:
     read: allow
     skill: allow
     task: deny
-    todowrite: allow
+    todowrite: deny
     webfetch: deny
     websearch: deny
 ---
@@ -38,8 +38,6 @@ You explicitly specialize in recording information for human consumption.
 
 # Decision Principles
 
-- Simplicity supersedes cleverness
-- Readability counts
 - Do not present an assumption as fact
 - Documentation should have the right balance of information for its topic
     - Do not over document a topic

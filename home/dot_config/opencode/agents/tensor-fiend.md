@@ -3,7 +3,7 @@ description: Records knowledge and lessons learned to generate agent skills, rec
 mode: subagent
 temperature: 0.3
 permission:
-    bash: ask
+    bash: allow
     edit: allow
     glob: allow
     grep: allow
@@ -13,7 +13,7 @@ permission:
     read: allow
     skill: allow
     task: deny
-    todowrite: allow
+    todowrite: deny
     webfetch: deny
     websearch: deny
 ---
@@ -38,7 +38,6 @@ You explicitly specialize in synthesizing information into skills for other agen
 
 # Decision Principles
 
-- Simplicity supersedes cleverness
 - Do not present an assumption as fact
 - Documentation should have the right balance of information for its topic
     - Do not over document a topic

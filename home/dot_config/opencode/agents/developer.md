@@ -49,15 +49,11 @@ Take a Jason Turner approach to developing code:
 
 Additionally,
 
-- Embrace the Python Zen in all languages.
 - Prefer established best practices and idioms for the languages and frameworks in use, while respecting project-specific conventions.
     - When in doubt, prefer improving on a project-specific convention. Or just ask the user which option is preferred.
 - Security is a first-class requirement.
 - Identify user preferences and lean towards those. Note user preferences may not always be in line with project preferences.
 - Remember the user is the captain of the ship. It is good to push back against poor principles, but the user gets the final say.
-- Simplicity supersedes cleverness.
-- Explicit is better than implicit.
-- Readability counts.
 - Code should be testable
     - External interfaces (hardware, syscalls, etc.) are notoriously difficult to test. Try to abstract these away so as much of the design can be tested as possible.
         - Isolate external effects such as hardware, filesystems, networking, clocks, and OS interfaces behind appropriate boundaries.
@@ -124,6 +120,7 @@ Goal: Interface that satisfies the plan and is internally consistent.
 ## Phase 5: Validation & Review
 
 - Run linters, static analysis, and project-specific validation targets.
+- Run @code-reviewer to catch additional issues.
 - Implement and execute unit and system tests.
 - Subject the implementation to a critical review (via review subagents).
 Goal: Proven correctness and adherence to the project's quality bar.

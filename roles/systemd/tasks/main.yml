@@ -1,0 +1,8 @@
+# $schema: https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks
+---
+- name: Hook up RClone OneDrive
+  when: not is_wsl
+  ansible.builtin.systemd_service:
+    name: rclone-onedrive
+    enabled: true
+    scope: user

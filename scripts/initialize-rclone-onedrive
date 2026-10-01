@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+echo '1. n for a new remote, then name it (e.g. onedrive).'
+echo '2. Pick onedrive from the storage list (Microsoft OneDrive).'
+echo '3. Leave client_id and client_secret blank. Optionally register your own Azure app later to avoid shared rate limits.'
+echo '4. Choose the region, usually 1 (Microsoft Cloud Global).'
+echo '5. Skip advanced config (n).'
+echo "6. Auto config: y if you're on a machine with a browser. It opens a login page and captures the token."
+echo '7. Pick the account type (onedrive personal or business), then select the drive from the list it shows.'
+echo '8. Confirm, then q to quit.'
+
+rclone config
+
+if rclone lsd onedrive: > /dev/null;
+then
+  echo "Success!"
+else
+  echo "Failed to set up OneDrive."
+fi

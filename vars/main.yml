@@ -67,6 +67,9 @@ managed_packages:
   - name: tree-sitter-cli
     install_with: cargo
     pkg_name: tree-sitter-cli
+  - name: commitizen
+    install_with: pip
+    pkg_name: commitizen
   - name: lefthook
     install_with: go
     url: github.com/evilmartians/lefthook

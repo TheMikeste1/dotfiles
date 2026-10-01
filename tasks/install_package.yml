@@ -1,16 +1,28 @@
-# $schema: https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/packages
 ---
-- name: Install {{ package.name }} via system package manager
-  become: true
-  when: package.install_with == 'system'
-  package:
-    name: '{{ package.pkg_name | default(package.name) }}'
-    state: present
 - name: Install {{ package.name }} via cargo
   when: package.install_with == 'cargo'
   community.general.cargo:
     name: '{{ package.pkg_name }}'
     state: present
+- name: Install {{ package.name }} via cargo-git
+  when: package.install_with == 'cargo-git'
+  block:
+    - name: Check if {{ package.name }} is installed
+      shell: command -v {{ package.bin | default(package.name) }}
+      register: tool_installed
+      ignore_errors: true
+      changed_when: false
+    - name: Install {{ package.name }}
+      when: tool_installed.rc != 0
+      command:
+        cmd: cargo install --git {{ package.url }} {{ package.name }}
+- name: Install {{ package.name }} via Go
+  when: package.install_with == 'go'
+  command: go install {{ package.url }}@{{ package.version }}
+- name: Install {{ package.name }} via Mise
+  when: package.install_with == 'mise'
+  ignore_errors: true  # Mise fails when the GitHub rate limit is exceeded.. Which seems to happen a lot
+  command: mise install {{ package.pkg_name }}@{{ item.version }}
 - name: Install {{ package.name }} via script
   when: package.install_with == 'script'
   block:
@@ -22,3 +34,14 @@
     - name: Run script for {{ package.name }}
       when: pm_check.rc != 0
       shell: '{{ package.install_script }}'
+- name: Install {{ package.name }} via system package manager
+  become: true
+  when: package.install_with == 'system'
+  package:
+    name: '{{ package.pkg_name | default(package.name) }}'
+    state: present
+- name: Install {{ package.name }} via pip
+  when: package.install_with == 'pip'
+  ansible.builtin.pip:
+    state: present
+    name: '{{ package.pkg_name }}'

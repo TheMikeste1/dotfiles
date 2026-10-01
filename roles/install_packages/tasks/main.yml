@@ -1,33 +1,11 @@
 ---
-- name: Install system packages
-  become: true
-  package:
-    name: '{{ managed_packages.system }}'
-    state: present
-- name: Install Rust packages
-  block:
-    - name: Cargo
-      community.general.cargo:
-        name: '{{ managed_packages.cargo }}'
-        state: present
-    - name: Cargo Git
-      include_tasks: build_from_cargo_git.yml
-      loop: '{{ managed_packages.cargo_git }}'
-      loop_control:
-        label: '{{ item.name }}'
-      vars:
-        package: '{{ item }}'
-- name: Install Go packages
-  command: go install {{ item.url }}@{{ item.version }}
-  loop: '{{ managed_packages.go }}'
+- name: Ensure package managers are installed
+  include_tasks: install_package.yml
+  loop: '{{ managed_packages }}'
   loop_control:
     label: '{{ item.name }}'
-- name: Install Mise packages
-  ignore_errors: true  # Mise fails when the GitHub rate limit is exceeded.. Which seems to happen a lot
-  command: mise install {{ item.name }}@{{ item.version }}
-  loop: '{{ managed_packages.mise }}'
-  loop_control:
-    label: '{{ item.name }}'
+  vars:
+    package: '{{ item }}'
 - name: Ensure OhMyPosh is installed
   block:
     - name: Check whether OhMyPosh is installed and on system path

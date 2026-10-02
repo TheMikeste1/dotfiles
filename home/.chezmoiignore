@@ -6,6 +6,7 @@ Documents/
   {{ if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
     # Patterns to ignore ONLY when running inside WSL
     .config/ghostty/
+    .config/systemd/
     .ideavimrc
   {{ end }}
 {{ end }}

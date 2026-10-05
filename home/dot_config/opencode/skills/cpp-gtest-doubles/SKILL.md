@@ -6,6 +6,7 @@ description: Standard for implementing test doubles (fakes, mocks) in C++ using 
 # C++ Test Doubles & GTest Implementation
 
 This skill provides the standard for creating test doubles (Fakes, Mocks, Stubs) within C++. The primary goal is to maintain test maintainability and reduce fragility.
+Refer to the `test-double-principles` skill for guidance on which doubles to use when.
 
 ## Technical Constraints
 

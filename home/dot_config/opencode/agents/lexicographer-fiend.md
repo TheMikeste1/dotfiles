@@ -2,6 +2,7 @@
 description: Records knowledge and lessons learned for human consumption, recording them in the current project.
 mode: subagent
 temperature: 0.3
+hidden: true
 permission:
     bash: allow
     edit: allow

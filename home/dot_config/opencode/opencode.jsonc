@@ -2,8 +2,10 @@
   "$schema": "https://opencode.ai/config.json",
   "small_model": "opencode/ling-3.0-flash-fin-free",
   "subagent_depth": 2,
-  "subagents": {
-    "*-fiend": false
+  "permission": {
+    "task": {
+      "*-fiend": "deny",
+    },
   },
   "agent": {
     "architect": {
@@ -33,8 +35,10 @@
     "remembrancer": {
       "model": "opencode/nemotron-3-ultra-free",
       "variant": "high",
-      "subagents": {
-        "*-fiend": true
+      "permission": {
+        "task": {
+          "*-fiend": "allow",
+        },
       },
     },
 

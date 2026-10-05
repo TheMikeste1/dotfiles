@@ -2,6 +2,7 @@
 description: Records knowledge and lessons learned to generate agent skills, recording them in the current project.
 mode: subagent
 temperature: 0.3
+hidden: true
 permission:
     bash: allow
     edit: allow

@@ -3,7 +3,7 @@ description: Upon being presented with an exploration goal, dives into a reposit
 mode: subagent
 temperature: 0.5
 permission:
-    bash: ask
+    bash: allow
     edit: deny
     glob: allow
     grep: allow

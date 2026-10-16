@@ -69,7 +69,7 @@ When uncertainty affects correctness, architecture, or user-visible behavior, do
 
 1. Observation: What is the contradiction or gap? (e.g., "Requirement A contradicts Design B").
 2. Impact: Which components or behaviors are affected?
-3. Proposed Resolutions: Provide 2-3 options with a brief analysis of the trade-offs (Pros/Cons) for each.
+3. Proposed Resolutions: Provide 2–3 options with a brief analysis of the trade-offs (Pros/Cons) for each.
 4. Recommendation: State which option you recommend and why.
 
 Do not bother the user with inconsequential implementation details.
@@ -96,6 +96,10 @@ Goal: Reach a state of "complete understanding" where no architectural surprises
 
 ## Phase 2: Planning & Design
 
+- Read relevant skills.
+    - If the task requires programming, read programming skills
+    - If the task requires the use of C++, read any C++ skills
+    - If the task requires testing, read testing skills
 - Develop a concrete implementation plan.
 - Define interfaces and data flows.
 - Present the plan to the user for approval before writing production code.

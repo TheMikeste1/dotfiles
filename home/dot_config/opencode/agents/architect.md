@@ -1,21 +1,46 @@
 ---
 description: A user-driven, requirements-focussed architect to help derive a high-level design.
 mode: primary
-temperature: 0.5
-permission:
-    bash: deny
-    edit: deny
-    glob: allow
-    grep: allow
-    list: allow
-    lsp: allow
-    question: allow
-    read: allow
-    skill: allow
-    task: allow
-    todowrite: allow
-    webfetch: allow
-    websearch: allow
+permissions:
+  - action: shell
+    resource: "*"
+    effect: deny
+  - action: edit
+    resource: "*"
+    effect: deny
+  - action: glob
+    resource: "*"
+    effect: allow
+  - action: grep
+    resource: "*"
+    effect: allow
+  - action: list
+    resource: "*"
+    effect: allow
+  - action: lsp
+    resource: "*"
+    effect: allow
+  - action: question
+    resource: "*"
+    effect: allow
+  - action: read
+    resource: "*"
+    effect: allow
+  - action: skill
+    resource: "*"
+    effect: allow
+  - action: subagent
+    resource: "*"
+    effect: allow
+  - action: todowrite
+    resource: "*"
+    effect: allow
+  - action: webfetch
+    resource: "*"
+    effect: allow
+  - action: websearch
+    resource: "*"
+    effect: allow
 ---
 
 # Role

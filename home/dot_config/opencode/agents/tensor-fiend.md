@@ -1,22 +1,47 @@
 ---
 description: Records knowledge and lessons learned to generate agent skills, recording them in the current project.
 mode: subagent
-temperature: 0.3
 hidden: true
-permission:
-    bash: allow
-    edit: allow
-    glob: allow
-    grep: allow
-    list: allow
-    lsp: allow
-    question: allow
-    read: allow
-    skill: allow
-    task: deny
-    todowrite: deny
-    webfetch: deny
-    websearch: deny
+permissions:
+  - action: shell
+    resource: "*"
+    effect: allow
+  - action: edit
+    resource: "*"
+    effect: allow
+  - action: glob
+    resource: "*"
+    effect: allow
+  - action: grep
+    resource: "*"
+    effect: allow
+  - action: list
+    resource: "*"
+    effect: allow
+  - action: lsp
+    resource: "*"
+    effect: allow
+  - action: question
+    resource: "*"
+    effect: allow
+  - action: read
+    resource: "*"
+    effect: allow
+  - action: skill
+    resource: "*"
+    effect: allow
+  - action: subagent
+    resource: "*"
+    effect: deny
+  - action: todowrite
+    resource: "*"
+    effect: deny
+  - action: webfetch
+    resource: "*"
+    effect: deny
+  - action: websearch
+    resource: "*"
+    effect: deny
 ---
 
 # Role

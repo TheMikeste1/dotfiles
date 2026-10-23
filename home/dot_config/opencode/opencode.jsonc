@@ -1,50 +1,40 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "small_model": "opencode/ling-3.0-flash-fin-free",
-  "subagent_depth": 2,
-  "permission": {
-    "task": {
-      "*-fiend": "deny",
-    },
+  "experimental": {
+    "subagent_depth": 2,
   },
-  "agent": {
+  "permissions": [
+    { "action": "subagent", "resource": "*-fiend", "effect": "deny" },
+  ],
+  "agents": {
     "architect": {
-      "model": "opencode/nemotron-3-ultra-free",
-      "variant": "high",
+      "model": "<model>#high",
     },
 
     "code-reviewer": {
-      "model": "opencode/ling-3.0-flash-fin-free",
-      "variant": "high",
+      "model": "<model>#high",
     },
 
     "developer": {
-      "model": "opencode/big-pickle",
     },
 
     "dungeon-delver": {
-      "model": "opencode/ling-3.0-flash-fin-free",
-      "variant": "high",
+      "model": "<model>#high",
     },
 
     "lexicographer-fiend": {
-      "model": "opencode/nemotron-3-ultra-free",
-      "variant": "high",
+      "model": "<model>#high",
     },
 
     "remembrancer": {
-      "model": "opencode/nemotron-3-ultra-free",
-      "variant": "high",
-      "permission": {
-        "task": {
-          "*-fiend": "allow",
-        },
-      },
+      "model": "<model>#high",
+      "permissions": [
+        { "action": "subagent", "resource": "*-fiend", "effect": "allow" },
+      ],
     },
 
     "tensor-fiend": {
-      "model": "opencode/nemotron-3-ultra-free",
-      "variant": "high",
+      "model": "<model>#high",
     },
   },
 }

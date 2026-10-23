@@ -1,21 +1,46 @@
 ---
 description: Provides specific reviews of code.
 mode: subagent
-temperature: 0.2
-permission:
-    bash: deny
-    edit: deny
-    glob: allow
-    grep: allow
-    list: allow
-    lsp: allow
-    question: deny
-    read: allow
-    skill: allow
-    task: allow
-    todowrite: allow
-    webfetch: deny
-    websearch: deny
+permissions:
+  - action: shell
+    resource: "*"
+    effect: deny
+  - action: edit
+    resource: "*"
+    effect: deny
+  - action: glob
+    resource: "*"
+    effect: allow
+  - action: grep
+    resource: "*"
+    effect: allow
+  - action: list
+    resource: "*"
+    effect: allow
+  - action: lsp
+    resource: "*"
+    effect: allow
+  - action: question
+    resource: "*"
+    effect: deny
+  - action: read
+    resource: "*"
+    effect: allow
+  - action: skill
+    resource: "*"
+    effect: allow
+  - action: subagent
+    resource: "*"
+    effect: allow
+  - action: todowrite
+    resource: "*"
+    effect: allow
+  - action: webfetch
+    resource: "*"
+    effect: deny
+  - action: websearch
+    resource: "*"
+    effect: deny
 ---
 
 # Role
